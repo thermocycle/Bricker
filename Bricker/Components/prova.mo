@@ -6,7 +6,7 @@ model prova
   Real z;
 
 equation
-y = x^2-x+1+1000;
+y = x^2-x+1+30000000000000;
 
 z = y;
 
