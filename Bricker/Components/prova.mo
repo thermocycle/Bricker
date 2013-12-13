@@ -5,6 +5,6 @@ model prova
   Real y;
 
 equation
-y = x^2-x+1;
+y = x^2-x+1+1000;
 
 end prova;
