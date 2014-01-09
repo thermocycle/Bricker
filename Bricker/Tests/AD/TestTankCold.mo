@@ -27,7 +27,7 @@ model TestTankCold
     redeclare package Medium = CoolProp2Modelica.Media.WaterTPSI_FP,
     p=1519700)
     annotation (Placement(transformation(extent={{-92,58},{-72,78}})));
-  ThermoCycle.Components.FluidFlow.Reservoirs.SinkMdot sinkMdot(
+ Bricker.Components.SinkMdot sinkMdot(
     Mdot_0=2.7766,
     h_0=2.8e6,
     redeclare package Medium = CoolProp2Modelica.Media.WaterTPSI_FP,
