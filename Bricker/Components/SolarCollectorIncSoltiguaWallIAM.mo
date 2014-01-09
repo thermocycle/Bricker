@@ -26,14 +26,14 @@ parameter Integer N = 2 "Number of cells";
 
 // PARAMETRI DA UTENTE
 
-  import ThermoCycle.Functions.Enumerations.SoltiguaPTMx;
+import Bricker.Components.Enumerations.SoltiguaPTMx;
 parameter SoltiguaPTMx PTMx=SoltiguaPTMx.PTMx_18;
 
+// DA CAMBIARE CON ENUMERATION
 parameter Modelica.SIunits.Area S=41 "Net Collecting Surface";
 parameter Modelica.SIunits.Length I_2=2.37 "Parabola Aperture";
 // questa diventa una variabile nel momento che si useranno le enumaration PTMx-18 PTMx-24 ecc ecc
 // parameter Integer Nt = 1 "number of tubes";
-// DA CAMBIARE CON ENUMERATION
 
 parameter Modelica.SIunits.Length Dext_t =  0.04 "External diameter tube"
                                                                          annotation (Dialog(group="Properties of the metal envelope", tab="General"));
