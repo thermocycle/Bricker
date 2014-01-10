@@ -8,6 +8,7 @@ model AbsorberSoltiguaWallIAM
   Modelica.Blocks.Interfaces.RealInput Theta
     annotation (Placement(transformation(extent={{-114,26},{-86,54}}),
         iconTransformation(extent={{-104,30},{-74,60}})));
+                                             //defaualt values is rad. Theta_deg convert to deg
   Modelica.Blocks.Interfaces.RealInput DNI
     annotation (Placement(transformation(extent={{-114,-16},{-86,12}}),
         iconTransformation(extent={{-102,-46},{-72,-16}})));
@@ -89,6 +90,7 @@ parameter Modelica.SIunits.Length Dext_t=0.04 "External diameter tube" annotatio
     "effective collecting area. Depend on the parameter Focusing";
 Real K_l( min=0,max=1) "Longitudinal Incident Angle Modifier (IAM)";
 Real eta[N] "collector efficiency, as a function of DELTA_T, K_l, DNI";
+Real Theta_deg;
 
  //parameter Integer Focusing=1
     // "Internal focusing signal. TRUE Defocusing = 0, FALSE Defocusing =1"
@@ -145,12 +147,12 @@ equation
 if Focusing ==1 then S_eff =S;
 else  S_eff = S_ext_t;
 end if;
-
-Q_tube_tot = DNI *S_eff*Modelica.Math.cos(Theta*pi/180);
+Theta_deg = Theta *180/pi;
+Q_tube_tot = DNI *S_eff*Modelica.Math.cos(Theta);
 
 // Incidence angle modifier //
 // PTMx-18
-K_l = -7e-07*Theta^3 - 0.0002*Theta^2 + 0.0006*Theta + 1; //cambierà in funzione del theta. perdite al coseno già incluse? non è chiaro dal datasheet
+K_l = -7e-07*Theta_deg^3 - 0.0002*Theta_deg^2 + 0.0006*Theta_deg + 1; // Theta in deg. cambierà in funzione del theta. perdite al coseno già incluse? non è chiaro dal datasheet
 
 for i in 1:N loop
 
