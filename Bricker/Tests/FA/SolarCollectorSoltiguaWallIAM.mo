@@ -12,7 +12,7 @@ model SolarCollectorSoltiguaWallIAM
     annotation (Placement(transformation(extent={{22,56},{42,76}})));
   Modelica.Blocks.Sources.Constant const(k=25 + 273.15)
     annotation (Placement(transformation(extent={{-98,10},{-78,30}})));
-  Modelica.Blocks.Sources.Constant Theta(k=30)
+  Modelica.Blocks.Sources.Constant Theta(k=0.5)
     annotation (Placement(transformation(extent={{-98,34},{-78,54}})));
   Modelica.Blocks.Sources.Constant const3(k=0)
     annotation (Placement(transformation(extent={{-98,62},{-78,82}})));
