@@ -1,6 +1,8 @@
 within Bricker.Components;
 model AbsorberSoltiguaWallIAM
 // It solves the 1D radial energy balance around the Heat Transfer Element based on the SOLTIGUA PTMx Datasheet (see PTMx REV03-04/2013 and REV09-08/2013)
+// min oil flow rate: 50 l/min @ 100-150 °C , 25 l/min @ 151-200 °C , 20 l/min @ 201 - 250 °C
+
 /*********************** INPUTS ***********************/
   Modelica.Blocks.Interfaces.RealInput v_wind
     annotation (Placement(transformation(extent={{-114,46},{-86,74}}),
@@ -55,6 +57,8 @@ constant Real gg = Modelica.Constants.g_n
 
 /*****************General Geometries**************************/
 parameter Integer N = 2 "number of cells";
+// import Bricker.Components.Enumerations.SoltiguaPTMx;
+// parameter SoltiguaPTMx PTMx=SoltiguaPTMx.PTMx_18 "Soltigua Collector Type";
 
 parameter Modelica.SIunits.Area S=41 "Net Collecting Surface";
 parameter Modelica.SIunits.Length I_2=2.37 "Parabola Aperture";

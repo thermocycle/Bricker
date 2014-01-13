@@ -345,11 +345,6 @@ package AM
       import SI = Modelica.SIunits;
       //import StephanieLibrary;
 
-
-
-
-
-
     package AmbientDataTable_NSO_2008_06_21
       "NSO_2008_06_21: Conditions at Nevada Solar One at 21/June/2008"
 

@@ -26,8 +26,8 @@ parameter Integer N = 2 "Number of cells";
 
 // PARAMETRI DA UTENTE
 
-import Bricker.Components.Enumerations.SoltiguaPTMx;
-parameter SoltiguaPTMx PTMx=SoltiguaPTMx.PTMx_18;
+// import Bricker.Components.Enumerations.SoltiguaPTMx;
+// parameter SoltiguaPTMx PTMx=SoltiguaPTMx.PTMx_18 "Soltigua Collector Type";
 
 // DA CAMBIARE CON ENUMERATION
 parameter Modelica.SIunits.Area S=41 "Net Collecting Surface";
@@ -163,7 +163,7 @@ SummaryClass Summary( T_profile( n=N, T_fluid = absorberSoltigua.T_fluid[:]),Eta
     annotation (Placement(transformation(extent={{-50,-68},{-42,-60}})));
   Modelica.Blocks.Math.BooleanToInteger booleanToInteger
     annotation (Placement(transformation(extent={{-28,-68},{-18,-58}})));
-  ThermoCycle.Components.HeatFlow.Walls.MetalWall metalWall(Aext=Aext, Aint=A_lateral,N=N, M_wall=M_metal_wall, c_wall=c_metal_wall) annotation (
+  ThermoCycle.Components.HeatFlow.Walls.MetalWall metalWall(Tstart_wall_1 = Tstart_inlet, Tstart_wall_end = Tstart_outlet, Aext=Aext, Aint=A_lateral,N=N, M_wall=M_metal_wall, c_wall=c_metal_wall) annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -234,4 +234,25 @@ equation
 <p><big> The dynamic one-dimensional radial energy balance around the heat collector element is based on the Schott test analysis using the  <a href=\"modelica://ThermoCycle.Components.HeatFlow.Walls.absorberSoltigua\">absorberSoltigua</a> model.
 <p><big> The heat transfer fluid in this case is considered incompressible and so the  <a href=\"modelica://ThermoCycle.Components.FluidFlow.Pipes.Flow1DimInc\">Flow1DimInc</a> is used.
  </HTML>"));
+// if (PTMx == ESoltiguaPTMx.PTMx_18) then
+//
+// S=41;
+// I_2=2.37;
+//
+// elseif (PTMx == ESoltiguaPTMx.PTMx_24) then
+//
+//   S=54;
+// I_2=2.37;
+//
+// elseif (PTMx == ESoltiguaPTMx.PTMx_30) then
+//     S=68;
+// I_2=2.37;
+//
+// elseif (PTMx == ESoltiguaPTMx.PTMx_24) then
+//
+//     S=82;
+// I_2=2.37;
+//
+// end if;
+
 end SolarCollectorIncSoltiguaWallIAM;

@@ -3,3 +3,6 @@ SolarCollectorSoltiguaWall
 SolarCollectorSoltiguaWallIAM
 TestAmbient
 TestAmbientTC
+dummyTest
+TestSolarField
+TestMassFlowMultiplier
