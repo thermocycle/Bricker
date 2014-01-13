@@ -6,3 +6,7 @@ SolarCollectorIncSoltiguaWallIAM
 AbsorberSoltiguaWallIAM
 StraTank
 Enumerations
+SinkMdot
+ExternalAmbient
+ExternalAmbientTC
+AM
