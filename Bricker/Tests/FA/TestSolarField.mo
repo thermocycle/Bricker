@@ -11,9 +11,9 @@ model TestSolarField
     Tstart_outlet=573.15,
     pstart=100000)
     annotation (Placement(transformation(extent={{-30,-18},{10,22}})));
-  Modelica.Blocks.Sources.BooleanStep booleanStep(startValue=true, startTime=150)
+  Modelica.Blocks.Sources.BooleanStep Defocusing(startValue=true, startTime=150)
     annotation (Placement(transformation(extent={{-88,-48},{-68,-28}})));
-  Modelica.Blocks.Sources.Step step(
+  Modelica.Blocks.Sources.Step DNI(
     height=-1000,
     offset=1000,
     startTime=300)
@@ -35,7 +35,7 @@ model TestSolarField
     T_0=573.15)
     annotation (Placement(transformation(extent={{-76,-6},{-56,14}})));
 equation
-  connect(booleanStep.y, solarField.Defocusing) annotation (Line(
+  connect(Defocusing.y, solarField.Defocusing) annotation (Line(
       points={{-67,-38},{-48,-38},{-48,-11},{-28,-11}},
       color={255,0,255},
       smooth=Smooth.None));
@@ -51,7 +51,7 @@ equation
       points={{3,80},{-4,80},{-4,20.3},{-9.5,20.3}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(step.y, solarField.DNI) annotation (Line(
+  connect(DNI.y, solarField.DNI) annotation (Line(
       points={{27,82},{14,82},{14,20.4},{-2.4,20.4}},
       color={0,0,127},
       smooth=Smooth.None));

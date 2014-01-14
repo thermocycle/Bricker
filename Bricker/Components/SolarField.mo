@@ -244,12 +244,15 @@ end for;
 // InFlow.Xi_outflow= InFlowTot.Xi_outflow;
 // InFlow.C_outflow= InFlowTot.C_outflow;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                         graphics={
         Rectangle(
           extent={{-84,80},{84,-68}},
           pattern=LinePattern.Dot,
-          lineColor={0,0,0}),
+          lineColor={0,0,0},
+          fillColor={239,239,239},
+          fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-68,60},{-38,28}},
           fillColor={170,255,255},
@@ -295,6 +298,14 @@ end for;
           points={{-90,12},{-76,12},{-76,12}},
           color={0,0,0},
           thickness=0.5,
-          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          smooth=Smooth.None),
+        Text(
+          extent={{-44,-52},{42,-66}},
+          lineColor={0,0,0},
+          pattern=LinePattern.Dot,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          textString="Solar Field (Np, Ns)")}),
+                                 Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics));
 end SolarField;
