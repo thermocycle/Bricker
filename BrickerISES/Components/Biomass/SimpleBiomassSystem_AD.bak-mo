@@ -1,0 +1,277 @@
+within BrickerISES.Components.Biomass;
+model SimpleBiomassSystem_AD
+
+  import BrickerISES.Constants;
+
+  replaceable package Medium1 =
+      ThermoCycle.Media.Incompressible.IncompressibleTables.Therminol66
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "In Hx1DInc: Secondary fluid" annotation (choicesAllMatching=true);
+
+  ThermoCycle.Interfaces.Fluid.FlangeA inlet(redeclare package Medium = Medium1)
+    annotation (Placement(transformation(extent={{96,-98},{116,-78}}),
+        iconTransformation(extent={{96,-98},{116,-78}})));
+  ThermoCycle.Interfaces.Fluid.FlangeB outlet(redeclare package Medium =
+        Medium1) annotation (Placement(transformation(extent={{94,56},{114,76}}),
+        iconTransformation(extent={{94,56},{114,76}})));
+
+  /******************************** GEOMETRIES ***********************************/
+  parameter Integer N=5 "Number of nodes for the heat exchanger"
+    annotation (Dialog(group="Biomass Boiler", tab="General"));
+  parameter Modelica.SIunits.Volume V=0.03781
+    "Volume of working fluid in the boiler"
+    annotation (Dialog(group="Biomass Boiler", tab="General"));
+  parameter Modelica.SIunits.Area Aint=16.18
+    "Boiler internal lateral area - Working fluid side"
+    annotation (Dialog(group="Biomass Boiler", tab="General"));
+  parameter Modelica.SIunits.Area Aext=16.18
+    "Boiler external lateral area - - Biomass side"
+    annotation (Dialog(group="Biomass Boiler", tab="General"));
+  parameter Modelica.SIunits.Density rho_NominalTherminol=BrickerISES.Constants.rho_Therminol66;
+
+  /* Pump parameters */
+  parameter Real VdotnomPump=60
+    "Nominal Volumetric Flow Rate [m^3/h] for the Biomass Boiler"
+    annotation (Dialog(group="Pump", tab="General"));
+  final parameter Modelica.SIunits.VolumeFlowRate VdotnomPumpSec=
+      VdotnomPump/3600 "Nominal Flow Rate for Biomass Boiler [m^3/s]";
+  final parameter Modelica.SIunits.MassFlowRate
+    NominalMassFlowRateBiomassBoiler=NominalWorkingFluidFlowRate*
+      rho_NominalTherminol "Nominal Mass Flow Rate for Biomass Boiler [kg/s]";
+  parameter Real OversizePump=2 "Flow oversize for the recirculating pump"
+    annotation (Dialog(group="Pump", tab="General"));
+  final parameter Modelica.SIunits.VolumeFlowRate PumpNominalFlowRate=
+      NominalWorkingFluidFlowRate*OversizePump
+    "Nominal Flow Rate the Pump [m^3/s]";
+
+/* Tank parameters */
+  parameter Modelica.SIunits.Volume V_ExpTank=1
+    annotation (Dialog(group="Tank", tab="General"));
+
+replaceable model combustionDynamic =
+      BrickerISES.Components.Biomass.CombustionDynamic.LinearPowerCombustion constrainedby
+    BrickerISES.Components.Biomass.CombustionDynamic.CombustionDynamicCommonInterfaces
+    annotation (
+    Placement(transformation(extent={{-28,-2},{-8,18}})),
+    Dialog(group="Biomass Boiler", tab="General"),
+    choicesAllMatching=true);
+
+  /*************************** HEAT TRANSFER ************************************/
+  /*Working fluid*/
+  replaceable model MediumHeatTransferModel =
+      ThermoCycle.Components.HeatFlow.HeatTransfer.MassFlowDependence
+    constrainedby
+    ThermoCycle.Components.HeatFlow.HeatTransfer.BaseClasses.PartialHeatTransferZones
+    annotation (Dialog(group="Biomass Boiler", tab="General"),
+      choicesAllMatching=true);
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer Unom=369
+    "Coefficient of heat transfer, working Fluid"
+    annotation (Dialog(group="Biomass Boiler", tab="General"));
+    parameter Modelica.SIunits.MassFlowRate Mdotnom=
+      NominalMassFlowRateBiomassBoiler "Nominal flow rate of secondary fluid"
+    annotation (Dialog(group="Biomass Boiler", tab="General"));
+
+  /*********************** METAL WALL   *******************************/
+  parameter Modelica.SIunits.Mass M_wall=69
+    "Mass of the metal wall between the working fluid and the biomass side"
+    annotation (Dialog(group="Biomass Boiler", tab="General"));
+  parameter Modelica.SIunits.SpecificHeatCapacity c_wall=500
+    "Specific heat capacity of metal wall"
+    annotation (Dialog(group="Biomass Boiler", tab="General"));
+
+  /***************************** INITIAL VALUES **********************************/
+  /*pressure*/
+  parameter Modelica.SIunits.Pressure pstart_f=1e5
+    "Nominal inlet pressure of the working fluid"
+    annotation (Dialog(tab="Initialization"));
+parameter Modelica.SIunits.Temperature Tstart_inlet_f= 188
+    "Initial value of secondary fluid temperature at the inlet"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.SIunits.Temperature Tstart_outlet_f=260
+    "Initial value of secondary fluid temperature at the outlet"
+    annotation (Dialog(tab="Initialization"));
+  /*steady state */
+
+ parameter Boolean steadystate_T_f=false
+    "if true, sets the derivative of T_sf (secondary fluids Temperature in each cell) to zero during Initialization"
+    annotation (Dialog(group="Intialization options", tab="Initialization"));
+  // parameter Boolean steadystate_h_wf=false
+  //     "if true, sets the derivative of h of primary fluid (working fluids enthalpy in each cell) to zero during Initialization"
+  //     annotation (Dialog(group="Intialization options", tab="Initialization"));
+parameter Boolean steadystate_T_wall=false
+    "if true, sets the derivative of T_wall to zero during Initialization"
+    annotation (Dialog(group="Intialization options", tab="Initialization"));
+
+  /*************************  NUMERICAL OPTIONS ******************************************/
+
+  import ThermoCycle.Functions.Enumerations.Discretizations;
+  parameter Discretizations Discretization=ThermoCycle.Functions.Enumerations.Discretizations.upwind_AllowFlowReversal
+    "Selection of the spatial discretization scheme"
+    annotation (Dialog(tab="Numerical options"));
+
+  Modelica.Blocks.Interfaces.RealInput Q annotation (Placement(transformation(
+          extent={{16,-16},{-16,16}},
+        rotation=90,
+        origin={-66,104}),           iconTransformation(
+        extent={{-12,-13},{12,13}},
+        rotation=-90,
+        origin={-56,95})));
+  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump BoilerPump(
+    redeclare package Medium = Medium1,
+    PumpInput=ThermoCycle.Functions.Enumerations.PumpInputs.FF,
+    V_dot_max=PumpNominalFlowRate)
+    annotation (Placement(transformation(extent={{6,46},{26,66}})));
+  Modelica.Blocks.Interfaces.RealInput BoilerPumpMflowRate annotation (Placement(
+        transformation(
+        extent={{15,-15},{-15,15}},
+        rotation=90,
+        origin={13,105}), iconTransformation(
+        extent={{-12,-13},{12,13}},
+        rotation=-90,
+        origin={22,95})));
+  Modelica.Blocks.Interfaces.RealOutput BoilerMflowRate annotation (Placement(transformation(
+          extent={{-136,-74},{-162,-48}}), iconTransformation(extent={{-136,-68},{-156,-48}})));
+  Modelica.Blocks.Interfaces.RealOutput BoilerDT annotation (Placement(transformation(extent={{
+            -140,-18},{-166,8}}), iconTransformation(extent={{-100,-10},{-120,10}})));
+  Modelica.Blocks.Math.Add add(k2=-1)
+    annotation (Placement(transformation(extent={{-114,-14},{-134,6}})));
+  Modelica.Fluid.Fittings.TeeJunctionIdeal TJ1(redeclare package Medium =
+        Medium1)
+    annotation (Placement(transformation(extent={{44,72},{64,52}})));
+  Modelica.Fluid.Fittings.TeeJunctionIdeal TJ2(redeclare package Medium =
+        Medium1)
+    annotation (Placement(transformation(extent={{38,-98},{58,-78}})));
+  ThermoCycle.Components.FluidFlow.Sensors.SensTp sensTp_ByPass(redeclare
+      package Medium = Medium1) annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={44,-36})));
+  ThermoCycle.Components.FluidFlow.Sensors.SensMdot sensM_ByPass(redeclare
+      package Medium = Medium1) annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={50,-2})));
+  Modelica.Fluid.Fittings.TeeJunctionIdeal TJ_ExpTank(redeclare package Medium
+      = Medium1)
+    annotation (Placement(transformation(extent={{-24,48},{-44,68}})));
+  Flow1DIncHeatInput flow1DIncHeatInput(
+    N=N,
+    V=V,
+    Aint=Aint,
+    Aext=Aext,
+    Unom=Unom,
+    M_wall=M_wall,
+    c_wall=c_wall,
+    Mdotnom=Mdotnom)                    annotation (Placement(transformation(
+        extent={{-34.5,-39.5},{34.5,39.5}},
+        rotation=-90,
+        origin={-81.5,-12.5})));
+  ThermoCycle.Components.FluidFlow.Sensors.SensTpw SensBoilerInlet annotation (Placement(
+        transformation(
+        extent={{-11,-13},{11,13}},
+        rotation=90,
+        origin={-79,-79})));
+  ThermoCycle.Components.FluidFlow.Sensors.SensTpw SensBoilerOutlet annotation (Placement(
+        transformation(
+        extent={{-11,-13},{11,13}},
+        rotation=90,
+        origin={-81,45})));
+  ThermoCycle.Components.Units.Tanks.ExpansionTank expansionTank(p_const=true)
+    annotation (Placement(transformation(extent={{-44,78},{-24,98}})));
+
+  combustionDynamic CombustionDynamic(
+    Qcombustion_Nominal=Qcombustion_Nominal,
+    t_startup=t_startup,
+    Qcombustion_Min=Qcombustion_Min,
+    Qcombustion_start=Qcombustion_start)
+    annotation (Placement(transformation(extent={{-18,-22},{2,-2}})));
+equation
+  connect(BoilerPumpMflowRate, BoilerPump.flow_in) annotation (Line(
+      points={{13,105},{13,90},{12.8,90},{12.8,64}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TJ1.port_1, BoilerPump.OutFlow) annotation (Line(
+      points={{44,62},{30,62},{30,63.4},{21.6,63.4}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TJ2.port_2, inlet) annotation (Line(
+      points={{58,-88},{106,-88}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TJ1.port_3, sensM_ByPass.InFlow) annotation (Line(
+      points={{54,52},{54,2}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sensM_ByPass.OutFlow, sensTp_ByPass.InFlow) annotation (Line(
+      points={{54,-6},{48.8,-6},{48.8,-29}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(sensTp_ByPass.OutFlow, TJ2.port_3) annotation (Line(
+      points={{48.8,-43},{48.8,-50.5},{48,-50.5},{48,-78}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(TJ1.port_2, outlet) annotation (Line(
+      points={{64,62},{90,62},{90,66},{104,66}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TJ_ExpTank.port_1, BoilerPump.InFlow) annotation (Line(
+      points={{-24,58},{8,58},{8,56.5},{8.8,56.5}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(SensBoilerInlet.InFlow, TJ2.port_1) annotation (Line(
+      points={{-75.2,-89},{-75.2,-88},{38,-88}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(SensBoilerInlet.OutFlow, flow1DIncHeatInput.inlet_fl2) annotation (Line(
+      points={{-75.2,-75},{-76,-75},{-76,-47},{-75.97,-47}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(SensBoilerOutlet.OutFlow, TJ_ExpTank.port_2) annotation (Line(
+      points={{-77.2,49},{-77.2,58},{-44,58}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(expansionTank.InFlow, TJ_ExpTank.port_3) annotation (Line(
+      points={{-34,78.2},{-34,68}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(flow1DIncHeatInput.outlet_fl2, SensBoilerOutlet.InFlow) annotation (Line(
+      points={{-76.76,21.31},{-76.76,23.655},{-77.2,23.655},{-77.2,35}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(add.u1, SensBoilerOutlet.T) annotation (Line(
+      points={{-112,2},{-110,2},{-110,60},{-88,60},{-88,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(add.u2, SensBoilerInlet.T) annotation (Line(
+      points={{-112,-10},{-104,-10},{-104,-62},{-86,-62},{-86,-74}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(add.y, BoilerDT) annotation (Line(
+      points={{-135,-4},{-144,-4},{-144,-5},{-153,-5}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(SensBoilerInlet.w, BoilerMflowRate) annotation (Line(
+      points={{-93.6,-82},{-124,-82},{-124,-61},{-149,-61}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Q, CombustionDynamic.Modulation) annotation (Line(
+      points={{-66,104},{-66,34},{22,34},{22,-12},{2.6,-12}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(CombustionDynamic.Qcombustion, flow1DIncHeatInput.u) annotation (Line(
+      points={{-18.5,-12.2},{-34,-12.2},{-34,-12.5},{-49.9,-12.5}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+            -100},{100,100}}), graphics),
+      Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{100,100}}),
+                    graphics={Rectangle(
+          extent={{-100,86},{98,-90}},
+          lineColor={0,0,0},
+          fillColor={207,0,0},
+          fillPattern=FillPattern.Forward), Text(
+          extent={{-64,30},{58,-42}},
+          lineColor={0,0,0},
+          textString="Simple Biomass System
+")}));
+end SimpleBiomassSystem_AD;

@@ -1,0 +1,139 @@
+within BrickerISES.Tests.AD.TestComponents.BiomassSystem;
+model Test_4_5
+  ThermoCycle.Components.FluidFlow.Sensors.SensTp sensTp1(
+                                                         redeclare package
+      Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{34,-114},{54,-94}})));
+ ThermoCycle.Components.FluidFlow.Reservoirs.SinkP sinkP(redeclare package
+      Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    h=551.7e3,
+    p0=450000)
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+Components.Valve_lin             valve(
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    Mdot_nom=0.1,
+    CheckValve=true,
+    Xopen=0.6923,
+    Afull=5.20006e-05)
+                annotation (Placement(transformation(extent={{-4,-46},{-24,-26}})));
+Components.Valve_lin             valve1(
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    Mdot_nom=0.1,
+    CheckValve=true,
+    Xopen=0.8085,
+    Afull=0.000188002)
+                annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-136,24})));
+
+  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump pump(
+    PumpInput=ThermoCycle.Functions.Enumerations.PumpInputs.FF,
+    X_pp0=0.5,
+    eta_is=0.7,
+    M_dot_start=9.4,
+    hstart=564.9e3,
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    PumpType=ThermoCycle.Functions.Enumerations.PumpTypes.UD,
+    V_dot_max=0.0264686,
+    p_su_start=400000)
+    annotation (Placement(transformation(extent={{-192,-46},{-212,-26}})));
+  ThermoCycle.Components.FluidFlow.Pipes.Cell1DimInc cell1DimInc(
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    Vi=0.03,
+    Ai=16,
+    Mdotnom=9.4,
+    Unom=100,
+    pstart=400000) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-242,14})));
+  ThermoCycle.Components.FluidFlow.Reservoirs.SourceP sourceP(
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    p0=400000,
+    T_0=481.15)
+    annotation (Placement(transformation(extent={{104,-146},{124,-126}})));
+  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump pump1(
+    PumpInput=ThermoCycle.Functions.Enumerations.PumpInputs.FF,
+    X_pp0=0.5,
+    eta_is=0.7,
+    M_dot_start=9.4,
+    hstart=564.9e3,
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    PumpType=ThermoCycle.Functions.Enumerations.PumpTypes.UD,
+    V_dot_max=0.00664505,
+    p_su_start=400000)
+    annotation (Placement(transformation(extent={{68,-186},{48,-166}})));
+  Modelica.Fluid.Fittings.TeeJunctionIdeal teeJunctionIdeal(redeclare package
+      Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-124,-40},{-144,-20}})));
+  Modelica.Fluid.Fittings.TeeJunctionIdeal teeJunctionIdeal1(redeclare package
+      Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-148,70},{-128,50}})));
+  Modelica.Fluid.Fittings.TeeJunctionIdeal teeJunctionIdeal2(redeclare package
+      Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{58,-44},{38,-24}})));
+equation
+  connect(cell1DimInc.InFlow, pump.OutFlow) annotation (Line(
+      points={{-242,4},{-242,-28.6},{-207.6,-28.6}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(pump1.InFlow, sourceP.flange) annotation (Line(
+      points={{65.2,-175.5},{148,-175.5},{148,-136},{123.4,-136}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(valve1.OutFlow, teeJunctionIdeal.port_3) annotation (Line(
+      points={{-136,15},{-136,-4},{-134,-4},{-134,-20}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(teeJunctionIdeal.port_1, valve.OutFlow) annotation (Line(
+      points={{-124,-30},{-82,-30},{-82,-36},{-23,-36}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pump.InFlow, teeJunctionIdeal.port_2) annotation (Line(
+      points={{-194.8,-35.5},{-172,-35.5},{-172,-28},{-144,-28},{-144,-30}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(cell1DimInc.OutFlow, teeJunctionIdeal1.port_1) annotation (Line(
+      points={{-242.1,24},{-242.1,60},{-148,60}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(teeJunctionIdeal1.port_3, valve1.InFlow) annotation (Line(
+      points={{-138,50},{-140,50},{-140,33},{-136,33}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(teeJunctionIdeal1.port_2, sinkP.flangeB) annotation (Line(
+      points={{-128,60},{-56,60},{-56,30},{81.6,30}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sensTp1.OutFlow, teeJunctionIdeal2.port_1) annotation (Line(
+      points={{51,-108.8},{104,-108.8},{104,-34},{58,-34}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(teeJunctionIdeal2.port_2, valve.InFlow) annotation (Line(
+      points={{38,-34},{-5,-34},{-5,-36}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(teeJunctionIdeal2.port_3, sinkP.flangeB) annotation (Line(
+      points={{48,-24},{48,30},{81.6,30}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pump1.OutFlow, sensTp1.InFlow) annotation (Line(
+      points={{52.4,-168.6},{-8,-168.6},{-8,-100},{36,-100},{36,-108.8},{37,
+          -108.8}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(extent={{-280,-320},{160,120}},
+          preserveAspectRatio=false), graphics), Icon(coordinateSystem(extent={
+            {-280,-320},{160,120}})));
+end Test_4_5;

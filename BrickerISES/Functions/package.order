@@ -1,0 +1,13 @@
+polyEval
+polyEval_der
+step
+HomotopyFactor
+HomotopyFactorZeroOne
+HomotopyFactorOneZeroOne
+Even
+DotProduct3D
+CrossProduct3D
+SmoothStep
+SmootherStep
+WeightingFactor
+WeightingFactor_SecondVersion

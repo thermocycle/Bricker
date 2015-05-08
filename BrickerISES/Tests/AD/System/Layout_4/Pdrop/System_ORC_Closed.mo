@@ -1,0 +1,362 @@
+within BrickerISES.Tests.AD.System.Layout_4.Pdrop;
+model System_ORC_Closed
+
+  ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc
+    solarField_Soltigua_Inc(
+    redeclare package Medium1 =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    Discretization=ThermoCycle.Functions.Enumerations.Discretizations.upwind_AllowFlowReversal,
+    redeclare model FluidHeatTransferModel =
+        ThermoCycle.Components.HeatFlow.HeatTransfer.ConvectiveHeatTransfer.Ideal,
+    Unom=300,
+    redeclare
+      ThermoCycle.Components.HeatFlow.Walls.SolarAbsorber.Geometry.Soltigua.PTMx_24
+      CollectorGeometry,
+    N=10,
+    Ns=2,
+    Nt=6,
+    Mdotnom=1.3833,
+    Tstart_inlet=423.15,
+    Tstart_outlet=523.15,
+    pstart=150000) annotation (Placement(transformation(
+        extent={{21,21},{-21,-21}},
+        rotation=-90,
+        origin={-139,21})));
+
+  Modelica.Blocks.Sources.Constant V_wind(k=0)
+    annotation (Placement(transformation(extent={{-196,42},{-186,52}})));
+  Modelica.Blocks.Sources.Constant Theta(k=0)
+    annotation (Placement(transformation(extent={{-196,20},{-186,30}})));
+  Modelica.Blocks.Sources.Constant Tamb(k=35 + 273.15)
+    annotation (Placement(transformation(extent={{-196,0},{-186,10}})));
+  Modelica.Blocks.Sources.Constant DNI(k=800)
+    annotation (Placement(transformation(extent={{-196,-20},{-186,-10}})));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k=false)
+    annotation (Placement(transformation(extent={{-194,-44},{-184,-34}})));
+  ThermoCycle.Components.FluidFlow.Sensors.SensTp Sens_SF_SU(redeclare package
+      Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-114,-62},{-126,-50}})));
+  ThermoCycle.Components.FluidFlow.Sensors.SensTp Sens_SF_EX(redeclare package
+      Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-102,78},{-88,92}})));
+  Modelica.Fluid.Fittings.TeeJunctionIdeal TJ_ExpTank(redeclare package Medium
+      = ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-56,-62},{-68,-50}})));
+  Modelica.Fluid.Fittings.TeeJunctionIdeal TJ_ExpTank1(redeclare package Medium
+      = ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-70,88},{-58,76}})));
+  ThermoCycle.Components.FluidFlow.Sensors.SensTp Sens_BM_SU(redeclare package
+      Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-34,80},{-22,92}})));
+  ThermoCycle.Components.FluidFlow.Sensors.SensTp Sens_ORC_EX(redeclare package
+      Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-24,-60},{-36,-48}})));
+  ThermoCycle.Components.FluidFlow.Sensors.SensTp Sens_ByPass_SF(redeclare
+      package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-46,-2},{-58,10}})));
+  ThermoCycle.Components.Units.PdropAndValves.DP dP(
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    UseNom=false,
+    A=5e3,
+    Mdot_nom=1.3833,
+    k=7.74e7,
+    p_nom=300000,
+    T_nom=513.15,
+    DELTAp_start=150000)
+    annotation (Placement(transformation(extent={{-132,74},{-112,94}})));
+
+  ThermoCycle.Components.Units.PdropAndValves.Valve valve1(
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    Mdot_nom=0.5857,
+    UseNom=false,
+    Afull=3.8e-5,
+    constinit=false,
+    DELTAp_0=150000,
+    p_nom=150000,
+    T_nom=523.15,
+    DELTAp_nom=150000)
+    annotation (Placement(transformation(extent={{-60,28},{-80,48}})));
+  Modelica.Blocks.Math.Gain Efficiency(k=0.7)
+    annotation (Placement(transformation(extent={{-114,216},{-134,236}})));
+  Modelica.Blocks.Sources.Constant const(k=200000)
+    annotation (Placement(transformation(extent={{-74,216},{-94,236}})));
+  Components.Biomass.SimpleBiomassBoiler simpleBiomassBoiler(
+    redeclare package Medium1 =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    N=5,
+    Discretization=ThermoCycle.Functions.Enumerations.Discretizations.centr_diff_AllowFlowReversal,
+    pstart_f=150000,
+    Tstart_inlet_f=503.15,
+    Tstart_outlet_f=523.15) annotation (Placement(transformation(
+        extent={{17,18},{-17,-18}},
+        rotation=90,
+        origin={-175,218})));
+  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump pump_BM(
+    PumpInput=ThermoCycle.Functions.Enumerations.PumpInputs.FF,
+    PumpType=ThermoCycle.Functions.Enumerations.PumpTypes.UD,
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    eta_em=1,
+    eta_is=1,
+    epsilon_v=1,
+    M_dot_start=5,
+    V_dot_max=0.0074,
+    X_pp0=1,
+    hstart=548005)
+    annotation (Placement(transformation(extent={{-106,146},{-126,166}})));
+
+  ThermoCycle.Components.Units.PdropAndValves.DP dP1(
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    Mdot_nom=1.974,
+    rho_nom=5000,
+    UseNom=false,
+    h=0,
+    A=5e3,
+    k=2.69e7,
+    DELTAp_0=20000,
+    p_nom=150000,
+    T_nom=523.15)
+    annotation (Placement(transformation(extent={{-116,262},{-96,282}})));
+  Modelica.Fluid.Fittings.TeeJunctionIdeal TJ2(redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-38,144},{-58,164}})));
+  Modelica.Fluid.Fittings.TeeJunctionIdeal TJ1(redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-64,282},{-44,262}})));
+  ThermoCycle.Components.Units.PdropAndValves.Valve valve(
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    Mdot_nom=0.5857,
+    UseNom=false,
+    Afull=0.0003,
+    constinit=false,
+    DELTAp_0=150000,
+    p_nom=150000,
+    T_nom=523.15,
+    DELTAp_nom=100000)
+    annotation (Placement(transformation(extent={{-54,200},{-34,220}})));
+  ThermoCycle.Components.Units.Tanks.OpenTank Tank_BM(
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    H_D=1,
+    V_tank=1,
+    Mdotnom=5.28,
+    p_ext=450000,
+    Tstart=489.15,
+    pstart=450000)
+    annotation (Placement(transformation(extent={{-162,270},{-138,294}})));
+
+  ThermoCycle.Components.FluidFlow.Sensors.SensTp Sens_SBM_SU(redeclare package
+      Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+                                annotation (Placement(transformation(
+        extent={{-15,-15},{15,15}},
+        rotation=0,
+        origin={17,279})));
+  ThermoCycle.Components.Units.Tanks.OpenTank Tank_SF(
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    H_D=1,
+    V_tank=1,
+    Mdotnom=1.947,
+    p_ext=150000,
+    Tstart=489.15,
+    pstart=150000)
+    annotation (Placement(transformation(extent={{-2,80},{22,104}})));
+
+  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump pump_TO_BM(
+    PumpInput=ThermoCycle.Functions.Enumerations.PumpInputs.FF,
+    PumpType=ThermoCycle.Functions.Enumerations.PumpTypes.UD,
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    eta_em=1,
+    eta_is=1,
+    epsilon_v=1,
+    M_dot_start=5,
+    X_pp0=1,
+    V_dot_max=0.002646,
+    hstart=479180)
+    annotation (Placement(transformation(extent={{22,140},{2,160}})));
+
+  ParametrizedComponents.Evaporator evaporator annotation (Placement(
+        transformation(
+        extent={{-18,-17},{18,17}},
+        rotation=90,
+        origin={145,150})));
+  ThermoCycle.Components.FluidFlow.Reservoirs.SinkP sinkP(redeclare package
+      Medium = ThermoCycle.Media.R245fa_CP, p0=3500000)
+    annotation (Placement(transformation(extent={{180,216},{192,224}})));
+  ThermoCycle.Components.FluidFlow.Reservoirs.SourceMdot sourceMdot1(
+    redeclare package Medium = ThermoCycle.Media.R245fa_CP,
+    Mdot_0=1.9,
+    p=3500000,
+    T_0=408.15)
+    annotation (Placement(transformation(extent={{166,26},{186,46}})));
+  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump pump_TO_BM1(
+    PumpInput=ThermoCycle.Functions.Enumerations.PumpInputs.FF,
+    PumpType=ThermoCycle.Functions.Enumerations.PumpTypes.UD,
+    redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    eta_em=1,
+    eta_is=1,
+    epsilon_v=1,
+    X_pp0=1,
+    V_dot_max=0.002484,
+    M_dot_start=1.947,
+    hstart=315221)
+    annotation (Placement(transformation(extent={{92,-74},{72,-54}})));
+
+equation
+  connect(booleanConstant.y, solarField_Soltigua_Inc.Defocusing) annotation (
+      Line(
+      points={{-183.5,-39},{-125.56,-39},{-125.56,2.94}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(Sens_SF_SU.OutFlow, solarField_Soltigua_Inc.InFlow) annotation (
+      Line(
+      points={{-124.2,-58.88},{-124.2,-58},{-139.42,-58},{-139.42,0.42}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(TJ_ExpTank1.port_2, Sens_BM_SU.InFlow) annotation (Line(
+      points={{-58,82},{-34,82},{-34,83.12},{-32.2,83.12}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(Sens_ORC_EX.OutFlow, TJ_ExpTank.port_1) annotation (Line(
+      points={{-34.2,-56.88},{-36,-56.88},{-36,-56},{-56,-56}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(V_wind.y, solarField_Soltigua_Inc.v_wind) annotation (Line(
+      points={{-185.5,47},{-172,47},{-172,36.54},{-158.32,36.54}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Theta.y, solarField_Soltigua_Inc.Theta) annotation (Line(
+      points={{-185.5,25},{-158.53,25},{-158.53,26.67}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Tamb.y, solarField_Soltigua_Inc.Tamb) annotation (Line(
+      points={{-185.5,5},{-172,5},{-172,16.17},{-158.53,16.17}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(DNI.y, solarField_Soltigua_Inc.DNI) annotation (Line(
+      points={{-185.5,-15},{-166,-15},{-166,6.72},{-158.32,6.72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Sens_SF_SU.InFlow, TJ_ExpTank.port_2) annotation (Line(
+      points={{-115.8,-58.88},{-106,-58.88},{-106,-56},{-68,-56}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(valve1.OutFlow, TJ_ExpTank1.port_3) annotation (Line(
+      points={{-79,38},{-86,38},{-86,64},{-64,64},{-64,76}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(TJ_ExpTank.port_3, Sens_ByPass_SF.InFlow) annotation (Line(
+      points={{-62,-50},{-62,-36},{-40,-36},{-40,1.12},{-47.8,1.12}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(Sens_ByPass_SF.OutFlow, valve1.InFlow) annotation (Line(
+      points={{-56.2,1.12},{-70,1.12},{-70,20},{-50,20},{-50,38},{-61,38}},
+      color={0,0,255},
+      smooth=Smooth.None));
+
+  connect(solarField_Soltigua_Inc.OutFlow, dP.InFlow) annotation (Line(
+      points={{-139.42,41.58},{-139.42,84},{-131,84}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(dP.OutFlow, Sens_SF_EX.InFlow) annotation (Line(
+      points={{-113,84},{-106,84},{-106,81.64},{-99.9,81.64}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(Sens_SF_EX.OutFlow, TJ_ExpTank1.port_1) annotation (Line(
+      points={{-90.1,81.64},{-73.05,81.64},{-73.05,82},{-70,82}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(const.y,Efficiency. u) annotation (Line(
+      points={{-95,226},{-112,226}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Efficiency.y,simpleBiomassBoiler. Q) annotation (Line(
+      points={{-135,226},{-136,226},{-136,226.84},{-161.5,226.84}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(simpleBiomassBoiler.inlet, pump_BM.OutFlow) annotation (Line(
+      points={{-168.16,200.66},{-168.16,163.4},{-121.6,163.4}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(TJ1.port_3, valve.InFlow) annotation (Line(
+      points={{-54,262},{-54,238},{-62,238},{-62,210},{-53,210}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(valve.OutFlow, TJ2.port_3) annotation (Line(
+      points={{-35,210},{-26,210},{-26,182},{-48,182},{-48,164}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(TJ2.port_2, pump_BM.InFlow) annotation (Line(
+      points={{-58,154},{-68,154},{-68,156},{-98,156},{-98,156.5},{-108.8,
+          156.5}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(dP1.OutFlow, TJ1.port_1) annotation (Line(
+      points={{-97,272},{-64,272}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(simpleBiomassBoiler.outlet, Tank_BM.InFlow) annotation (Line(
+      points={{-169.24,235},{-169.24,271.92},{-161.76,271.92}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(Tank_BM.OutFlow, dP1.InFlow) annotation (Line(
+      points={{-138.24,271.92},{-127.12,271.92},{-127.12,272},{-115,272}},
+      color={0,0,255},
+      smooth=Smooth.None));
+
+  connect(TJ1.port_2, Sens_SBM_SU.InFlow) annotation (Line(
+      points={{-44,272},{-18,272},{-18,271.8},{6.5,271.8}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(Sens_BM_SU.OutFlow, Tank_SF.InFlow) annotation (Line(
+      points={{-23.8,83.12},{-6,83.12},{-6,81.92},{-1.76,81.92}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(Tank_SF.OutFlow, pump_TO_BM.InFlow) annotation (Line(
+      points={{21.76,81.92},{40,81.92},{40,150.5},{19.2,150.5}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(pump_TO_BM.OutFlow, TJ2.port_1) annotation (Line(
+      points={{6.4,157.4},{-26,157.4},{-26,154},{-38,154}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(Sens_SBM_SU.OutFlow, evaporator.inlet_fl2) annotation (Line(
+      points={{27.5,271.8},{137.154,271.8},{137.154,163.569}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(evaporator.outlet_fl1, sinkP.flangeB) annotation (Line(
+      points={{151.538,163.846},{152,163.846},{152,214},{180.96,214},{
+          180.96,220}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(evaporator.inlet_fl1, sourceMdot1.flangeB) annotation (Line(
+      points={{151.538,136.154},{152,136.154},{152,84},{188,84},{188,36},
+          {185,36}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(Sens_ORC_EX.InFlow, pump_TO_BM1.OutFlow) annotation (Line(
+      points={{-25.8,-56.88},{24.1,-56.88},{24.1,-56.6},{76.4,-56.6}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(evaporator.outlet_fl2, pump_TO_BM1.InFlow) annotation (Line(
+      points={{137.415,136.431},{137.415,-63.5},{89.2,-63.5}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,
+            -100},{200,300}}),      graphics),
+    experiment(StopTime=1000),
+    __Dymola_experimentSetupOutput,
+    Icon(coordinateSystem(extent={{-260,-100},{200,300}})));
+end System_ORC_Closed;

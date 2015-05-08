@@ -1,0 +1,1283 @@
+#1
+char Aclass(3,24)
+Adymosim
+1.4
+Modelica experiment file
+
+
+#    Experiment parameters
+double experiment(7,1)
+       0                   # StartTime    Time at which integration starts
+                           #              (and linearization and trimming time)
+    1000                   # StopTime     Time at which integration stops
+       0                   # Increment    Communication step size, if > 0
+     500                   # nInterval    Number of communication intervals, if > 0
+ 1.0000000000000000E-004   # Tolerance    Relative precision of signals for
+                           #              simulation, linearization and trimming
+       0                   # MaxFixedStep Maximum step size of fixed step size
+                           #              integrators, if > 0.0
+       8                   # Algorithm    Integration algorithm as integer (1...28)
+                           #
+                           #             | model|       |        | dense | state |
+                           # Algorithm   | typ  | stiff | order  | output| event |
+                           # ------------+------+-------+--------+-------+-------+
+                           #  1 | deabm  |  ode |   no  |  1-12  |  yes  |   no  |
+                           #  2 | lsode1 |  ode |   no  |  1-12  |  yes  |   no  |
+                           #  3 | lsode2 |  ode |  yes  |  1-5   |  yes  |   no  |
+                           #  4 | lsodar |  ode |  both |1-12,1-5|  yes  |  yes  |
+                           #  5 | dopri5 |  ode |   no  |   5    |   no  |   no  |
+                           #  6 | dopri8 |  ode |   no  |   8    |   no  |   no  |
+                           #  7 | grk4t  |  ode |  yes  |   4    |   no  |   no  |
+                           #  8 | dassl  |  dae |  yes  |  1-5   |  yes  |  yes  |
+                           #  9 | odassl | hdae |  yes  |  1-5   |  yes  |  yes  |
+                           # 10 | mexx   | hdae |   no  |  2-24  |   no  |   no  |
+                           # 11 | euler  |  ode |   no  |   1    |   no  |  yes  |
+                           # 12 | rkfix2 |  ode |   no  |   2    |   no  |  yes  |
+                           # 13 | rkfix3 |  ode |   no  |   3    |   no  |  yes  |
+                           # 14 | rkfix4 |  ode |   no  |   4    |   no  |  yes  |
+                           #>=14| others |  ode |yes/no |  2-5   |   yes |  yes  |
+                           # ---+--------+------+-------+--------+-------+-------+
+                           # euler and rkfix have fixed stepsize.
+
+
+#    Method tuning parameters
+double method(27,1)
+       1                   # grid     type of communication time grid, defined by
+                           #          = 1: equidistant points ("Increment/nInterval")
+                           #          = 2: vector of grid points ("tgrid")
+                           #          = 3: variable step integrator (automatically)
+                           #          = 4: model (call of "increment" in Dymola, e.g.
+                           #                      incr=Time > 2 then 0 else 0.1
+                           #                      dummy=increment(incr))
+                           #          grid = 1,3 is stopped by "StopTime"
+                           #          grid = 2   is stopped by "tgrid(last)"
+                           #          grid = 4   runs forever (stopped by model)
+       1                   # nt       Use every NT time instant, if grid = 3
+       3                   # dense    1/2/3 restart/step/interpolate GRID points
+       1                   # evgrid   0/1 do not/save event points in comm. time grid
+       1                   # evu      0/1 U-discontinuity does not/trigger events
+       0                   # evuord       U-discontinuity order to consider (0,1,...)
+       0                   # error    0/1/2 One message/warning/error messages
+       0                   # jac      0/1 Compute jacobian numerically/by BLOCKJ
+       0                   # xd0c     0/1 Compute/set XD0
+       0                   # f3       0/1 Ignore/use F3 of HDAE (= index 1)
+       0                   # f4       0/1 Ignore/use F4 of HDAE (= index 2)
+       0                   # f5       0/1 Ignore/use F5 of HDAE (= invar.)
+       0                   # debug    flags for debug information (1<<0 uses pdebug) 
+     100                   # pdebug       priority of debug information (1...100)
+       0                   # fmax     Maximum number of evaluations of BLOCKF, if > 0
+       0                   # ordmax   Maximum allowed integration order, if > 0
+       0                   # hmax     Maximum absolute stepsize, if > 0
+       0                   # hmin     Minimum absolute stepsize, if > 0 (use with care!)
+       0                   # h0       Stepsize to be attempted on first step, if > 0
+ 2.0000000000000000E-014   # teps     Bound to check, if 2 equal time instants
+ 1.0000000000000000E-010   # eveps    Hysteresis epsilon at event points
+      20                   # eviter   Maximum number of event iterations
+ 9.9999999999999995E-007   # delaym   Minimum time increment in delay buffers
+       1                   # fexcep   0/1 floating exception crashes/stops dymosim
+       1                   # tscale   clock-time = tscale*simulation-time, if grid = 5
+                           #          > 1: simulation too slow
+                           #          = 1: simulation-time = real-time
+                           #          < 1: simulation too fast
+       1                   # shared   (not used)
+    2473                   # memkey   (not used)
+
+
+#    Output parameters
+int settings(13,1)
+ 0                         # lprec    0/1 do not/store result data in double
+ 1                         # lx       0/1 do not/store x  (state variables)
+ 1                         # lxd      0/1 do not/store xd (derivative of states)
+ 1                         # lu       0/1 do not/store u  (input     signals)
+ 1                         # ly       0/1 do not/store y  (output    signals)
+ 0                         # lz       0/1 do not/store z  (indicator signals)
+ 1                         # lw       0/1 do not/store w  (auxiliary signals)
+ 1                         # la       0/1 do not/store a  (alias     signals)
+ 0                         # lperf    0/1 do not/store performance indicators
+ 0                         # levent   0/1 do not/store event point
+ 1                         # lres     0/1 do not/store results on result file
+ 0                         # lshare   0/1 do not/store info data for shared memory on dsshare.txt
+ 1                         # lform    0/1 ASCII/Matlab-binary storage format of results
+                           #              (for simulation/linearization; not for trimming)
+
+
+#    Names of initial variables
+char initialName(281,39)
+N
+HotFluid.Summary.T_profile.n
+HotFluid.Summary.T_profile.T_cell[1]
+HotFluid.Summary.T_profile.T_cell[2]
+HotFluid.Summary.T_profile.T_cell[3]
+HotFluid.Summary.T_profile.T_cell[4]
+HotFluid.Summary.T_profile.T_cell[5]
+HotFluid.Summary.T_profile.T_cell[6]
+HotFluid.Summary.T_profile.T_cell[7]
+HotFluid.Summary.T_profile.T_cell[8]
+HotFluid.Summary.T_profile.T_cell[9]
+HotFluid.Summary.T_profile.T_cell[10]
+HotFluid.Summary.n
+HotFluid.Summary.hnode[1]
+HotFluid.Summary.hnode[2]
+HotFluid.Summary.hnode[3]
+HotFluid.Summary.hnode[4]
+HotFluid.Summary.hnode[5]
+HotFluid.Summary.hnode[6]
+HotFluid.Summary.hnode[7]
+HotFluid.Summary.hnode[8]
+HotFluid.Summary.hnode[9]
+HotFluid.Summary.hnode[10]
+HotFluid.Summary.hnode[11]
+HotFluid.Summary.rho[1]
+HotFluid.Summary.rho[2]
+HotFluid.Summary.rho[3]
+HotFluid.Summary.rho[4]
+HotFluid.Summary.rho[5]
+HotFluid.Summary.rho[6]
+HotFluid.Summary.rho[7]
+HotFluid.Summary.rho[8]
+HotFluid.Summary.rho[9]
+HotFluid.Summary.rho[10]
+HotFluid.OutFlow.m_flow
+HotFluid.Wall_int.N
+HotFluid.Wall_int.phi[1]
+HotFluid.Wall_int.phi[2]
+HotFluid.Wall_int.phi[3]
+HotFluid.Wall_int.phi[4]
+HotFluid.Wall_int.phi[5]
+HotFluid.Wall_int.phi[6]
+HotFluid.Wall_int.phi[7]
+HotFluid.Wall_int.phi[8]
+HotFluid.Wall_int.phi[9]
+HotFluid.Wall_int.phi[10]
+HotFluid.Nt
+HotFluid.pi
+HotFluid.N
+HotFluid.A
+HotFluid.V
+HotFluid.Mdotnom
+HotFluid.Unom
+HotFluid.pstart
+HotFluid.Tstart_inlet
+HotFluid.Tstart_outlet
+HotFluid.hstart[1]
+HotFluid.hstart[2]
+HotFluid.hstart[3]
+HotFluid.hstart[4]
+HotFluid.hstart[5]
+HotFluid.hstart[6]
+HotFluid.hstart[7]
+HotFluid.hstart[8]
+HotFluid.hstart[9]
+HotFluid.hstart[10]
+HotFluid.Discretization
+HotFluid.steadystate
+HotFluid.Q_tot
+HotFluid.M_tot
+HotFluid.Cells[1].OutFlow.m_flow
+HotFluid.Cells[1].Nt
+HotFluid.Cells[1].pi
+HotFluid.Cells[1].Vi
+HotFluid.Cells[1].Ai
+HotFluid.Cells[1].Mdotnom
+HotFluid.Cells[1].Unom
+HotFluid.Cells[1].pstart
+HotFluid.Cells[1].hstart
+HotFluid.Cells[1].Discretization
+HotFluid.Cells[1].steadystate
+HotFluid.Cells[1].heatTransfer.n
+HotFluid.Cells[1].heatTransfer.Mdotnom
+HotFluid.Cells[1].heatTransfer.x
+HotFluid.Cells[1].heatTransfer.U[1]
+HotFluid.Cells[1].M_dot
+HotFluid.Cells[1].h
+HotFluid.Cells[1].der(h)
+HotFluid.Cells[1].Q_tot
+HotFluid.Cells[1].M_tot
+HotFluid.Cells[2].OutFlow.m_flow
+HotFluid.Cells[2].Nt
+HotFluid.Cells[2].pi
+HotFluid.Cells[2].Vi
+HotFluid.Cells[2].Ai
+HotFluid.Cells[2].Mdotnom
+HotFluid.Cells[2].Unom
+HotFluid.Cells[2].pstart
+HotFluid.Cells[2].hstart
+HotFluid.Cells[2].Discretization
+HotFluid.Cells[2].steadystate
+HotFluid.Cells[2].heatTransfer.n
+HotFluid.Cells[2].heatTransfer.Mdotnom
+HotFluid.Cells[2].heatTransfer.x
+HotFluid.Cells[2].heatTransfer.U[1]
+HotFluid.Cells[2].M_dot
+HotFluid.Cells[2].h
+HotFluid.Cells[2].der(h)
+HotFluid.Cells[2].Q_tot
+HotFluid.Cells[2].M_tot
+HotFluid.Cells[3].OutFlow.m_flow
+HotFluid.Cells[3].Nt
+HotFluid.Cells[3].pi
+HotFluid.Cells[3].Vi
+HotFluid.Cells[3].Ai
+HotFluid.Cells[3].Mdotnom
+HotFluid.Cells[3].Unom
+HotFluid.Cells[3].pstart
+HotFluid.Cells[3].hstart
+HotFluid.Cells[3].Discretization
+HotFluid.Cells[3].steadystate
+HotFluid.Cells[3].heatTransfer.n
+HotFluid.Cells[3].heatTransfer.Mdotnom
+HotFluid.Cells[3].heatTransfer.x
+HotFluid.Cells[3].heatTransfer.U[1]
+HotFluid.Cells[3].M_dot
+HotFluid.Cells[3].h
+HotFluid.Cells[3].der(h)
+HotFluid.Cells[3].Q_tot
+HotFluid.Cells[3].M_tot
+HotFluid.Cells[4].OutFlow.m_flow
+HotFluid.Cells[4].Nt
+HotFluid.Cells[4].pi
+HotFluid.Cells[4].Vi
+HotFluid.Cells[4].Ai
+HotFluid.Cells[4].Mdotnom
+HotFluid.Cells[4].Unom
+HotFluid.Cells[4].pstart
+HotFluid.Cells[4].hstart
+HotFluid.Cells[4].Discretization
+HotFluid.Cells[4].steadystate
+HotFluid.Cells[4].heatTransfer.n
+HotFluid.Cells[4].heatTransfer.Mdotnom
+HotFluid.Cells[4].heatTransfer.x
+HotFluid.Cells[4].heatTransfer.U[1]
+HotFluid.Cells[4].M_dot
+HotFluid.Cells[4].h
+HotFluid.Cells[4].der(h)
+HotFluid.Cells[4].Q_tot
+HotFluid.Cells[4].M_tot
+HotFluid.Cells[5].OutFlow.m_flow
+HotFluid.Cells[5].Nt
+HotFluid.Cells[5].pi
+HotFluid.Cells[5].Vi
+HotFluid.Cells[5].Ai
+HotFluid.Cells[5].Mdotnom
+HotFluid.Cells[5].Unom
+HotFluid.Cells[5].pstart
+HotFluid.Cells[5].hstart
+HotFluid.Cells[5].Discretization
+HotFluid.Cells[5].steadystate
+HotFluid.Cells[5].heatTransfer.n
+HotFluid.Cells[5].heatTransfer.Mdotnom
+HotFluid.Cells[5].heatTransfer.x
+HotFluid.Cells[5].heatTransfer.U[1]
+HotFluid.Cells[5].M_dot
+HotFluid.Cells[5].h
+HotFluid.Cells[5].der(h)
+HotFluid.Cells[5].Q_tot
+HotFluid.Cells[5].M_tot
+HotFluid.Cells[6].OutFlow.m_flow
+HotFluid.Cells[6].Nt
+HotFluid.Cells[6].pi
+HotFluid.Cells[6].Vi
+HotFluid.Cells[6].Ai
+HotFluid.Cells[6].Mdotnom
+HotFluid.Cells[6].Unom
+HotFluid.Cells[6].pstart
+HotFluid.Cells[6].hstart
+HotFluid.Cells[6].Discretization
+HotFluid.Cells[6].steadystate
+HotFluid.Cells[6].heatTransfer.n
+HotFluid.Cells[6].heatTransfer.Mdotnom
+HotFluid.Cells[6].heatTransfer.x
+HotFluid.Cells[6].heatTransfer.U[1]
+HotFluid.Cells[6].M_dot
+HotFluid.Cells[6].h
+HotFluid.Cells[6].der(h)
+HotFluid.Cells[6].Q_tot
+HotFluid.Cells[6].M_tot
+HotFluid.Cells[7].OutFlow.m_flow
+HotFluid.Cells[7].Nt
+HotFluid.Cells[7].pi
+HotFluid.Cells[7].Vi
+HotFluid.Cells[7].Ai
+HotFluid.Cells[7].Mdotnom
+HotFluid.Cells[7].Unom
+HotFluid.Cells[7].pstart
+HotFluid.Cells[7].hstart
+HotFluid.Cells[7].Discretization
+HotFluid.Cells[7].steadystate
+HotFluid.Cells[7].heatTransfer.n
+HotFluid.Cells[7].heatTransfer.Mdotnom
+HotFluid.Cells[7].heatTransfer.x
+HotFluid.Cells[7].heatTransfer.U[1]
+HotFluid.Cells[7].M_dot
+HotFluid.Cells[7].h
+HotFluid.Cells[7].der(h)
+HotFluid.Cells[7].Q_tot
+HotFluid.Cells[7].M_tot
+HotFluid.Cells[8].OutFlow.m_flow
+HotFluid.Cells[8].Nt
+HotFluid.Cells[8].pi
+HotFluid.Cells[8].Vi
+HotFluid.Cells[8].Ai
+HotFluid.Cells[8].Mdotnom
+HotFluid.Cells[8].Unom
+HotFluid.Cells[8].pstart
+HotFluid.Cells[8].hstart
+HotFluid.Cells[8].Discretization
+HotFluid.Cells[8].steadystate
+HotFluid.Cells[8].heatTransfer.n
+HotFluid.Cells[8].heatTransfer.Mdotnom
+HotFluid.Cells[8].heatTransfer.x
+HotFluid.Cells[8].heatTransfer.U[1]
+HotFluid.Cells[8].M_dot
+HotFluid.Cells[8].h
+HotFluid.Cells[8].der(h)
+HotFluid.Cells[8].Q_tot
+HotFluid.Cells[8].M_tot
+HotFluid.Cells[9].OutFlow.m_flow
+HotFluid.Cells[9].Nt
+HotFluid.Cells[9].pi
+HotFluid.Cells[9].Vi
+HotFluid.Cells[9].Ai
+HotFluid.Cells[9].Mdotnom
+HotFluid.Cells[9].Unom
+HotFluid.Cells[9].pstart
+HotFluid.Cells[9].hstart
+HotFluid.Cells[9].Discretization
+HotFluid.Cells[9].steadystate
+HotFluid.Cells[9].heatTransfer.n
+HotFluid.Cells[9].heatTransfer.Mdotnom
+HotFluid.Cells[9].heatTransfer.x
+HotFluid.Cells[9].heatTransfer.U[1]
+HotFluid.Cells[9].M_dot
+HotFluid.Cells[9].h
+HotFluid.Cells[9].der(h)
+HotFluid.Cells[9].Q_tot
+HotFluid.Cells[9].M_tot
+HotFluid.Cells[10].Nt
+HotFluid.Cells[10].pi
+HotFluid.Cells[10].Vi
+HotFluid.Cells[10].Ai
+HotFluid.Cells[10].Mdotnom
+HotFluid.Cells[10].Unom
+HotFluid.Cells[10].pstart
+HotFluid.Cells[10].hstart
+HotFluid.Cells[10].Discretization
+HotFluid.Cells[10].steadystate
+HotFluid.Cells[10].heatTransfer.n
+HotFluid.Cells[10].heatTransfer.Mdotnom
+HotFluid.Cells[10].heatTransfer.x
+HotFluid.Cells[10].heatTransfer.U[1]
+HotFluid.Cells[10].M_dot
+HotFluid.Cells[10].h
+HotFluid.Cells[10].der(h)
+HotFluid.Cells[10].Q_tot
+HotFluid.Cells[10].M_tot
+HotFluid.thermalPortConverter.N
+HotFluid.thermalPortConverter.multi.N
+sourceWF1.Mdot_0
+sourceWF1.p
+sourceWF1.UseT
+sourceWF1.T_0
+sourceWF1.h_0
+sinkPFluid1.p0
+sinkPFluid1.h
+source_T.N
+source_T.thermalPort.N
+const.k
+
+double initialValue(281,6)
+  0      10                       0                       0                
+  6  258   # N
+  0      10                       0                       0                
+  6  258   # HotFluid.Summary.T_profile.n
+  0 2.8814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  6  256   # HotFluid.Summary.T_profile.T_cell[1]
+  0 2.8814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  6  256   # HotFluid.Summary.T_profile.T_cell[2]
+  0 2.8814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  6  256   # HotFluid.Summary.T_profile.T_cell[3]
+  0 2.8814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  6  256   # HotFluid.Summary.T_profile.T_cell[4]
+  0 2.8814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  6  256   # HotFluid.Summary.T_profile.T_cell[5]
+  0 2.8814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  6  256   # HotFluid.Summary.T_profile.T_cell[6]
+  0 2.8814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  6  256   # HotFluid.Summary.T_profile.T_cell[7]
+  0 2.8814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  6  256   # HotFluid.Summary.T_profile.T_cell[8]
+  0 2.8814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  6  256   # HotFluid.Summary.T_profile.T_cell[9]
+  0 2.8814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  6  256   # HotFluid.Summary.T_profile.T_cell[10]
+  0      10                       0                       0                
+  6  258   # HotFluid.Summary.n
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Summary.hnode[1]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Summary.hnode[2]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Summary.hnode[3]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Summary.hnode[4]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Summary.hnode[5]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Summary.hnode[6]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Summary.hnode[7]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Summary.hnode[8]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Summary.hnode[9]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Summary.hnode[10]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Summary.hnode[11]
+  0       1                       0                  100000                
+  6  256   # HotFluid.Summary.rho[1]
+  0       1                       0                  100000                
+  6  256   # HotFluid.Summary.rho[2]
+  0       1                       0                  100000                
+  6  256   # HotFluid.Summary.rho[3]
+  0       1                       0                  100000                
+  6  256   # HotFluid.Summary.rho[4]
+  0       1                       0                  100000                
+  6  256   # HotFluid.Summary.rho[5]
+  0       1                       0                  100000                
+  6  256   # HotFluid.Summary.rho[6]
+  0       1                       0                  100000                
+  6  256   # HotFluid.Summary.rho[7]
+  0       1                       0                  100000                
+  6  256   # HotFluid.Summary.rho[8]
+  0       1                       0                  100000                
+  6  256   # HotFluid.Summary.rho[9]
+  0       1                       0                  100000                
+  6  256   # HotFluid.Summary.rho[10]
+  0       0                 -100000                  100000                
+  6  388   # HotFluid.OutFlow.m_flow
+  0      10                       1                 1.0000000000000000E+100
+  6  262   # HotFluid.Wall_int.N
+  0       0                       0                       0                
+  6  388   # HotFluid.Wall_int.phi[1]
+  0       0                       0                       0                
+  6  388   # HotFluid.Wall_int.phi[2]
+  0       0                       0                       0                
+  6  388   # HotFluid.Wall_int.phi[3]
+  0       0                       0                       0                
+  6  388   # HotFluid.Wall_int.phi[4]
+  0       0                       0                       0                
+  6  388   # HotFluid.Wall_int.phi[5]
+  0       0                       0                       0                
+  6  388   # HotFluid.Wall_int.phi[6]
+  0       0                       0                       0                
+  6  388   # HotFluid.Wall_int.phi[7]
+  0       0                       0                       0                
+  6  388   # HotFluid.Wall_int.phi[8]
+  0       0                       0                       0                
+  6  388   # HotFluid.Wall_int.phi[9]
+  0       0                       0                       0                
+  6  388   # HotFluid.Wall_int.phi[10]
+ -1       1                       1                 1.0000000000000000E+100
+  1  282   # HotFluid.Nt
+  0 3.1415926535897931E+000       0                       0                
+  6  256   # HotFluid.pi
+  0      10                       1                 1.0000000000000000E+100
+  6  258   # HotFluid.N
+ -1 1.6180000000000000E+001       0                       0                
+  1  280   # HotFluid.A
+ -1 3.7810000000000003E-002       0                       0                
+  1  280   # HotFluid.V
+ -1 2.5877000000000000E-001       0                       0                
+  1  280   # HotFluid.Mdotnom
+ -1 3.0217978140000000E+001       0                       0                
+  1  280   # HotFluid.Unom
+ -1  100000                       0                       0                
+  1  280   # HotFluid.pstart
+ -1 4.1814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  1  280   # HotFluid.Tstart_inlet
+ -1 4.0814999999999998E+002 2.7314999999999998E+002 6.5314999999999998E+002
+  1  280   # HotFluid.Tstart_outlet
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.hstart[1]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.hstart[2]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.hstart[3]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.hstart[4]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.hstart[5]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.hstart[6]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.hstart[7]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.hstart[8]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.hstart[9]
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.hstart[10]
+  0       1                       1                       5                
+  6  258   # HotFluid.Discretization
+  0       0                       0                       0                
+  6  257   # HotFluid.steadystate
+  0       0                       0                       0                
+  6  256   # HotFluid.Q_tot
+  0       0                       0                 1.0000000000000000E+100
+  6  256   # HotFluid.M_tot
+  0       0                 -100000                  100000                
+  6  388   # HotFluid.Cells[1].OutFlow.m_flow
+  0       1                       1                 1.0000000000000000E+100
+  6  258   # HotFluid.Cells[1].Nt
+  0 3.1415926535897931E+000       0                       0                
+  6  256   # HotFluid.Cells[1].pi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[1].Vi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[1].Ai
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[1].Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[1].Unom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[1].pstart
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Cells[1].hstart
+  0       1                       1                       5                
+  6  258   # HotFluid.Cells[1].Discretization
+  0       0                       0                       0                
+  6  257   # HotFluid.Cells[1].steadystate
+  0       1                       0                       0                
+  6  258   # HotFluid.Cells[1].heatTransfer.n
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[1].heatTransfer.Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[1].heatTransfer.x
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[1].heatTransfer.U[1]
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[1].M_dot
+ -1       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  2  272   # HotFluid.Cells[1].h
+  0       0                       0                       0                
+  3  256   # HotFluid.Cells[1].der(h)
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[1].Q_tot
+  0       0                       0                 1.0000000000000000E+100
+  6  256   # HotFluid.Cells[1].M_tot
+  0       0                 -100000                  100000                
+  6  388   # HotFluid.Cells[2].OutFlow.m_flow
+  0       1                       1                 1.0000000000000000E+100
+  6  258   # HotFluid.Cells[2].Nt
+  0 3.1415926535897931E+000       0                       0                
+  6  256   # HotFluid.Cells[2].pi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[2].Vi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[2].Ai
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[2].Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[2].Unom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[2].pstart
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Cells[2].hstart
+  0       1                       1                       5                
+  6  258   # HotFluid.Cells[2].Discretization
+  0       0                       0                       0                
+  6  257   # HotFluid.Cells[2].steadystate
+  0       1                       0                       0                
+  6  258   # HotFluid.Cells[2].heatTransfer.n
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[2].heatTransfer.Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[2].heatTransfer.x
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[2].heatTransfer.U[1]
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[2].M_dot
+ -1       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  2  272   # HotFluid.Cells[2].h
+  0       0                       0                       0                
+  3  256   # HotFluid.Cells[2].der(h)
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[2].Q_tot
+  0       0                       0                 1.0000000000000000E+100
+  6  256   # HotFluid.Cells[2].M_tot
+  0       0                 -100000                  100000                
+  6  388   # HotFluid.Cells[3].OutFlow.m_flow
+  0       1                       1                 1.0000000000000000E+100
+  6  258   # HotFluid.Cells[3].Nt
+  0 3.1415926535897931E+000       0                       0                
+  6  256   # HotFluid.Cells[3].pi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[3].Vi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[3].Ai
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[3].Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[3].Unom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[3].pstart
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Cells[3].hstart
+  0       1                       1                       5                
+  6  258   # HotFluid.Cells[3].Discretization
+  0       0                       0                       0                
+  6  257   # HotFluid.Cells[3].steadystate
+  0       1                       0                       0                
+  6  258   # HotFluid.Cells[3].heatTransfer.n
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[3].heatTransfer.Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[3].heatTransfer.x
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[3].heatTransfer.U[1]
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[3].M_dot
+ -1       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  2  272   # HotFluid.Cells[3].h
+  0       0                       0                       0                
+  3  256   # HotFluid.Cells[3].der(h)
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[3].Q_tot
+  0       0                       0                 1.0000000000000000E+100
+  6  256   # HotFluid.Cells[3].M_tot
+  0       0                 -100000                  100000                
+  6  388   # HotFluid.Cells[4].OutFlow.m_flow
+  0       1                       1                 1.0000000000000000E+100
+  6  258   # HotFluid.Cells[4].Nt
+  0 3.1415926535897931E+000       0                       0                
+  6  256   # HotFluid.Cells[4].pi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[4].Vi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[4].Ai
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[4].Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[4].Unom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[4].pstart
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Cells[4].hstart
+  0       1                       1                       5                
+  6  258   # HotFluid.Cells[4].Discretization
+  0       0                       0                       0                
+  6  257   # HotFluid.Cells[4].steadystate
+  0       1                       0                       0                
+  6  258   # HotFluid.Cells[4].heatTransfer.n
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[4].heatTransfer.Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[4].heatTransfer.x
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[4].heatTransfer.U[1]
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[4].M_dot
+ -1       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  2  272   # HotFluid.Cells[4].h
+  0       0                       0                       0                
+  3  256   # HotFluid.Cells[4].der(h)
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[4].Q_tot
+  0       0                       0                 1.0000000000000000E+100
+  6  256   # HotFluid.Cells[4].M_tot
+  0       0                 -100000                  100000                
+  6  388   # HotFluid.Cells[5].OutFlow.m_flow
+  0       1                       1                 1.0000000000000000E+100
+  6  258   # HotFluid.Cells[5].Nt
+  0 3.1415926535897931E+000       0                       0                
+  6  256   # HotFluid.Cells[5].pi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[5].Vi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[5].Ai
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[5].Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[5].Unom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[5].pstart
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Cells[5].hstart
+  0       1                       1                       5                
+  6  258   # HotFluid.Cells[5].Discretization
+  0       0                       0                       0                
+  6  257   # HotFluid.Cells[5].steadystate
+  0       1                       0                       0                
+  6  258   # HotFluid.Cells[5].heatTransfer.n
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[5].heatTransfer.Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[5].heatTransfer.x
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[5].heatTransfer.U[1]
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[5].M_dot
+ -1       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  2  272   # HotFluid.Cells[5].h
+  0       0                       0                       0                
+  3  256   # HotFluid.Cells[5].der(h)
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[5].Q_tot
+  0       0                       0                 1.0000000000000000E+100
+  6  256   # HotFluid.Cells[5].M_tot
+  0       0                 -100000                  100000                
+  6  388   # HotFluid.Cells[6].OutFlow.m_flow
+  0       1                       1                 1.0000000000000000E+100
+  6  258   # HotFluid.Cells[6].Nt
+  0 3.1415926535897931E+000       0                       0                
+  6  256   # HotFluid.Cells[6].pi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[6].Vi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[6].Ai
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[6].Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[6].Unom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[6].pstart
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Cells[6].hstart
+  0       1                       1                       5                
+  6  258   # HotFluid.Cells[6].Discretization
+  0       0                       0                       0                
+  6  257   # HotFluid.Cells[6].steadystate
+  0       1                       0                       0                
+  6  258   # HotFluid.Cells[6].heatTransfer.n
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[6].heatTransfer.Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[6].heatTransfer.x
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[6].heatTransfer.U[1]
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[6].M_dot
+ -1       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  2  272   # HotFluid.Cells[6].h
+  0       0                       0                       0                
+  3  256   # HotFluid.Cells[6].der(h)
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[6].Q_tot
+  0       0                       0                 1.0000000000000000E+100
+  6  256   # HotFluid.Cells[6].M_tot
+  0       0                 -100000                  100000                
+  6  388   # HotFluid.Cells[7].OutFlow.m_flow
+  0       1                       1                 1.0000000000000000E+100
+  6  258   # HotFluid.Cells[7].Nt
+  0 3.1415926535897931E+000       0                       0                
+  6  256   # HotFluid.Cells[7].pi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[7].Vi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[7].Ai
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[7].Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[7].Unom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[7].pstart
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Cells[7].hstart
+  0       1                       1                       5                
+  6  258   # HotFluid.Cells[7].Discretization
+  0       0                       0                       0                
+  6  257   # HotFluid.Cells[7].steadystate
+  0       1                       0                       0                
+  6  258   # HotFluid.Cells[7].heatTransfer.n
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[7].heatTransfer.Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[7].heatTransfer.x
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[7].heatTransfer.U[1]
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[7].M_dot
+ -1       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  2  272   # HotFluid.Cells[7].h
+  0       0                       0                       0                
+  3  256   # HotFluid.Cells[7].der(h)
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[7].Q_tot
+  0       0                       0                 1.0000000000000000E+100
+  6  256   # HotFluid.Cells[7].M_tot
+  0       0                 -100000                  100000                
+  6  388   # HotFluid.Cells[8].OutFlow.m_flow
+  0       1                       1                 1.0000000000000000E+100
+  6  258   # HotFluid.Cells[8].Nt
+  0 3.1415926535897931E+000       0                       0                
+  6  256   # HotFluid.Cells[8].pi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[8].Vi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[8].Ai
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[8].Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[8].Unom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[8].pstart
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Cells[8].hstart
+  0       1                       1                       5                
+  6  258   # HotFluid.Cells[8].Discretization
+  0       0                       0                       0                
+  6  257   # HotFluid.Cells[8].steadystate
+  0       1                       0                       0                
+  6  258   # HotFluid.Cells[8].heatTransfer.n
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[8].heatTransfer.Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[8].heatTransfer.x
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[8].heatTransfer.U[1]
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[8].M_dot
+ -1       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  2  272   # HotFluid.Cells[8].h
+  0       0                       0                       0                
+  3  256   # HotFluid.Cells[8].der(h)
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[8].Q_tot
+  0       0                       0                 1.0000000000000000E+100
+  6  256   # HotFluid.Cells[8].M_tot
+  0       0                 -100000                  100000                
+  6  388   # HotFluid.Cells[9].OutFlow.m_flow
+  0       1                       1                 1.0000000000000000E+100
+  6  258   # HotFluid.Cells[9].Nt
+  0 3.1415926535897931E+000       0                       0                
+  6  256   # HotFluid.Cells[9].pi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[9].Vi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[9].Ai
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[9].Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[9].Unom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[9].pstart
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Cells[9].hstart
+  0       1                       1                       5                
+  6  258   # HotFluid.Cells[9].Discretization
+  0       0                       0                       0                
+  6  257   # HotFluid.Cells[9].steadystate
+  0       1                       0                       0                
+  6  258   # HotFluid.Cells[9].heatTransfer.n
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[9].heatTransfer.Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[9].heatTransfer.x
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[9].heatTransfer.U[1]
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[9].M_dot
+ -1       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  2  272   # HotFluid.Cells[9].h
+  0       0                       0                       0                
+  3  256   # HotFluid.Cells[9].der(h)
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[9].Q_tot
+  0       0                       0                 1.0000000000000000E+100
+  6  256   # HotFluid.Cells[9].M_tot
+  0       1                       1                 1.0000000000000000E+100
+  6  258   # HotFluid.Cells[10].Nt
+  0 3.1415926535897931E+000       0                       0                
+  6  256   # HotFluid.Cells[10].pi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[10].Vi
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[10].Ai
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[10].Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[10].Unom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[10].pstart
+  0       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  6  256   # HotFluid.Cells[10].hstart
+  0       1                       1                       5                
+  6  258   # HotFluid.Cells[10].Discretization
+  0       0                       0                       0                
+  6  257   # HotFluid.Cells[10].steadystate
+  0       1                       0                       0                
+  6  258   # HotFluid.Cells[10].heatTransfer.n
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[10].heatTransfer.Mdotnom
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[10].heatTransfer.x
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[10].heatTransfer.U[1]
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[10].M_dot
+ -1       0                 -1.0000000000000000E+010 1.0000000000000000E+010
+  2  272   # HotFluid.Cells[10].h
+  0       0                       0                       0                
+  3  256   # HotFluid.Cells[10].der(h)
+  0       0                       0                       0                
+  6  256   # HotFluid.Cells[10].Q_tot
+  0       0                       0                 1.0000000000000000E+100
+  6  256   # HotFluid.Cells[10].M_tot
+  0      10                       0                       0                
+  6  258   # HotFluid.thermalPortConverter.N
+  0      10                       1                 1.0000000000000000E+100
+  6  262   # HotFluid.thermalPortConverter.multi.N
+ -1 3.1000000000000001E+000 -100000                  100000                
+  1  280   # sourceWF1.Mdot_0
+ -1  100000                       0                       0                
+  1  280   # sourceWF1.p
+  0       1                       0                       0                
+  6  257   # sourceWF1.UseT
+ -1 4.1814999999999998E+002       0                 1.0000000000000000E+100
+  1  280   # sourceWF1.T_0
+ -1 4.7052300000000000E+005       0                       0                
+  1  280   # sourceWF1.h_0
+ -1  100000                       0                 1.0000000000000000E+008
+  1  280   # sinkPFluid1.p0
+ -1  100000                 -1.0000000000000000E+010 1.0000000000000000E+010
+  1  280   # sinkPFluid1.h
+  0      10                       0                       0                
+  6  258   # source_T.N
+  0      10                       1                 1.0000000000000000E+100
+  6  262   # source_T.thermalPort.N
+ -1 2.9814999999999998E+002       0                 1.0000000000000000E+100
+  1  280   # const.k
+
+
+# Matrix with 6 columns defining the initial value calculation
+# (columns 5 and 6 are not utilized for the calculation but are
+#  reported by dymosim via dymosim -i for user convenience):
+#
+# column 1: Type of initial value
+#           = -2: special case: for continuing simulation (column 2 = value)
+#           = -1: fixed value (column 2 = fixed value)
+#           =  0: free value, i.e., no restriction (column 2 = initial value)
+#           >  0: desired value (column 1 = weight for optimization
+#                                column 2 = desired value)
+#                 use weight=1, since automatic scaling usually
+#                 leads to equally weighted terms
+# column 2: fixed, free or desired value according to column 1.
+# column 3: Minimum value (ignored, if Minimum >= Maximum).
+# column 4: Maximum value (ignored, if Minimum >= Maximum).
+#           Minimum and maximum restrict the search range in initial
+#           value calculation. They might also be used for scaling.
+# column 5: Category of variable.
+#           = 1: parameter.
+#           = 2: state.
+#           = 3: state derivative.
+#           = 4: output.
+#           = 5: input.
+#           = 6: auxiliary variable.
+# column 6: Data type of variable.
+#           = 0: real.
+#           = 1: boolean.
+#           = 2: integer.
+#
+# Initial values are calculated according to the following procedure:
+#
+# - If parameters, states and inputs are FIXED, and other variables
+#   are FREE, no special action takes place (default setting).
+#
+# - If there are only FIXED and FREE variables and the number of
+#   FREE parameters, states and inputs is IDENTICAL to the number of
+#   FIXED state derivatives, outputs and auxiliary variables, a non-linear
+#   equation is solved to determine a consistent set of initial conditions.
+#
+# - In all other cases the following optimization problem is solved:
+#      min( sum( weight(i)*( (value(i) - DESIRED(i))/scale(i) )^2 ) )
+#   under the constraint that the differential equation is fulfilled
+#   at the initial time. In most cases weight(i)=1 is sufficient, due
+#   to the automatic scaling (if DESIRED(i) is not close to zero,
+#   scale(i) = DESIRED(i). Otherwise, the scaling is based on the
+#   nominal value (and maybe minimum and maximum values given in 
+#   column 3 and 4). If these values are zero, scale(i)=1 is used).
+#
+char initialDescription(281,121)
+[:#(type=Integer)]
+[:#(type=Integer)]
+[K|degC]
+[K|degC]
+[K|degC]
+[K|degC]
+[K|degC]
+[K|degC]
+[K|degC]
+[K|degC]
+[K|degC]
+[K|degC]
+[:#(type=Integer)]
+[J/kg]
+[J/kg]
+[J/kg]
+[J/kg]
+[J/kg]
+[J/kg]
+[J/kg]
+[J/kg]
+[J/kg]
+[J/kg]
+[J/kg]
+[kg/m3|g/cm3]
+[kg/m3|g/cm3]
+[kg/m3|g/cm3]
+[kg/m3|g/cm3]
+[kg/m3|g/cm3]
+[kg/m3|g/cm3]
+[kg/m3|g/cm3]
+[kg/m3|g/cm3]
+[kg/m3|g/cm3]
+[kg/m3|g/cm3]
+Mass flow rate from the connection point into the component [kg/s]
+Number of nodes [:#(type=Integer)]
+Heat flux at the nodes [W/m2]
+Heat flux at the nodes [W/m2]
+Heat flux at the nodes [W/m2]
+Heat flux at the nodes [W/m2]
+Heat flux at the nodes [W/m2]
+Heat flux at the nodes [W/m2]
+Heat flux at the nodes [W/m2]
+Heat flux at the nodes [W/m2]
+Heat flux at the nodes [W/m2]
+Heat flux at the nodes [W/m2]
+Number of cells in parallel [:#(type=Integer)]
+pi-greco
+Number of cells [:#(type=Integer)]
+Lateral surface of the tube: heat exchange area [m2]
+Volume of the tube [m3]
+Nominal fluid flow rate [kg/s]
+if HTtype = Const: Heat transfer coefficient [W/(m2.K)]
+Fluid pressure start value [Pa|bar]
+Inlet temperature start value [K|degC]
+Outlet temperature start value [K|degC]
+Start value of enthalpy vector (initialized by default) [J/kg]
+Start value of enthalpy vector (initialized by default) [J/kg]
+Start value of enthalpy vector (initialized by default) [J/kg]
+Start value of enthalpy vector (initialized by default) [J/kg]
+Start value of enthalpy vector (initialized by default) [J/kg]
+Start value of enthalpy vector (initialized by default) [J/kg]
+Start value of enthalpy vector (initialized by default) [J/kg]
+Start value of enthalpy vector (initialized by default) [J/kg]
+Start value of enthalpy vector (initialized by default) [J/kg]
+Start value of enthalpy vector (initialized by default) [J/kg]
+Selection of the spatial discretization scheme [:#(type=ThermoCycle.Functions.Enumerations.Discretizations)]
+if true, sets the derivative of h (working fluids enthalpy in each cell) to zero during Initialization [:#(type=Boolean)]
+Total heat flux exchanged by the thermal port [W]
+Total mass of the fluid in the component [kg]
+Mass flow rate from the connection point into the component [kg/s]
+Number of cells in parallel [:#(type=Integer)]
+pi-greco
+Volume of a single cell [m3]
+Lateral surface of a single cell [m2]
+Nominal fluid flow rate [kg/s]
+Nominal Heat transfer coefficient  [W/(m2.K)]
+Fluid pressure start value [Pa|bar]
+Start value of enthalpy [J/kg]
+Selection of the spatial discretization scheme [:#(type=ThermoCycle.Functions.Enumerations.Discretizations)]
+if true, sets the derivative of h (working fluids enthalpy in each cell) to zero during Initialization [:#(type=Boolean)]
+Number of heat transfer segments [:#(type=Integer)]
+Nomnial Mass flow rate [kg/s]
+Vapor quality
+Heat transfer coefficient [W/(m2.K)]
+[kg/s]
+Fluid specific enthalpy at the cells [J/kg]
+der(Fluid specific enthalpy at the cells) [m2/s3]
+Total heat flux exchanged by the thermal port [W]
+Total mass of the fluid in the component [kg]
+Mass flow rate from the connection point into the component [kg/s]
+Number of cells in parallel [:#(type=Integer)]
+pi-greco
+Volume of a single cell [m3]
+Lateral surface of a single cell [m2]
+Nominal fluid flow rate [kg/s]
+Nominal Heat transfer coefficient  [W/(m2.K)]
+Fluid pressure start value [Pa|bar]
+Start value of enthalpy [J/kg]
+Selection of the spatial discretization scheme [:#(type=ThermoCycle.Functions.Enumerations.Discretizations)]
+if true, sets the derivative of h (working fluids enthalpy in each cell) to zero during Initialization [:#(type=Boolean)]
+Number of heat transfer segments [:#(type=Integer)]
+Nomnial Mass flow rate [kg/s]
+Vapor quality
+Heat transfer coefficient [W/(m2.K)]
+[kg/s]
+Fluid specific enthalpy at the cells [J/kg]
+der(Fluid specific enthalpy at the cells) [m2/s3]
+Total heat flux exchanged by the thermal port [W]
+Total mass of the fluid in the component [kg]
+Mass flow rate from the connection point into the component [kg/s]
+Number of cells in parallel [:#(type=Integer)]
+pi-greco
+Volume of a single cell [m3]
+Lateral surface of a single cell [m2]
+Nominal fluid flow rate [kg/s]
+Nominal Heat transfer coefficient  [W/(m2.K)]
+Fluid pressure start value [Pa|bar]
+Start value of enthalpy [J/kg]
+Selection of the spatial discretization scheme [:#(type=ThermoCycle.Functions.Enumerations.Discretizations)]
+if true, sets the derivative of h (working fluids enthalpy in each cell) to zero during Initialization [:#(type=Boolean)]
+Number of heat transfer segments [:#(type=Integer)]
+Nomnial Mass flow rate [kg/s]
+Vapor quality
+Heat transfer coefficient [W/(m2.K)]
+[kg/s]
+Fluid specific enthalpy at the cells [J/kg]
+der(Fluid specific enthalpy at the cells) [m2/s3]
+Total heat flux exchanged by the thermal port [W]
+Total mass of the fluid in the component [kg]
+Mass flow rate from the connection point into the component [kg/s]
+Number of cells in parallel [:#(type=Integer)]
+pi-greco
+Volume of a single cell [m3]
+Lateral surface of a single cell [m2]
+Nominal fluid flow rate [kg/s]
+Nominal Heat transfer coefficient  [W/(m2.K)]
+Fluid pressure start value [Pa|bar]
+Start value of enthalpy [J/kg]
+Selection of the spatial discretization scheme [:#(type=ThermoCycle.Functions.Enumerations.Discretizations)]
+if true, sets the derivative of h (working fluids enthalpy in each cell) to zero during Initialization [:#(type=Boolean)]
+Number of heat transfer segments [:#(type=Integer)]
+Nomnial Mass flow rate [kg/s]
+Vapor quality
+Heat transfer coefficient [W/(m2.K)]
+[kg/s]
+Fluid specific enthalpy at the cells [J/kg]
+der(Fluid specific enthalpy at the cells) [m2/s3]
+Total heat flux exchanged by the thermal port [W]
+Total mass of the fluid in the component [kg]
+Mass flow rate from the connection point into the component [kg/s]
+Number of cells in parallel [:#(type=Integer)]
+pi-greco
+Volume of a single cell [m3]
+Lateral surface of a single cell [m2]
+Nominal fluid flow rate [kg/s]
+Nominal Heat transfer coefficient  [W/(m2.K)]
+Fluid pressure start value [Pa|bar]
+Start value of enthalpy [J/kg]
+Selection of the spatial discretization scheme [:#(type=ThermoCycle.Functions.Enumerations.Discretizations)]
+if true, sets the derivative of h (working fluids enthalpy in each cell) to zero during Initialization [:#(type=Boolean)]
+Number of heat transfer segments [:#(type=Integer)]
+Nomnial Mass flow rate [kg/s]
+Vapor quality
+Heat transfer coefficient [W/(m2.K)]
+[kg/s]
+Fluid specific enthalpy at the cells [J/kg]
+der(Fluid specific enthalpy at the cells) [m2/s3]
+Total heat flux exchanged by the thermal port [W]
+Total mass of the fluid in the component [kg]
+Mass flow rate from the connection point into the component [kg/s]
+Number of cells in parallel [:#(type=Integer)]
+pi-greco
+Volume of a single cell [m3]
+Lateral surface of a single cell [m2]
+Nominal fluid flow rate [kg/s]
+Nominal Heat transfer coefficient  [W/(m2.K)]
+Fluid pressure start value [Pa|bar]
+Start value of enthalpy [J/kg]
+Selection of the spatial discretization scheme [:#(type=ThermoCycle.Functions.Enumerations.Discretizations)]
+if true, sets the derivative of h (working fluids enthalpy in each cell) to zero during Initialization [:#(type=Boolean)]
+Number of heat transfer segments [:#(type=Integer)]
+Nomnial Mass flow rate [kg/s]
+Vapor quality
+Heat transfer coefficient [W/(m2.K)]
+[kg/s]
+Fluid specific enthalpy at the cells [J/kg]
+der(Fluid specific enthalpy at the cells) [m2/s3]
+Total heat flux exchanged by the thermal port [W]
+Total mass of the fluid in the component [kg]
+Mass flow rate from the connection point into the component [kg/s]
+Number of cells in parallel [:#(type=Integer)]
+pi-greco
+Volume of a single cell [m3]
+Lateral surface of a single cell [m2]
+Nominal fluid flow rate [kg/s]
+Nominal Heat transfer coefficient  [W/(m2.K)]
+Fluid pressure start value [Pa|bar]
+Start value of enthalpy [J/kg]
+Selection of the spatial discretization scheme [:#(type=ThermoCycle.Functions.Enumerations.Discretizations)]
+if true, sets the derivative of h (working fluids enthalpy in each cell) to zero during Initialization [:#(type=Boolean)]
+Number of heat transfer segments [:#(type=Integer)]
+Nomnial Mass flow rate [kg/s]
+Vapor quality
+Heat transfer coefficient [W/(m2.K)]
+[kg/s]
+Fluid specific enthalpy at the cells [J/kg]
+der(Fluid specific enthalpy at the cells) [m2/s3]
+Total heat flux exchanged by the thermal port [W]
+Total mass of the fluid in the component [kg]
+Mass flow rate from the connection point into the component [kg/s]
+Number of cells in parallel [:#(type=Integer)]
+pi-greco
+Volume of a single cell [m3]
+Lateral surface of a single cell [m2]
+Nominal fluid flow rate [kg/s]
+Nominal Heat transfer coefficient  [W/(m2.K)]
+Fluid pressure start value [Pa|bar]
+Start value of enthalpy [J/kg]
+Selection of the spatial discretization scheme [:#(type=ThermoCycle.Functions.Enumerations.Discretizations)]
+if true, sets the derivative of h (working fluids enthalpy in each cell) to zero during Initialization [:#(type=Boolean)]
+Number of heat transfer segments [:#(type=Integer)]
+Nomnial Mass flow rate [kg/s]
+Vapor quality
+Heat transfer coefficient [W/(m2.K)]
+[kg/s]
+Fluid specific enthalpy at the cells [J/kg]
+der(Fluid specific enthalpy at the cells) [m2/s3]
+Total heat flux exchanged by the thermal port [W]
+Total mass of the fluid in the component [kg]
+Mass flow rate from the connection point into the component [kg/s]
+Number of cells in parallel [:#(type=Integer)]
+pi-greco
+Volume of a single cell [m3]
+Lateral surface of a single cell [m2]
+Nominal fluid flow rate [kg/s]
+Nominal Heat transfer coefficient  [W/(m2.K)]
+Fluid pressure start value [Pa|bar]
+Start value of enthalpy [J/kg]
+Selection of the spatial discretization scheme [:#(type=ThermoCycle.Functions.Enumerations.Discretizations)]
+if true, sets the derivative of h (working fluids enthalpy in each cell) to zero during Initialization [:#(type=Boolean)]
+Number of heat transfer segments [:#(type=Integer)]
+Nomnial Mass flow rate [kg/s]
+Vapor quality
+Heat transfer coefficient [W/(m2.K)]
+[kg/s]
+Fluid specific enthalpy at the cells [J/kg]
+der(Fluid specific enthalpy at the cells) [m2/s3]
+Total heat flux exchanged by the thermal port [W]
+Total mass of the fluid in the component [kg]
+Number of cells in parallel [:#(type=Integer)]
+pi-greco
+Volume of a single cell [m3]
+Lateral surface of a single cell [m2]
+Nominal fluid flow rate [kg/s]
+Nominal Heat transfer coefficient  [W/(m2.K)]
+Fluid pressure start value [Pa|bar]
+Start value of enthalpy [J/kg]
+Selection of the spatial discretization scheme [:#(type=ThermoCycle.Functions.Enumerations.Discretizations)]
+if true, sets the derivative of h (working fluids enthalpy in each cell) to zero during Initialization [:#(type=Boolean)]
+Number of heat transfer segments [:#(type=Integer)]
+Nomnial Mass flow rate [kg/s]
+Vapor quality
+Heat transfer coefficient [W/(m2.K)]
+[kg/s]
+Fluid specific enthalpy at the cells [J/kg]
+der(Fluid specific enthalpy at the cells) [m2/s3]
+Total heat flux exchanged by the thermal port [W]
+Total mass of the fluid in the component [kg]
+[:#(type=Integer)]
+Number of nodes [:#(type=Integer)]
+Mass flowrate if no connector [kg/s]
+Pressure [Pa|bar]
+Use temperature as input instead of enthalpy [:#(type=Boolean)]
+Temperature if no connector [K|degC]
+Enthalpy if no connector [J/kg]
+Nominal pressure [Pa|bar]
+Nominal specific enthalpy [J/kg]
+Number of nodes [:#(type=Integer)]
+Number of nodes [:#(type=Integer)]
+Constant output value
+

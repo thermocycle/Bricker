@@ -1,0 +1,9 @@
+ 
+Compiling and linking the model (Visual C++). 
+ 
+Setting environment for using Microsoft Visual Studio 2010 x86 tools.
+dsmodel.c
+   Creazione della libreria dymosim.lib e dell'oggetto dymosim.exp in corso...
+ 
+Successful generation of Dymosim. 
+ 
