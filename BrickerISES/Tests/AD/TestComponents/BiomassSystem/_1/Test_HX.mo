@@ -1,4 +1,4 @@
-within BrickerISES.Tests.AD.TestComponents;
+within BrickerISES.Tests.AD.TestComponents.BiomassSystem._1;
 model Test_HX
 
   ThermoCycle.Components.Units.HeatExchangers.Hx1DInc hx1DInc(

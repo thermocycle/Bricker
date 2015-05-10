@@ -1,13 +1,10 @@
+ThermodynamicStates
 Test_SF
-BiomassSimplified
-BiomassSimplifiedDP
+Test_SF_ByPass
 Pdrop_BM_HT
-_1
-_2
-_3
-_4
-_5
-_6
+Test_HX
+Test_ORC_2
+Test_ORCByPass
 Test_BiomassSystem8New
 Test_BiomassSystem8New_1
 Test_BiomassSystem8New_2
@@ -16,3 +13,8 @@ Test_BiomassSystem8New_3_4
 Test_BiomassSystem8New_4
 Test_BiomassSystem8New_4_1
 Test_BiomassSystem8New_3_6
+Test_BiomassSystem8New_3_6_Tsensor
+Test_BiomassSystem8New_3_6_ORCUnit
+Test_BiomassSystem8New_3_6_ORCUnit151
+Test_BiomassSystem8New_3_6_ORCUnit151ByPassSF
+Test_BiomassSystem8New_3_6_ORCUnit151ByPassSFByPassORC

@@ -1,9 +1,11 @@
+Size_ValveByPassORC
 Size_ValveBMExternal
 Size_ValveBMInternal
-Valve_ByPass_SF
+Size_ValveByPassSF
 Size_PdropBMin
 Size_PdropBMout
-Pdrop_SF
+Size_PdropSF
 BiomassPump
 Pdrop_ORC
 EvaORC
+Size_PdropORC

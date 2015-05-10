@@ -230,9 +230,9 @@ equation
       smooth=Smooth.None));
   connect(hx1DInc.outlet_fl2, sinkP_sf.flangeB) annotation (Line(
       points={{167.185,35.1538},{167.185,-98},{210,-98},{210,-114},{140.4,-114}},
-
       color={0,0,255},
       smooth=Smooth.None));
+
   connect(sourceMdot1.flangeB, hx1DInc.inlet_fl1) annotation (Line(
       points={{213,-14},{220,-14},{220,-12},{226,-12},{226,12},{185.462,12},{
           185.462,34.7692}},
