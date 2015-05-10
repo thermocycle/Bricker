@@ -1,5 +1,6 @@
 within BrickerISES.Components.ORC;
 model ORCunitHx
+   extends Icons.ORC_unit;
   replaceable package MediumSf =  ThermoCycle.Media.DummyFluid constrainedby
     Modelica.Media.Interfaces.PartialMedium "Working fluid"   annotation (choicesAllMatching = true);
   replaceable package MediumWf =  ThermoCycle.Media.DummyFluid constrainedby
@@ -164,36 +165,54 @@ Modelica.SIunits.Power Pth_CfRank
     filter_dMdt_wf=FilterDmDtWf,
     max_drhodt_wf=MaxDrhoDtWf,
     TT_wf=TTWf)
-    annotation (Placement(transformation(extent={{-26,14},{26,66}})));
+    annotation (Placement(transformation(extent={{-26,-26},{26,26}},
+        rotation=90,
+        origin={-56,-16})));
   ThermoCycle.Interfaces.Fluid.FlangeA InletSf( redeclare package Medium =                MediumSf)
-    annotation (Placement(transformation(extent={{92,50},{112,70}})));
+    annotation (Placement(transformation(extent={{-112,40},{-92,60}}),
+        iconTransformation(extent={{-112,40},{-92,60}})));
   ThermoCycle.Interfaces.Fluid.FlangeB OutletSf(redeclare package Medium =
         MediumSf)
-    annotation (Placement(transformation(extent={{-108,50},{-88,70}})));
+    annotation (Placement(transformation(extent={{-114,-82},{-94,-62}}),
+        iconTransformation(extent={{-114,-82},{-94,-62}})));
   ThermoCycle.Components.FluidFlow.Reservoirs.SourceMdot SourceMdotWfORC(
     redeclare package Medium = MediumWf,
     Mdot_0=MdotWf,
     UseT=UseT,
     T_0=TWf_0,
-    h_0=hWf_0) annotation (Placement(transformation(extent={{-72,0},{-52,20}})));
+    h_0=hWf_0) annotation (Placement(transformation(extent={{-56,-90},{-36,-70}})));
   ThermoCycle.Components.FluidFlow.Reservoirs.SinkP sinkP( redeclare package
       Medium =                                                                            MediumWf,
     p0=pWf,
     h=hWfOut)
-    annotation (Placement(transformation(extent={{60,2},{80,22}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-40,36})));
   Modelica.Blocks.Interfaces.RealInput MdotWfORC
-    annotation (Placement(transformation(extent={{-126,0},{-86,40}}),
-        iconTransformation(extent={{-126,0},{-86,40}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-50,84}),
+        iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-48,74})));
   Modelica.Blocks.Interfaces.RealInput TWfORCSu annotation (Placement(
-        transformation(extent={{-126,-60},{-86,-20}}), iconTransformation(
-          extent={{-126,-60},{-86,-20}})));
+        transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-12,86}),                              iconTransformation(
+          extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={2,74})));
   ThermoCycle.Components.FluidFlow.Sensors.SensTp sensTpSfInlet( redeclare
       package Medium =                                                                    MediumSf)
-    annotation (Placement(transformation(extent={{64,62},{44,82}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-68,32})));
   Modelica.Blocks.Interfaces.RealOutput Pel
-    annotation (Placement(transformation(extent={{86,-42},{128,0}})));
+    annotation (Placement(transformation(extent={{32,10},{74,52}}),
+        iconTransformation(extent={{28,-22},{54,4}})));
   Modelica.Blocks.Interfaces.RealOutput PthCooling
-    annotation (Placement(transformation(extent={{86,-82},{130,-38}})));
+    annotation (Placement(transformation(extent={{30,-52},{74,-8}}),
+        iconTransformation(extent={{30,-66},{58,-38}})));
 equation
 
   /* ORC electric gross power - thermal secondary fluid power - thermal cold fluid power */
@@ -212,57 +231,54 @@ equation
 //         TWfORCSu = TWf_0;
 //       end if;
 
-  connect(hx1DInc.outlet_fl2, OutletSf) annotation (Line(
-      points={{-19.6,51.6},{-60,51.6},{-60,60},{-98,60}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(SourceMdotWfORC.flangeB, hx1DInc.inlet_fl1) annotation (Line(
-      points={{-53,10},{-42,10},{-42,30},{-20,30}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(hx1DInc.outlet_fl1, sinkP.flangeB) annotation (Line(
-      points={{20,30},{36,30},{36,12},{61.6,12}},
-      color={0,0,255},
-      smooth=Smooth.None));
 
-  connect(MdotWfORC, SourceMdotWfORC.in_Mdot) annotation (Line(
-      points={{-106,20},{-68,20},{-68,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TWfORCSu, SourceMdotWfORC.in_T) annotation (Line(
-      points={{-106,-40},{-74,-40},{-74,32},{-62.2,32},{-62.2,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(sensTpSfInlet.InFlow, InletSf) annotation (Line(
-      points={{61,67.2},{74,67.2},{74,60},{102,60}},
+  connect(InletSf, sensTpSfInlet.InFlow) annotation (Line(
+      points={{-102,50},{-72.8,50},{-72.8,39}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(sensTpSfInlet.OutFlow, hx1DInc.inlet_fl2) annotation (Line(
-      points={{47,67.2},{32,67.2},{32,52},{19.6,52}},
+      points={{-72.8,25},{-72.8,14},{-68,14},{-68,3.6}},
       color={0,0,255},
       smooth=Smooth.None));
+  connect(hx1DInc.outlet_fl2, OutletSf) annotation (Line(
+      points={{-67.6,-35.6},{-68,-35.6},{-68,-72},{-104,-72}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(SourceMdotWfORC.flangeB, hx1DInc.inlet_fl1) annotation (Line(
+      points={{-37,-80},{-28,-80},{-28,-78},{-22,-78},{-22,-52},{-46,-52},{-46,
+          -36},{-46,-36}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(sinkP.flangeB, hx1DInc.outlet_fl1) annotation (Line(
+      points={{-40,27.6},{-40,18},{-46,18},{-46,4}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(MdotWfORC, SourceMdotWfORC.in_Mdot) annotation (Line(
+      points={{-50,84},{-50,54},{-8,54},{-8,-40},{-36,-40},{-36,-60},{-52,-60},
+          {-52,-74}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(SourceMdotWfORC.in_T, TWfORCSu) annotation (Line(
+      points={{-46.2,-74},{-46,-74},{-46,-66},{4,-66},{4,86},{-12,86}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
+            -100},{40,80}}),   graphics), Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{40,80}}),   graphics={
         Text(
-          extent={{-98,24},{-18,-30}},
+          extent={{-100,30},{-20,-24}},
           lineColor={0,0,255},
           textString="MassFlowORCSu"),
         Text(
-          extent={{-94,-58},{-40,-96}},
+          extent={{-100,-52},{-46,-90}},
           lineColor={0,0,255},
           textString="TORCSu"),
         Text(
-          extent={{18,80},{98,26}},
+          extent={{14,26},{46,6}},
           lineColor={0,0,255},
-          textString="SfORCInlet"),
+          textString="Pel"),
         Text(
-          extent={{-98,110},{-18,56}},
+          extent={{2,-52},{40,-100}},
           lineColor={0,0,255},
-          textString="SfORCOutlet")}));
+          textString="PthCond")}));
 end ORCunitHx;

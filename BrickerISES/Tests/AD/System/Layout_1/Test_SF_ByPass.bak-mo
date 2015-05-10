@@ -1,4 +1,4 @@
-within BrickerISES.Tests.AD.TestComponents;
+within BrickerISES.Tests.AD.System.Layout_1;
 model Test_SF_ByPass
 
 ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc        solarCollectorIncSchott(
@@ -64,9 +64,9 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc        solarCollector
     Afull=2.42718e-05,
     CheckValve=true)
                 annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+
         rotation=90,
         origin={6,28})));
-
 equation
   connect(const3.y,solarCollectorIncSchott. v_wind) annotation (Line(
       points={{-173,96},{-130,96},{-130,54},{-121.2,54},{-121.2,56.2727}},

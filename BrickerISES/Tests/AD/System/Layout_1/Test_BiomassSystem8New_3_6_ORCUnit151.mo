@@ -1,5 +1,5 @@
-within BrickerISES.Tests.AD.TestComponents.BiomassSystem._1;
-model Test_BiomassSystem8New_3_6_ORCUnit151ByPassSFByPassORC
+within BrickerISES.Tests.AD.System.Layout_1;
+model Test_BiomassSystem8New_3_6_ORCUnit151
 
   BrickerISES.Components.Valve_lin ValveBMExternal(
     redeclare package Medium =
@@ -134,12 +134,12 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc        solarCollector
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={286,-68})));
+        origin={260,-70})));
   Modelica.Blocks.Sources.Constant const5(k=35 + 273.15) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={304,-44})));
+        origin={282,-44})));
   Components.ORC.ORCunitHx oRCunitHx(
     redeclare package MediumSf =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -169,54 +169,6 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc        solarCollector
         rotation=90,
         origin={256,36})));
 
- Components.Valve_lin             valve(
-    redeclare package Medium =
-        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
-    Xopen=0.04,
-    Mdot_nom=0.1,
-    Afull=2.42718e-05,
-    CheckValve=true)
-                annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-
-        rotation=90,
-        origin={30,-78})));
-  Modelica.Blocks.Sources.Constant const6(k=0.04)
-    annotation (Placement(transformation(extent={{-12,-84},{-2,-74}})));
-  ThermoCycle.Components.Units.PdropAndValves.DP dP(
-    redeclare package Medium =
-        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
-    h=0,
-    A=5e3,
-    k=2.96368e+07,
-    UseHomotopy=true)
-         annotation (Placement(transformation(extent={{-28,-44},{-8,-24}})));
-  ThermoCycle.Components.Units.PdropAndValves.DP dP1(
-    redeclare package Medium =
-        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
-    h=0,
-    A=5e3,
-    k=1.37394e+07,
-    UseHomotopy=true)
-         annotation (Placement(transformation(extent={{226,-112},{206,-92}})));
- Components.Valve_lin             valve1(
-    redeclare package Medium =
-        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
-    Mdot_nom=0.1,
-    Afull=5e-05,
-    Xopen=0.04) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-
-        rotation=-90,
-        origin={194,-32})));
-  ThermoCycle.Components.Units.Tanks.OpenTank Tank1(
-    redeclare package Medium =
-        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
-    Mdotnom=2.6,
-    V_tank=0.02,
-    p_ext=450000,
-    Tstart=479.15,
-    pstart=400000,
-    L_lstart=0.1)
-    annotation (Placement(transformation(extent={{66,-36},{86,-16}})));
 equation
   connect(ValveBMExternal.InFlow, PdropBMin.InFlow) annotation (Line(
       points={{82,45},{82,2},{69,2}},
@@ -276,66 +228,31 @@ equation
       points={{112.4,-124.6},{-62.8,-124.6},{-62.8,-118.636}},
       color={0,0,255},
       smooth=Smooth.None));
+  connect(solarCollectorIncSchott.OutFlow, PdropBMin.InFlow) annotation (Line(
+      points={{-60,-48.6364},{-60,-30.6364},{150,-30.6364},{150,2},{69,2}},
+      color={0,0,255},
+      smooth=Smooth.None));
   connect(PdropBMout.OutFlow, Tank.InFlow) annotation (Line(
       points={{61,116},{116.2,116},{116.2,113.6}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(Tank.OutFlow, oRCunitHx.InletSf) annotation (Line(
-      points={{135.8,113.6},{253.213,113.6},{253.213,55.5873}},
+      points={{135.8,113.6},{242.8,113.6},{242.8,66.6}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(oRCunitHx.OutletSf, PumpSF.InFlow) annotation (Line(
+      points={{242.8,6.6},{242.8,-131.5},{125.2,-131.5}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(const4.y, oRCunitHx.MdotWfORC) annotation (Line(
-      points={{286,-57},{280,-57},{280,-22},{263.968,-22},{263.968,-6.98413}},
+      points={{260,-59},{262,-59},{262,-20},{251.6,-20},{251.6,4.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const5.y, oRCunitHx.TWfORCSu) annotation (Line(
-      points={{304,-33},{304,-5.26984},{280.102,-5.26984}},
+      points={{282,-33},{282,-24},{268,-24},{268,4.2},{264.8,4.2}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(dP.InFlow, solarCollectorIncSchott.OutFlow) annotation (Line(
-      points={{-27,-34},{-60,-34},{-60,-48.6364}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(valve.cmd, const6.y) annotation (Line(
-      points={{22,-78},{14,-78},{14,-76},{-1.5,-76},{-1.5,-79}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(valve.OutFlow, dP.OutFlow) annotation (Line(
-      points={{30,-69},{30,-34},{-9,-34}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(valve.InFlow, solarCollectorIncSchott.InFlow) annotation (Line(
-      points={{30,-87},{30,-124},{-62.8,-124},{-62.8,-118.636}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(valve1.OutFlow, dP1.OutFlow) annotation (Line(
-      points={{194,-41},{196,-41},{196,-100},{190,-100},{190,-102},{207,-102}},
-
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(valve1.InFlow, oRCunitHx.InletSf) annotation (Line(
-      points={{194,-23},{192,-23},{192,116},{184,116},{184,114},{253.213,114},{
-          253.213,55.5873}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(dP1.InFlow, oRCunitHx.OutletSf) annotation (Line(
-      points={{225,-102},{253.213,-102},{253.213,-4.4127}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(dP1.OutFlow, PumpSF.InFlow) annotation (Line(
-      points={{207,-102},{194,-102},{194,-100},{150,-100},{150,-131.5},{125.2,
-          -131.5}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(dP.OutFlow, Tank1.InFlow) annotation (Line(
-      points={{-9,-34},{66.2,-34},{66.2,-34.4}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(PdropBMin.InFlow, Tank1.OutFlow) annotation (Line(
-      points={{69,2},{124,2},{124,-34.4},{85.8,-34.4}},
-      color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -200},{360,140}}), graphics), Icon(coordinateSystem(extent={{-200,
-            -200},{360,140}})));
-end Test_BiomassSystem8New_3_6_ORCUnit151ByPassSFByPassORC;
+            -200},{300,140}}), graphics), Icon(coordinateSystem(extent={{-200,
+            -200},{300,140}})));
+end Test_BiomassSystem8New_3_6_ORCUnit151;

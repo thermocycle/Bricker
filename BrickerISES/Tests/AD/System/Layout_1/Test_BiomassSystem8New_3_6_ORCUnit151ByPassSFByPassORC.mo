@@ -1,4 +1,4 @@
-within BrickerISES.Tests.AD.TestComponents.BiomassSystem._1;
+within BrickerISES.Tests.AD.System.Layout_1;
 model Test_BiomassSystem8New_3_6_ORCUnit151ByPassSFByPassORC
 
   BrickerISES.Components.Valve_lin ValveBMExternal(
@@ -177,9 +177,9 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc        solarCollector
     Afull=2.42718e-05,
     CheckValve=true)
                 annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-
         rotation=90,
         origin={30,-78})));
+
   Modelica.Blocks.Sources.Constant const6(k=0.04)
     annotation (Placement(transformation(extent={{-12,-84},{-2,-74}})));
   ThermoCycle.Components.Units.PdropAndValves.DP dP(
@@ -204,9 +204,9 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc        solarCollector
     Mdot_nom=0.1,
     Afull=5e-05,
     Xopen=0.04) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-
         rotation=-90,
         origin={194,-32})));
+
   ThermoCycle.Components.Units.Tanks.OpenTank Tank1(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -310,9 +310,9 @@ equation
       smooth=Smooth.None));
   connect(valve1.OutFlow, dP1.OutFlow) annotation (Line(
       points={{194,-41},{196,-41},{196,-100},{190,-100},{190,-102},{207,-102}},
-
       color={0,0,255},
       smooth=Smooth.None));
+
   connect(valve1.InFlow, oRCunitHx.InletSf) annotation (Line(
       points={{194,-23},{192,-23},{192,116},{184,116},{184,114},{253.213,114},{
           253.213,55.5873}},

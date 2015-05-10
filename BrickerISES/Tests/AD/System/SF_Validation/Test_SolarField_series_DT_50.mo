@@ -73,24 +73,24 @@ equation
  Dev_Q = (Q - Q_sim)*100/Q;
 
   connect(DNI.y, solarField_Soltigua_Inc.DNI) annotation (Line(
-      points={{-79.5,-25},{-56,-25},{-56,-13.28},{-20.32,-13.28}},
+      points={{-79.5,-25},{-56,-25},{-56,-13.6576},{6.10606,-13.6576}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tamb.y, solarField_Soltigua_Inc.Tamb) annotation (Line(
-      points={{-79.5,-5},{-20.53,-5},{-20.53,-3.83}},
+      points={{-79.5,-5},{-1.72121,-5},{-1.72121,-13.4242}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Theta.y, solarField_Soltigua_Inc.Theta) annotation (Line(
-      points={{-79.5,15},{-36,15},{-36,6.67},{-20.53,6.67}},
+      points={{-79.5,15},{-36,15},{-36,-13.4242},{-10.1212,-13.4242}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(V_wind.y, solarField_Soltigua_Inc.v_wind) annotation (Line(
-      points={{-79.5,37},{-48,37},{-48,16.54},{-20.32,16.54}},
+      points={{-79.5,37},{-48,37},{-48,-12.9576},{-18.1394,-12.9576}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booleanConstant.y, solarField_Soltigua_Inc.Defocusing) annotation (
       Line(
-      points={{-77.5,-47},{12.44,-47},{12.44,-17.06}},
+      points={{-77.5,-47},{14.3152,-47},{14.3152,-13.4242}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(pump.InFlow, sourceP.flange) annotation (Line(
@@ -98,7 +98,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(solarField_Soltigua_Inc.OutFlow, sensTp1.InFlow) annotation (Line(
-      points={{-1.42,21.58},{-1.42,49.12},{15.8,49.12}},
+      points={{-21.1939,12.2424},{-21.1939,49.12},{15.8,49.12}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(sensTp1.OutFlow, sinkP.flangeB) annotation (Line(
@@ -110,7 +110,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(sensTp.OutFlow, solarField_Soltigua_Inc.InFlow) annotation (Line(
-      points={{-9.6,-57.84},{-16,-57.84},{-16,-19.58},{-1.42,-19.58}},
+      points={{-9.6,-57.84},{-16,-57.84},{-16,9.44242},{20.8061,9.44242}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

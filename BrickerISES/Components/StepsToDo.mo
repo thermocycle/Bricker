@@ -1,10 +1,9 @@
 within BrickerISES.Components;
 model StepsToDo
 
-  // Solar Collector with wall is not working with the IdealHeatTransfer  --> This is normal. The wall does need a resistance somewhere otherwise it want work.
-  // Implement ORC unit
-  // Fix biomass system
-  // Start building the system
+  // Discuss system model layouy
+  // Play with the model
+  // Implement Control strategy
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Ellipse(
