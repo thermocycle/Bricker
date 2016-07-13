@@ -1,6 +1,6 @@
 within BrickerISES.Components;
 model Source_Q "source of fixed Power Q [W]"
-parameter Integer N=2 "Number of nodes";
+  parameter Integer N(min=1)= 10 "Number of nodes";
 
 //parameter Modelica.SIunits.Power  Q_tot = 1000;
 parameter Modelica.SIunits.Area  A;

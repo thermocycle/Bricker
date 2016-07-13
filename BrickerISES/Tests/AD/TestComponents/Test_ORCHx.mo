@@ -24,41 +24,41 @@ model Test_ORCHx
     TstartInletSf=518.15,
     TstartOutletSf=427.15,
     TWf_0=333.15,
-    pWf=2500000)
-    annotation (Placement(transformation(extent={{-44,-20},{16,24}})));
+    pWf=2500000,
+    T_cf_su(displayUnit="degC"))
+    annotation (Placement(transformation(extent={{-28,-68},{14,-18}})));
 
   ThermoCycle.Components.FluidFlow.Reservoirs.SourceMdot sourceMdot(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
     Mdot_0=2.6,
     p=350000,
-    T_0=518.15) annotation (Placement(transformation(extent={{32,46},{52,66}})));
+    T_0=518.15) annotation (Placement(transformation(extent={{-94,18},{-74,38}})));
   ThermoCycle.Components.FluidFlow.Reservoirs.SinkP sinkP(redeclare package
       Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP, p0=
         350000)
-    annotation (Placement(transformation(extent={{-54,56},{-34,76}})));
+    annotation (Placement(transformation(extent={{-44,-94},{-24,-74}})));
   Modelica.Blocks.Sources.Constant const(k=60 + 273.15)
-    annotation (Placement(transformation(extent={{-102,-62},{-82,-42}})));
+    annotation (Placement(transformation(extent={{-10,28},{10,48}})));
   Modelica.Blocks.Sources.Constant const1(k=2.5)
-    annotation (Placement(transformation(extent={{-100,-22},{-80,-2}})));
+    annotation (Placement(transformation(extent={{-14,54},{-34,74}})));
 equation
   connect(const1.y, oRCunitHx.MdotWfORC) annotation (Line(
-      points={{-79,-12},{-76,-12},{-76,-10},{-70,-10},{-70,9.33333},{-46.5714,
-          9.33333}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(const.y, oRCunitHx.TWfORCSu) annotation (Line(
-      points={{-81,-52},{-74,-52},{-74,-46},{-66,-46},{-66,-6.8},{-44.8571,-6.8}},
+      points={{-35,64},{-30,64},{-30,6},{-24,6},{-24,-19.6667},{-12.4,-19.6667}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(sourceMdot.flangeB, oRCunitHx.InletSf) annotation (Line(
-      points={{51,56},{58,56},{58,54},{66,54},{66,20.0889},{16,20.0889}},
+  connect(const.y, oRCunitHx.TWfORCSu) annotation (Line(
+      points={{11,38},{24,38},{24,2},{0,2},{0,-19.6667},{2.6,-19.6667}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sinkP.flangeB, oRCunitHx.OutletSf) annotation (Line(
+      points={{-42.4,-84},{-78,-84},{-78,-60.2222},{-29.2,-60.2222}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(oRCunitHx.OutletSf, sinkP.flangeB) annotation (Line(
-      points={{-44,20.0889},{-60,20.0889},{-60,46},{-72,46},{-72,66},{-52.4,66}},
+  connect(sourceMdot.flangeB, oRCunitHx.InletSf) annotation (Line(
+      points={{-75,28},{-68,28},{-68,-26.3333},{-28.6,-26.3333}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (

@@ -26,30 +26,29 @@ model Test_ORCHxByPass
     TWf_0=333.15,
     pWf=2500000)
     annotation (Placement(transformation(extent={{-30,-22},{30,22}},
-        rotation=90,
-        origin={72,-12})));
+        rotation=0,
+        origin={92,-6})));
   ThermoCycle.Components.FluidFlow.Reservoirs.SinkP sinkP(redeclare package
       Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP, p0=
         550000)
-    annotation (Placement(transformation(extent={{-66,-78},{-86,-58}})));
+    annotation (Placement(transformation(extent={{-76,-84},{-96,-64}})));
   Modelica.Blocks.Sources.Constant const(k=60 + 273.15)
-    annotation (Placement(transformation(extent={{70,-92},{82,-80}})));
+    annotation (Placement(transformation(extent={{78,80},{90,92}})));
   Modelica.Blocks.Sources.Constant const1(k=2.5)
-    annotation (Placement(transformation(extent={{30,-92},{48,-74}})));
+    annotation (Placement(transformation(extent={{26,40},{40,54}})));
   ThermoCycle.Components.FluidFlow.Reservoirs.SourceP sourceP(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
     p0=400000,
     T_0=518.15)
-    annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   ThermoCycle.Components.Units.PdropAndValves.DP dP(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
-    h=0,
     A=5e3,
-    k=1.37394e+07)
-         annotation (Placement(transformation(extent={{18,-78},{-2,-58}})));
+    k=1.37394e+07,
+    h=0) annotation (Placement(transformation(extent={{18,-78},{-2,-58}})));
  Components.Valve_lin             valve(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -57,7 +56,7 @@ model Test_ORCHxByPass
     Afull=5e-05,
     Xopen=0.04) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-14,2})));
+        origin={-12,2})));
 
   ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump PumpSF(
     PumpInput=ThermoCycle.Functions.Enumerations.PumpInputs.FF,
@@ -70,39 +69,39 @@ model Test_ORCHxByPass
     PumpType=ThermoCycle.Functions.Enumerations.PumpTypes.UD,
     V_dot_max=0.00679956,
     p_su_start=400000)
-    annotation (Placement(transformation(extent={{-34,-80},{-54,-60}})));
+    annotation (Placement(transformation(extent={{-34,-78},{-54,-58}})));
 equation
-  connect(const1.y, oRCunitHx.MdotWfORC) annotation (Line(
-      points={{48.9,-83},{79.9683,-83},{79.9683,-54.9841}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(const.y, oRCunitHx.TWfORCSu) annotation (Line(
-      points={{82.6,-86},{90,-86},{90,-64},{96.1016,-64},{96.1016,-53.2698}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(sourceP.flange, oRCunitHx.InletSf) annotation (Line(
-      points={{-50.6,80},{69.2127,80},{69.2127,7.5873}},
+      points={{-80.6,80},{61.1429,80},{61.1429,8.66667}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(oRCunitHx.OutletSf, dP.InFlow) annotation (Line(
-      points={{69.2127,-52.4127},{69.2127,-68},{17,-68}},
+      points={{60.2857,-21.1556},{60.2857,-68},{17,-68}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(sourceP.flange, valve.InFlow) annotation (Line(
-      points={{-50.6,80},{-14,80},{-14,11}},
+      points={{-80.6,80},{-12,80},{-12,11}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(sinkP.flangeB, PumpSF.OutFlow) annotation (Line(
-      points={{-67.6,-68},{-58,-68},{-58,-62.6},{-49.6,-62.6}},
+      points={{-77.6,-74},{-62,-74},{-62,-60.6},{-49.6,-60.6}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(PumpSF.InFlow, dP.OutFlow) annotation (Line(
-      points={{-36.8,-69.5},{-28,-69.5},{-28,-68},{-1,-68}},
+      points={{-36.8,-67.5},{-28,-67.5},{-28,-68},{-1,-68}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(valve.OutFlow, dP.OutFlow) annotation (Line(
-      points={{-14,-7},{-12,-7},{-12,-66},{-18,-66},{-18,-68},{-1,-68}},
+      points={{-12,-7},{-12,-68},{-1,-68}},
       color={0,0,255},
+      smooth=Smooth.None));
+  connect(const.y, oRCunitHx.TWfORCSu) annotation (Line(
+      points={{90.6,86},{105.714,86},{105.714,14.5333}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(const1.y, oRCunitHx.MdotWfORC) annotation (Line(
+      points={{40.7,47},{84.2857,47},{84.2857,14.5333}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));

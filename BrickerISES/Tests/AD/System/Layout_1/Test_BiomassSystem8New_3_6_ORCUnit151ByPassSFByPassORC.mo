@@ -134,12 +134,12 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc        solarCollector
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={286,-68})));
+        origin={302,116})));
   Modelica.Blocks.Sources.Constant const5(k=35 + 273.15) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={304,-44})));
+        origin={344,102})));
   Components.ORC.ORCunitHx oRCunitHx(
     redeclare package MediumSf =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -166,8 +166,8 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc        solarCollector
     TWf_0=333.15,
     pWf=2500000) annotation (Placement(transformation(
         extent={{-30,-22},{30,22}},
-        rotation=90,
-        origin={256,36})));
+        rotation=0,
+        origin={292,24})));
 
  Components.Valve_lin             valve(
     redeclare package Medium =
@@ -281,15 +281,15 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(Tank.OutFlow, oRCunitHx.InletSf) annotation (Line(
-      points={{135.8,113.6},{253.213,113.6},{253.213,55.5873}},
+      points={{135.8,113.6},{261.143,113.6},{261.143,38.6667}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(const4.y, oRCunitHx.MdotWfORC) annotation (Line(
-      points={{286,-57},{280,-57},{280,-22},{263.968,-22},{263.968,-6.98413}},
+      points={{302,127},{288,127},{288,122},{284.286,122},{284.286,44.5333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const5.y, oRCunitHx.TWfORCSu) annotation (Line(
-      points={{304,-33},{304,-5.26984},{280.102,-5.26984}},
+      points={{344,113},{344,44.5333},{305.714,44.5333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dP.InFlow, solarCollectorIncSchott.OutFlow) annotation (Line(
@@ -314,12 +314,12 @@ equation
       smooth=Smooth.None));
 
   connect(valve1.InFlow, oRCunitHx.InletSf) annotation (Line(
-      points={{194,-23},{192,-23},{192,116},{184,116},{184,114},{253.213,114},{
-          253.213,55.5873}},
+      points={{194,-23},{192,-23},{192,116},{184,116},{184,114},{261.143,114},{
+          261.143,38.6667}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(dP1.InFlow, oRCunitHx.OutletSf) annotation (Line(
-      points={{225,-102},{253.213,-102},{253.213,-4.4127}},
+      points={{225,-102},{260.286,-102},{260.286,8.84444}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(dP1.OutFlow, PumpSF.InFlow) annotation (Line(

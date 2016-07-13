@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>BrickerISES.Components.Biomass.CombustionDynamic</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+</head>
+<body>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE CombustionDynamic<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="BrickerISES.Components.Biomass.CombustionDynamic"></a><a href="BrickerISES_Components_Biomass.html#BrickerISES.Components.Biomass"
+>BrickerISES.Components.Biomass</a>.CombustionDynamic</h2>
+<p>
+</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="BrickerISES.Components.Bi8d9a799f6324e93dnamicS.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic" width="20" height="20" align="top">&nbsp;<a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic"
+>PartialCombustionDynamic</a>
+</td>
+<td>CombustionDynamicCommonInterfaces</td>
+</tr>
+<tr>
+<td><img src="BrickerISES.Components.Bi8d9a799f6324e93dnamicS.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.CostantPowerCombustion" width="20" height="20" align="top">&nbsp;<a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic.CostantPowerCombustion"
+>CostantPowerCombustion</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="BrickerISES.Components.Bi8d9a799f6324e93dnamicS.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.LinearPowerCombustion" width="20" height="20" align="top">&nbsp;<a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic.LinearPowerCombustion"
+>LinearPowerCombustion</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="BrickerISES.Components.Bi8d9a799f6324e93dnamicS.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.FirstorderPowerCombustion" width="20" height="20" align="top">&nbsp;<a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic.FirstorderPowerCombustion"
+>FirstorderPowerCombustion</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialCombustionDynamic<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="BrickerISES.Components.Bi8d9a799f6324e93dnamicI.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic" align="right" style="border: 1px solid" width="80" height="80">
+<a name="BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic"></a><a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic"
+>BrickerISES.Components.Biomass.CombustionDynamic</a>.PartialCombustionDynamic</h2>
+<p>
+<b>CombustionDynamicCommonInterfaces</b>
+<br>
+<br><img src="BrickerISES.Components.Bi8d9a799f6324e93dnamicD.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic">
+</p>
+<h3>Information</h3>
+
+          
+          <p><big> Model <b>PartialCombustionDynamic<> is a partial model for simulating the dynamic of a Biomass combustion process. <\p>
+          <p><big> It takes as an input a real value comprises between 0 and 1 and it outputs the combustion power in W. <\p>
+          
+          
+          
+          
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionNominal</td><td>1e6</td><td>Nominal Biomass Boiler Power [W]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tStartup</td><td>40*60</td><td>Time required to start up the combustion from 0 to Nominal Power [sec] [s]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionMin</td><td>0</td><td>Minimum Biomass Boiler Power [W]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionStart</td><td>0</td><td>Start value of Biomass Boiler Power [W]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>CombustionInitialization</td><td>Modelica.Blocks.Types.Init.N...</td><td>Type of initialization (1: no init, 2: steady state, 3/4: initial output)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Modulation</td><td>0-1 of Nominal</td></tr>
+<tr><td>output <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>Qcombustion</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialCombustionDynamic <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;CombustionDynamicCommonInterfaces&quot;</span>
+
+  <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> Modulation <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;0-1 of Nominal&quot;</span>;
+  <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> Qcombustion;
+
+<span style="color: #006400; font-weight: normal; font-style: normal;">/* Parameters */</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> QcombustionNominal=1e6 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal Biomass Boiler Power&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a>   tStartup(min=1)=40*60 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Time required to start up the combustion from 0 to Nominal Power [sec]&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> QcombustionMin=0 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Minimum Biomass Boiler Power&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> QcombustionStart=0 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Start value of Biomass Boiler Power&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Modelica.Blocks.Types.Init</a> CombustionInitialization=Modelica.Blocks.Types.Init.NoInit <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Type of initialization (1: no init, 2: steady state, 3/4: initial output)&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real XModulation = (QcombustionNominal-QcombustionMin)/QcombustionNominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Regulation Fraction&quot;</span>;
+
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialCombustionDynamic;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE CostantPowerCombustion<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="BrickerISES.Components.Bi8d9a799f6324e93dnamicI.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.CostantPowerCombustion" align="right" style="border: 1px solid" width="80" height="80">
+<a name="BrickerISES.Components.Biomass.CombustionDynamic.CostantPowerCombustion"></a><a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic"
+>BrickerISES.Components.Biomass.CombustionDynamic</a>.CostantPowerCombustion</h2>
+<p>
+<br><img src="BrickerISES.Components.Bie4fd376a487bad88stionD.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.CostantPowerCombustion">
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic"
+>PartialCombustionDynamic</a> (CombustionDynamicCommonInterfaces).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionNominal</td><td>1e6</td><td>Nominal Biomass Boiler Power [W]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tStartup</td><td>40*60</td><td>Time required to start up the combustion from 0 to Nominal Power [sec] [s]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionMin</td><td>0</td><td>Minimum Biomass Boiler Power [W]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionStart</td><td>0</td><td>Start value of Biomass Boiler Power [W]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>CombustionInitialization</td><td>Modelica.Blocks.Types.Init.N...</td><td>Type of initialization (1: no init, 2: steady state, 3/4: initial output)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Modulation</td><td>0-1 of Nominal</td></tr>
+<tr><td>output <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>Qcombustion</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> CostantPowerCombustion
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic"
+>PartialCombustionDynamic</a>;
+
+  <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain(k=QcombustionNominal);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Modulation, gain.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, Qcombustion);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>CostantPowerCombustion;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE LinearPowerCombustion<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="BrickerISES.Components.Bi8d9a799f6324e93dnamicI.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.LinearPowerCombustion" align="right" style="border: 1px solid" width="80" height="80">
+<a name="BrickerISES.Components.Biomass.CombustionDynamic.LinearPowerCombustion"></a><a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic"
+>BrickerISES.Components.Biomass.CombustionDynamic</a>.LinearPowerCombustion</h2>
+<p>
+<br><img src="BrickerISES.Components.Bi4a49f463635acc31stionD.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.LinearPowerCombustion">
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic"
+>PartialCombustionDynamic</a> (CombustionDynamicCommonInterfaces).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionNominal</td><td>1e6</td><td>Nominal Biomass Boiler Power [W]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tStartup</td><td>40*60</td><td>Time required to start up the combustion from 0 to Nominal Power [sec] [s]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionMin</td><td>0</td><td>Minimum Biomass Boiler Power [W]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionStart</td><td>0</td><td>Start value of Biomass Boiler Power [W]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>CombustionInitialization</td><td>Modelica.Blocks.Types.Init.N...</td><td>Type of initialization (1: no init, 2: steady state, 3/4: initial output)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Modulation</td><td>0-1 of Nominal</td></tr>
+<tr><td>output <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>Qcombustion</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> LinearPowerCombustion
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic"
+>PartialCombustionDynamic</a>;
+
+ <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real k = QcombustionNominal / tStartup;
+  <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimIntegrator"
+>Modelica.Blocks.Continuous.LimIntegrator</a> LinearPowerCombustionModulation(
+    outMin=0,
+    k=k,
+    limitsAtInit=false,
+    initType=CombustionInitialization,
+    outMax=QcombustionNominal,
+    y_start=QcombustionStart);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(LinearPowerCombustionModulation.y, Qcombustion);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Modulation, LinearPowerCombustionModulation.u);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>LinearPowerCombustion;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FirstorderPowerCombustion<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="BrickerISES.Components.Bi8d9a799f6324e93dnamicI.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.FirstorderPowerCombustion" align="right" style="border: 1px solid" width="80" height="80">
+<a name="BrickerISES.Components.Biomass.CombustionDynamic.FirstorderPowerCombustion"></a><a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic"
+>BrickerISES.Components.Biomass.CombustionDynamic</a>.FirstorderPowerCombustion</h2>
+<p>
+<br><img src="BrickerISES.Components.Bica8ed1e6b1fedd6fstionD.png" alt="BrickerISES.Components.Biomass.CombustionDynamic.FirstorderPowerCombustion">
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic"
+>PartialCombustionDynamic</a> (CombustionDynamicCommonInterfaces).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionNominal</td><td>1e6</td><td>Nominal Biomass Boiler Power [W]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tStartup</td><td>40*60</td><td>Time required to start up the combustion from 0 to Nominal Power [sec] [s]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionMin</td><td>0</td><td>Minimum Biomass Boiler Power [W]</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>QcombustionStart</td><td>0</td><td>Start value of Biomass Boiler Power [W]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>CombustionInitialization</td><td>Modelica.Blocks.Types.Init.N...</td><td>Type of initialization (1: no init, 2: steady state, 3/4: initial output)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Modulation</td><td>0-1 of Nominal</td></tr>
+<tr><td>output <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>Qcombustion</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> FirstorderPowerCombustion
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="BrickerISES_Components_Biomass_CombustionDynamic.html#BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic"
+>PartialCombustionDynamic</a>;
+
+ <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real  k=tStartup / 3;
+  <a href="file:///C:/Program%20Files%20(x86)/Dymola%202015%20FD01/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.FirstOrder"
+>Modelica.Blocks.Continuous.FirstOrder</a> firstOrderCombustionDynamic(
+    T=k,
+    initType=CombustionInitialization,
+    k=QcombustionNominal,
+    y_start=QcombustionStart);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(firstOrderCombustionDynamic.y, Qcombustion);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Modulation, firstOrderCombustionDynamic.u);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FirstorderPowerCombustion;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Tue Oct 20 10:14:32 2015.
+</address>
+</body>
+</html>

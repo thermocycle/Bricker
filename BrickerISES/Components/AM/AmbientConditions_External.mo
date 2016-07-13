@@ -1,7 +1,7 @@
 within BrickerISES.Components.AM;
 model AmbientConditions_External
-
-  extends AmbientConditionsSourcePartialModel;
+  "Take the ambient condition from an external file and perform the interpolation through an external C function"
+  extends BaseClass.AmbientConditionsSourcePartialModel;
   parameter String  filename =      "amr.dat";
 
 class AmbientConditionsTable

@@ -12,7 +12,7 @@ parameter Real k(start = 0.00002, fixed = false) = 0.000021;
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
     Afull=k,
     Mdot_nom=0.1,
-    Xopen=0.04) annotation (Placement(transformation(extent={{-2,-12},{18,8}})));
+    Xopen=0.04) annotation (Placement(transformation(extent={{-2,-14},{18,6}})));
   ThermoCycle.Components.FluidFlow.Reservoirs.SourceP sourceP(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -26,11 +26,11 @@ initial equation
 equation
 
   connect(sourceP.flange, valve.InFlow) annotation (Line(
-      points={{-60.6,-2},{-1,-2}},
+      points={{-60.6,-2},{-30,-2},{-30,-4},{-1,-4}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(valve.OutFlow, sinkP1.flangeB) annotation (Line(
-      points={{17,-2},{59.6,-2}},
+      points={{17,-4},{38,-4},{38,-2},{59.6,-2}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

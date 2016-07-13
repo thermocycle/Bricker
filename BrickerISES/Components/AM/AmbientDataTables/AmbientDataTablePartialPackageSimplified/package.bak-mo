@@ -1,0 +1,7 @@
+within BrickerISES.Components.AM.AmbientDataTables;
+partial package AmbientDataTablePartialPackageSimplified 
+
+  constant Real[:,:] table;
+                               // time, dni, ghi, dhi, T, wind speed, wind direction, relative humidity, atmospheric pressure
+
+end AmbientDataTablePartialPackageSimplified;

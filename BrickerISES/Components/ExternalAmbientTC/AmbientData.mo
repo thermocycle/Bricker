@@ -60,7 +60,8 @@ equation
   v_wind = ambient.windSpeed; // (m/s)
   Theta = ThetaModel.theta; // Theta (rad)
     annotation (Placement(transformation(extent={{-102,-46},{36,40}})), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
         graphics),                           Diagram(graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),

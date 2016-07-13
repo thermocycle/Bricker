@@ -37,6 +37,16 @@ parameter Modelica.SIunits.Temperature T_max_ORC = 200 + 273.15
 parameter Modelica.SIunits.Pressure p_cond= 2e5;
 parameter Modelica.SIunits.Temperature T_ex_turb = 50+273.15;
 
+/* Parameter Oil-Water heat exchanger circuit */
+parameter Modelica.SIunits.MassFlowRate Mdot_hx = 3.93;
+parameter Modelica.SIunits.Temperature T_ex_hx = 78+273.15;
+parameter Real Vdot_hxMax_lh_fix = 16000;
+Real Mdot_hxMax = Vdot_hxMax_lh_fix/1000/3600*rho_ex_hx;
+Medium.Density rho_ex_hx;
+Modelica.SIunits.VolumeFlowRate Vdot_hx;
+Modelica.SIunits.VolumeFlowRate Vdot_hxMax;
+Real Vdot_hxMax_lh;
+
 /* Variable heating circuit */
 Medium.SpecificEnthalpy h_su;
 Medium.Density rho_su;
@@ -58,6 +68,7 @@ Medium.ThermodynamicState fluidState_su_solar
     "FluidState at evaporator inlet - ORC side";
 Medium.ThermodynamicState fluidState_ex_solar
     "FluidState at evaporator inlet - ORC side";
+Medium.ThermodynamicState fluidState_ex_hxOW "FluidState at OilWater Hx outlet";
 
 Medium_ORC.ThermodynamicState fluidState_su_eva
     "FluidState at evaporator inlet - ORC side";
@@ -136,5 +147,13 @@ h_ex_eva = h_su_eva + Q_thermal_to_ORC*0.8/M_dot_ORC;
 
 h_ex_max = Medium_ORC.specificEnthalpy(fluidState_max);
 Q_ORC_max = M_dot_ORC*(h_ex_max - h_su_eva);
+
+/* OIL WATER HEAT EXCHANGER */
+fluidState_ex_hxOW = Medium.setState_pT(p_su_pump,T_ex_hx);
+rho_ex_hx = Medium.density(fluidState_ex_hxOW);
+
+Vdot_hx = Mdot_hx/rho_ex_hx;
+Vdot_hxMax = Vdot_hx/1;
+Vdot_hxMax_lh = Vdot_hxMax*1000*3600;
 
 end Test_TherminolSP;

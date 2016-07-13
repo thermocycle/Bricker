@@ -1,7 +1,7 @@
 within BrickerISES.Tests.FA;
 model TestAmbientTC "Text ambient customized for ThermoCycle Library"
 
-  Components.ExternalAmbientTC.AmbientData ambientData(
+  Components.DNISources.AmbientData ambientData(
     initialMonth=03,
     initialDay=21,
     redeclare model AmbientConditionsSource =

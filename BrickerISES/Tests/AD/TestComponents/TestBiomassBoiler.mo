@@ -8,6 +8,9 @@ model TestBiomassBoiler
     QcombustionStart=10e3,
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
+    redeclare model combustionDynamic =
+        BrickerISES.Components.Biomass.CombustionDynamic.FirstorderPowerCombustion,
+
     pstart=100000,
     Tstart_inlet=523.15,
     Tstart_outlet=533.15,

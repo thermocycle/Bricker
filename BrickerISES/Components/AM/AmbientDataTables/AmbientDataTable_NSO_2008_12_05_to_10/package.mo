@@ -2,7 +2,7 @@ within BrickerISES.Components.AM.AmbientDataTables;
 package AmbientDataTable_NSO_2008_12_05_to_10 "NSO_2008_12_05_to_10: Conditions at Nevada Solar One from 5/December/2008 to 10/December/2008 (6 full days and DNI rather fluctuating)"
 
 
-  extends AmbientDataTablePartialPackage(final initialYear =   2008,
+  extends BaseClass.AmbientDataTablePartialPackage(final initialYear =   2008,
                                          final initialMonth =  12,
                                          final initialDay =    5,
                                          final initialHour =   0,

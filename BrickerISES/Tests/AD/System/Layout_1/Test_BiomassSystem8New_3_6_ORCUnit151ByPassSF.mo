@@ -166,7 +166,7 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc        solarCollector
     TWf_0=333.15,
     pWf=2500000) annotation (Placement(transformation(
         extent={{-30,-22},{30,22}},
-        rotation=90,
+        rotation=0,
         origin={256,36})));
 
  Components.Valve_lin             valve(
@@ -254,19 +254,19 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(Tank.OutFlow, oRCunitHx.InletSf) annotation (Line(
-      points={{135.8,113.6},{242.8,113.6},{242.8,66.6}},
+      points={{135.8,113.6},{225.143,113.6},{225.143,50.6667}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(oRCunitHx.OutletSf, PumpSF.InFlow) annotation (Line(
-      points={{242.8,6.6},{242.8,-131.5},{125.2,-131.5}},
+      points={{224.286,20.8444},{224.286,-131.5},{125.2,-131.5}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(const4.y, oRCunitHx.MdotWfORC) annotation (Line(
-      points={{260,-59},{262,-59},{262,-20},{251.6,-20},{251.6,4.2}},
+      points={{260,-59},{262,-59},{262,-20},{248.286,-20},{248.286,56.5333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const5.y, oRCunitHx.TWfORCSu) annotation (Line(
-      points={{282,-33},{282,-24},{268,-24},{268,4.2},{264.8,4.2}},
+      points={{282,-33},{282,-24},{268,-24},{268,56.5333},{269.714,56.5333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PdropBMin.InFlow, dP.OutFlow) annotation (Line(

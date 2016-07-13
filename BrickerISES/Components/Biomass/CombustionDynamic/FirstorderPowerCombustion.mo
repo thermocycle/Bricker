@@ -8,14 +8,14 @@ model FirstorderPowerCombustion
     initType=CombustionInitialization,
     k=QcombustionNominal,
     y_start=QcombustionStart)
-         annotation (Placement(transformation(extent={{22,-32},{-42,30}})));
+         annotation (Placement(transformation(extent={{24,-32},{-40,30}})));
 equation
   connect(firstOrderCombustionDynamic.y, Qcombustion) annotation (Line(
-      points={{-45.2,-1},{-65.6,-1},{-65.6,-2},{-105,-2}},
+      points={{-43.2,-1},{-65.6,-1},{-65.6,-2},{-105,-2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Modulation, firstOrderCombustionDynamic.u) annotation (Line(
-      points={{106,0},{86,0},{86,-2},{28.4,-2},{28.4,-1}},
+      points={{106,0},{86,0},{86,-2},{30.4,-2},{30.4,-1}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

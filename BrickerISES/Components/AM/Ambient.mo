@@ -1,5 +1,5 @@
 within BrickerISES.Components.AM;
-model Ambient
+model Ambient "Model the ambient condition"
   import SI = Modelica.SIunits;
 
   encapsulated record Date
@@ -45,7 +45,7 @@ model Ambient
 
   replaceable model AmbientConditionsSource =
       BrickerISES.Components.AM.AmbientConditions_Table constrainedby
-    BrickerISES.Components.AM.AmbientConditionsSourcePartialModel
+    BrickerISES.Components.AM.BaseClass.AmbientConditionsSourcePartialModel
                                               annotation(choicesAllMatching=true);
 
 protected

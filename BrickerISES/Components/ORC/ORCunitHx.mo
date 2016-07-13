@@ -127,14 +127,13 @@ Modelica.SIunits.Power Pth_SfRank
     "Thermal power of evaporator secondary fluid - Rank";
 Modelica.SIunits.Power Pth_CfRank
     "Thermal power of condenser secondary fluid - Rank";
+Modelica.SIunits.Power Q_orc_eva "Thermal power at evaporator - calculated";
 
-  ThermoCycle.Components.Units.HeatExchangers.Hx1DInc hx1DInc( redeclare
-      package Medium2 =      MediumSf, redeclare package Medium1 =
-                           MediumWf,
-    redeclare final model Medium1HeatTransferModel =
-        Medium1HeatTransferModel,
-        redeclare final model Medium2HeatTransferModel =
-        Medium2HeatTransferModel,
+  ThermoCycle.Components.Units.HeatExchangers.Hx1DInc Evaporator(
+    redeclare package Medium2 = MediumSf,
+    redeclare package Medium1 = MediumWf,
+    redeclare final model Medium1HeatTransferModel = Medium1HeatTransferModel,
+    redeclare final model Medium2HeatTransferModel = Medium2HeatTransferModel,
     N=N,
     Nt=Nt,
     V_sf=Vsf,
@@ -164,8 +163,8 @@ Modelica.SIunits.Power Pth_CfRank
     max_der_wf=MaxDerWf,
     filter_dMdt_wf=FilterDmDtWf,
     max_drhodt_wf=MaxDrhoDtWf,
-    TT_wf=TTWf)
-    annotation (Placement(transformation(extent={{-26,-26},{26,26}},
+    TT_wf=TTWf) annotation (Placement(transformation(
+        extent={{-26,-26},{26,26}},
         rotation=90,
         origin={-56,-16})));
   ThermoCycle.Interfaces.Fluid.FlangeA InletSf( redeclare package Medium =                MediumSf)
@@ -180,7 +179,7 @@ Modelica.SIunits.Power Pth_CfRank
     Mdot_0=MdotWf,
     UseT=UseT,
     T_0=TWf_0,
-    h_0=hWf_0) annotation (Placement(transformation(extent={{-56,-90},{-36,-70}})));
+    h_0=hWf_0) annotation (Placement(transformation(extent={{-56,-86},{-36,-66}})));
   ThermoCycle.Components.FluidFlow.Reservoirs.SinkP sinkP( redeclare package
       Medium =                                                                            MediumWf,
     p0=pWf,
@@ -208,22 +207,30 @@ Modelica.SIunits.Power Pth_CfRank
         rotation=-90,
         origin={-68,32})));
   Modelica.Blocks.Interfaces.RealOutput Pel
-    annotation (Placement(transformation(extent={{32,10},{74,52}}),
-        iconTransformation(extent={{28,-22},{54,4}})));
+    annotation (Placement(transformation(extent={{28,-64},{70,-22}}),
+        iconTransformation(extent={{30,-52},{56,-26}})));
   Modelica.Blocks.Interfaces.RealOutput PthCooling
-    annotation (Placement(transformation(extent={{30,-52},{74,-8}}),
-        iconTransformation(extent={{30,-66},{58,-38}})));
+    annotation (Placement(transformation(extent={{28,-108},{72,-64}}),
+        iconTransformation(extent={{30,-96},{58,-68}})));
+  Modelica.Blocks.Interfaces.RealOutput T_cf_ex annotation (Placement(
+        transformation(extent={{28,22},{70,64}}), iconTransformation(extent={{28,
+            28},{54,54}})));
 equation
 
   /* ORC electric gross power - thermal secondary fluid power - thermal cold fluid power */
   T_sf_su = sensTpSfInlet.T;
 
-  Pel_gross=3.50023941E+02+1.78363865E-01*T_cf_su+2.73921968E-03*T_cf_su^2-1.52334799E+00*T_sf_su+4.29020532E-03*T_sf_su^2-5.82324751E-03*T_cf_su*T_sf_su; /*from Rank */
-  Pth_SfRank=1.07263808E+03-8.28851563E-01*T_cf_su+1.12637224E-02*T_cf_su^2-4.33581774E+00*T_sf_su+1.24455582E-02*T_sf_su^2-1.55675521E-02*T_cf_su*T_sf_su; /*from Rank */
-  Pth_CfRank=5.50172587E+02+4.14338074E-01*T_cf_su+6.76291805E-03*T_cf_su^2-2.68956889E+00*T_sf_su+9.31672163E-03*T_sf_su^2-1.26345843E-02*T_cf_su*T_sf_su; /*from Rank */
+  Pel_gross=(3.50023941E+02+1.78363865E-01*T_cf_su+2.73921968E-03*T_cf_su^2-1.52334799E+00*T_sf_su+4.29020532E-03*T_sf_su^2-5.82324751E-03*T_cf_su*T_sf_su) *1e3; /*from Rank */
+  Pth_SfRank=(1.07263808E+03-8.28851563E-01*T_cf_su+1.12637224E-02*T_cf_su^2-4.33581774E+00*T_sf_su+1.24455582E-02*T_sf_su^2-1.55675521E-02*T_cf_su*T_sf_su)*1e3; /*from Rank */
+  Pth_CfRank=(5.50172587E+02+4.14338074E-01*T_cf_su+6.76291805E-03*T_cf_su^2-2.68956889E+00*T_sf_su+9.31672163E-03*T_sf_su^2-1.26345843E-02*T_cf_su*T_sf_su)*1e3; /*from Rank */
 
   Pel_gross = Pel;
   Pth_CfRank = PthCooling;
+  T_cf_ex = (5.67957076559994-0.165606558984694*(T_cf_su-273.15)+1.18629126631948*(T_sf_su-273.15)+0.000862506044054514*(T_cf_su-273.15)^2-0.0000942893421415677*(T_sf_su-273.15)^2-0.000963296687100146*(T_sf_su-273.15)*(T_cf_su-273.15)) + 273.15;
+
+  //h_eva_su_sf =
+  Q_orc_eva = Evaporator.inlet_fl2.m_flow*(Evaporator.inlet_fl2.h_outflow - Evaporator.outlet_fl2.h_outflow);
+
 //       if cardinality(MdotWfORC) ==0 then
 //        MdotWfORC = MdotWf;
 //       end if;
@@ -231,35 +238,33 @@ equation
 //         TWfORCSu = TWf_0;
 //       end if;
 
-
   connect(InletSf, sensTpSfInlet.InFlow) annotation (Line(
       points={{-102,50},{-72.8,50},{-72.8,39}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sensTpSfInlet.OutFlow, hx1DInc.inlet_fl2) annotation (Line(
+  connect(sensTpSfInlet.OutFlow, Evaporator.inlet_fl2) annotation (Line(
       points={{-72.8,25},{-72.8,14},{-68,14},{-68,3.6}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(hx1DInc.outlet_fl2, OutletSf) annotation (Line(
+  connect(Evaporator.outlet_fl2, OutletSf) annotation (Line(
       points={{-67.6,-35.6},{-68,-35.6},{-68,-72},{-104,-72}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(SourceMdotWfORC.flangeB, hx1DInc.inlet_fl1) annotation (Line(
-      points={{-37,-80},{-28,-80},{-28,-78},{-22,-78},{-22,-52},{-46,-52},{-46,
-          -36},{-46,-36}},
+  connect(SourceMdotWfORC.flangeB, Evaporator.inlet_fl1) annotation (Line(
+      points={{-37,-76},{-20,-76},{-20,-54},{-46,-54},{-46,-36}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sinkP.flangeB, hx1DInc.outlet_fl1) annotation (Line(
+
+  connect(sinkP.flangeB, Evaporator.outlet_fl1) annotation (Line(
       points={{-40,27.6},{-40,18},{-46,18},{-46,4}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(MdotWfORC, SourceMdotWfORC.in_Mdot) annotation (Line(
-      points={{-50,84},{-50,54},{-8,54},{-8,-40},{-36,-40},{-36,-60},{-52,-60},
-          {-52,-74}},
+      points={{-50,84},{-50,50},{-24,50},{-24,-44},{-52,-44},{-52,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(SourceMdotWfORC.in_T, TWfORCSu) annotation (Line(
-      points={{-46.2,-74},{-46,-74},{-46,-66},{4,-66},{4,86},{-12,86}},
+      points={{-46.2,-70},{-46.2,-64},{-64,-64},{-64,-92},{-12,-92},{-12,86}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -274,11 +279,15 @@ equation
           lineColor={0,0,255},
           textString="TORCSu"),
         Text(
-          extent={{14,26},{46,6}},
+          extent={{0,-20},{32,-40}},
           lineColor={0,0,255},
           textString="Pel"),
         Text(
-          extent={{2,-52},{40,-100}},
+          extent={{-16,-42},{22,-90}},
           lineColor={0,0,255},
-          textString="PthCond")}));
+          textString="PthCond"),
+        Text(
+          extent={{-4,48},{28,28}},
+          lineColor={0,0,255},
+          textString="T_cf_ex")}));
 end ORCunitHx;

@@ -44,18 +44,18 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc        solarCollector
     annotation (Placement(transformation(extent={{98,-46},{78,-26}})));
 
   Modelica.Blocks.Sources.Constant const2(k=0.04)
-    annotation (Placement(transformation(extent={{-50,28},{-40,38}})));
+    annotation (Placement(transformation(extent={{-40,36},{-30,46}})));
   ThermoCycle.Components.FluidFlow.Sensors.SensTp sensTp(redeclare package
       Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
-    annotation (Placement(transformation(extent={{34,106},{54,126}})));
+    annotation (Placement(transformation(extent={{36,116},{56,136}})));
   ThermoCycle.Components.Units.PdropAndValves.DP dP(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
     h=0,
     A=5e3,
     k=2.96368e+07)
-         annotation (Placement(transformation(extent={{-66,100},{-46,120}})));
+         annotation (Placement(transformation(extent={{-66,98},{-46,118}})));
  Components.Valve_lin             valve(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -65,7 +65,7 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc        solarCollector
     CheckValve=true)
                 annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={6,28})));
+        origin={8,28})));
 
 equation
   connect(const3.y,solarCollectorIncSchott. v_wind) annotation (Line(
@@ -93,29 +93,28 @@ equation
       points={{79,-36},{-98.8,-36},{-98.8,-8.63636}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sensTp.OutFlow, sinkP.flangeB) annotation (Line(
-      points={{51,111.2},{74,111.2},{74,110},{79.6,110}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(solarCollectorIncSchott.OutFlow, dP.InFlow) annotation (Line(
-      points={{-96,61.3636},{-96,110},{-65,110}},
+      points={{-96,61.3636},{-96,108},{-65,108}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(dP.OutFlow, sensTp.InFlow) annotation (Line(
-      points={{-47,110},{-36,110},{-36,108},{-6,108},{-6,110},{37,110},{37,
-          111.2}},
+      points={{-47,108},{-6,108},{-6,110},{46,110},{46,116.6}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(valve.InFlow, solarCollectorIncSchott.InFlow) annotation (Line(
-      points={{6,19},{8,19},{8,-36},{-98.8,-36},{-98.8,-8.63636}},
+      points={{8,19},{8,-36},{-98.8,-36},{-98.8,-8.63636}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(const2.y, valve.cmd) annotation (Line(
-      points={{-39.5,33},{-22,33},{-22,28},{-2,28}},
+      points={{-29.5,41},{-20,41},{-20,28},{0,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(valve.OutFlow, sensTp.InFlow) annotation (Line(
-      points={{6,37},{6,84},{-6,84},{-6,110},{37,110},{37,111.2}},
+      points={{8,37},{8,110},{46,110},{46,116.6}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(sensTp.InFlow, sinkP.flangeB) annotation (Line(
+      points={{46,116.6},{54,116.6},{54,118},{58,118},{58,110},{79.6,110}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-200,-120},{180,160}},

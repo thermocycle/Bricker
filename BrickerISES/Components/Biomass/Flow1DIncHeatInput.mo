@@ -56,7 +56,7 @@ model Flow1DIncHeatInput
     QcombustionMin=QcombustionMin,
     QcombustionStart=QcombustionStart,
     CombustionInitialization=CombustionInitialization)
-    annotation (Placement(transformation(extent={{-38,-72},{-18,-52}})));
+    annotation (Placement(transformation(extent={{-36,-74},{-16,-54}})));
   /******************************** GEOMETRIES ***********************************/
   parameter Integer N=5 "Number of nodes for the heat exchanger";
   parameter Modelica.SIunits.Volume Vint=0.03781 "WF: Volume of the channel";
@@ -86,6 +86,7 @@ model Flow1DIncHeatInput
   parameter Modelica.SIunits.CoefficientOfHeatTransfer Unom=369
     "WF: Heat transfer coefficient"
     annotation (Dialog(group="Heat transfer", tab="General"));
+    /* Model to simulate the dynamic relative to the biomass combustion */
 replaceable model combustionDynamic =
       BrickerISES.Components.Biomass.CombustionDynamic.LinearPowerCombustion constrainedby
     BrickerISES.Components.Biomass.CombustionDynamic.PartialCombustionDynamic
@@ -184,11 +185,11 @@ Q_wf_ = WorkingFluid.Q_tot;
       color={0,0,255},
       smooth=Smooth.None));
   connect(CombustionDynamic.Modulation, u) annotation (Line(
-      points={{-17.4,-62},{0,-62},{0,-104}},
+      points={{-15.4,-64},{0,-64},{0,-104}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(CombustionDynamic.Qcombustion, source_Q.Q_tot) annotation (Line(
-      points={{-38.5,-62.2},{-70,-62.2},{-70,-38},{0,-38},{0,-25.6}},
+      points={{-36.5,-64.2},{-70,-64.2},{-70,-38},{0,-38},{0,-25.6}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

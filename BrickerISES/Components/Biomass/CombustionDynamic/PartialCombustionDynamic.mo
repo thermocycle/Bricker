@@ -38,6 +38,13 @@ parameter Modelica.Blocks.Types.Init CombustionInitialization=Modelica.Blocks.Ty
           lineColor={95,95,95},
           fillColor={215,215,215},
           fillPattern=FillPattern.Forward,
-          textString="0 - 1")}));
+          textString="0 - 1")}),Documentation(info="<HTML>
+          
+          <p><big> Model <b>PartialCombustionDynamic<\b> is a partial model for simulating the dynamic of a Biomass combustion process. <\p>
+          <p><big> It takes as an input a real value comprises between 0 and 1 and it outputs the combustion power in W. <\p>
+          
+          
+          
+          </HTML>"));
 
 end PartialCombustionDynamic;

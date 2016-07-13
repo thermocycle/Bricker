@@ -4,14 +4,14 @@ model Test_BiomassSystem8
   ThermoCycle.Components.FluidFlow.Reservoirs.SinkP sinkP(redeclare package
       Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP, p0=
-        400000) annotation (Placement(transformation(extent={{90,50},{110,70}})));
+        400000) annotation (Placement(transformation(extent={{100,52},{120,72}})));
   ThermoCycle.Components.FluidFlow.Reservoirs.SourceMdot sourceMdot(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
     Mdot_0=2.6,
     p=450000,
     T_0=481.15)
-    annotation (Placement(transformation(extent={{116,-62},{96,-42}})));
+    annotation (Placement(transformation(extent={{132,-62},{112,-42}})));
   ThermoCycle.Components.Units.PdropAndValves.Valve valve(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -88,14 +88,14 @@ model Test_BiomassSystem8
     k=1.12124e+07)
          annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-100,40})));
+        origin={-102,42})));
 equation
   connect(sourceMdot.flangeB, valve.InFlow) annotation (Line(
-      points={{97,-52},{80,-52},{80,-9}},
+      points={{113,-52},{80,-52},{80,-9}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(valve.OutFlow, sinkP.flangeB) annotation (Line(
-      points={{80,9},{80,60},{91.6,60}},
+      points={{80,9},{80,62},{101.6,62}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(valve.InFlow, dP.InFlow) annotation (Line(
@@ -103,7 +103,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(dP1.OutFlow, sinkP.flangeB) annotation (Line(
-      points={{59,62},{76,62},{76,60},{91.6,60}},
+      points={{59,62},{101.6,62}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(valve1.OutFlow, dP.OutFlow) annotation (Line(
@@ -127,11 +127,11 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(dP2.InFlow, flow1DIncHeatInput.outlet_fl2) annotation (Line(
-      points={{-100,31},{-102,31},{-102,16.5},{-100.12,16.5}},
+      points={{-102,33},{-102,16.5},{-100.12,16.5}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(dP2.OutFlow, valve1.InFlow) annotation (Line(
-      points={{-100,49},{-100,62},{10,62},{10,11}},
+      points={{-102,51},{-102,62},{10,62},{10,11}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,

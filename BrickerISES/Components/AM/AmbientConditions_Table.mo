@@ -1,14 +1,17 @@
 within BrickerISES.Components.AM;
 model AmbientConditions_Table
+  "Take the ambient condition from a Table implemented in Modelica"
 
-  extends AmbientConditionsSourcePartialModel;
+  extends BaseClass.AmbientConditionsSourcePartialModel;
 
+  /* Package to select the appropriate table */
   replaceable package AmbientDataTable =
       BrickerISES.Components.AM.AmbientDataTables.AmbientDataTable_NSO_2008_06_21
     constrainedby
     BrickerISES.Components.AM.AmbientDataTables.AmbientDataTablePartialPackage
                                          annotation(choicesAllMatching=true);
 
+ /* Define the table as a CombiTable1Ds from the Modelica Standard library*/
 protected
   Modelica.Blocks.Tables.CombiTable1Ds table(final tableOnFile = false,
                                              final table =       AmbientDataTable.table,
@@ -17,17 +20,17 @@ protected
                                              final columns =     2:9,
                                              final smoothness =  Modelica.Blocks.Types.Smoothness.ContinuousDerivative);
 
-  final parameter Real timeOffset = Date.timeDifference(AmbientDataTable.initialYear, AmbientDataTable.initialMonth, AmbientDataTable.initialDay, AmbientDataTable.initialHour, AmbientDataTable.initialMinute, AmbientDataTable.initialSecond,
+final parameter Real timeOffset = Date.timeDifference(AmbientDataTable.initialYear, AmbientDataTable.initialMonth, AmbientDataTable.initialDay, AmbientDataTable.initialHour, AmbientDataTable.initialMinute, AmbientDataTable.initialSecond,
                                                         initialYear, initialMonth, initialDay, initialHour, initialMinute, initialSecond,
                                                         false);
-
-  final parameter Real maxTime = AmbientDataTable.table[size(AmbientDataTable.table,1),1];
+final parameter Real maxTime = AmbientDataTable.table[size(AmbientDataTable.table,1),1];
 
 equation
   assert( timeOffset >= 0 and ( time + timeOffset)  < maxTime, "Simulation time outside ambient data table limits: Check the initial date and simulation time");
 
   table.u = time + timeOffset;
 
+  /* Define the output variables based on the table values*/
   dni  = table.y[1];
   ghi  = table.y[2];
   dhi  = table.y[3];

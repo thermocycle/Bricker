@@ -2,7 +2,7 @@ within BrickerISES.Components.AM.AmbientDataTables;
 package AmbientDataTable_SEGS_2008_06_16_to_22 "SEGS_2008_06_16_to_22: Conditions at SEGS VI 16 to 22 June, 7 full days, SolarPACES WP-5 WEEK TWO"
 
 
-  extends AmbientDataTablePartialPackage(final initialYear =   2008,
+  extends BaseClass.AmbientDataTablePartialPackage(final initialYear =   2008,
                                          final initialMonth =  6,
                                          final initialDay =    16,
                                          final initialHour =   0,

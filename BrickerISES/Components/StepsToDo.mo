@@ -1,9 +1,7 @@
 within BrickerISES.Components;
 model StepsToDo
 
-  // Discuss system model layouy
-  // Play with the model
-  // Implement Control strategy
+  // Implement logic to make the SF exit the defocusing when the thermal load increases.
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Ellipse(

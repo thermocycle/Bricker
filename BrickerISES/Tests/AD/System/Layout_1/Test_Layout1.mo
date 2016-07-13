@@ -105,21 +105,21 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc SF(
     Tstart_inlet=424.15,
     Tstart_outlet=482.15,
     pstart=450000)
-    annotation (Placement(transformation(extent={{-88,-118},{-46,-48}})));
+    annotation (Placement(transformation(extent={{-88,-112},{-46,-42}})));
 
   Modelica.Blocks.Sources.Constant Vwind(k=0)
-    annotation (Placement(transformation(extent={{-158,-32},{-144,-18}})));
+    annotation (Placement(transformation(extent={{-162,-40},{-148,-26}})));
   Modelica.Blocks.Sources.Constant Theta(k=0)
-    annotation (Placement(transformation(extent={{-160,-60},{-146,-46}})));
+    annotation (Placement(transformation(extent={{-160,-66},{-146,-52}})));
   Modelica.Blocks.Sources.Constant Tamb(k=25)
-    annotation (Placement(transformation(extent={{-160,-96},{-144,-80}})));
+    annotation (Placement(transformation(extent={{-162,-96},{-146,-80}})));
   Modelica.Blocks.Sources.Step DNI(
     startTime=200,
     height=0,
     offset=970)
-    annotation (Placement(transformation(extent={{-158,-128},{-142,-112}})));
+    annotation (Placement(transformation(extent={{-162,-128},{-146,-112}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k=false)
-    annotation (Placement(transformation(extent={{-152,-160},{-134,-142}})));
+    annotation (Placement(transformation(extent={{-162,-166},{-144,-148}})));
   ThermoCycle.Components.Units.Tanks.OpenTank TankBM(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -178,9 +178,9 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc SF(
     CheckValve=true) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={30,-78})));
+        origin={54,-74})));
   Modelica.Blocks.Sources.Constant const6(k=0.04)
-    annotation (Placement(transformation(extent={{-2,-84},{8,-74}})));
+    annotation (Placement(transformation(extent={{18,-80},{28,-70}})));
   ThermoCycle.Components.Units.PdropAndValves.DP DpSF(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -188,7 +188,7 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc SF(
     A=5e3,
     k=2.96368e+07,
     UseHomotopy=true)
-    annotation (Placement(transformation(extent={{-28,-44},{-8,-24}})));
+    annotation (Placement(transformation(extent={{14,-42},{34,-22}})));
   ThermoCycle.Components.Units.PdropAndValves.DP DpORC(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -205,7 +205,7 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc SF(
     Xopen=0.04) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={172,-32})));
+        origin={182,20})));
   ThermoCycle.Components.Units.Tanks.OpenTank TankSF(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -215,7 +215,7 @@ ThermoCycle.Components.Units.Solar.SolarField_Soltigua_Inc SF(
     p_ext=450000,
     Tstart=479.15,
     pstart=400000)
-    annotation (Placement(transformation(extent={{66,-36},{86,-16}})));
+    annotation (Placement(transformation(extent={{86,-36},{106,-16}})));
 equation
   connect(ValveBMExternal.InFlow, DpBMIn.InFlow) annotation (Line(
       points={{82,45},{82,2},{69,2}},
@@ -258,7 +258,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(PumpSF.OutFlow, SF.InFlow) annotation (Line(
-      points={{112.4,-124.6},{-62.8,-124.6},{-62.8,-118.636}},
+      points={{112.4,-124.6},{-62.8,-124.6},{-62.8,-112.636}},
       color={0,0,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -273,23 +273,23 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(DpSF.InFlow, SF.OutFlow) annotation (Line(
-      points={{-27,-34},{-60,-34},{-60,-48.6364}},
+      points={{15,-32},{-60,-32},{-60,-42.6364}},
       color={0,0,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(ValveSF.cmd, const6.y) annotation (Line(
-      points={{22,-78},{8.5,-78},{8.5,-79}},
+      points={{46,-74},{28.5,-74},{28.5,-75}},
       color={0,0,127},
       smooth=Smooth.None,
       thickness=0.5,
       pattern=LinePattern.Dot));
   connect(ValveSF.OutFlow, DpSF.OutFlow) annotation (Line(
-      points={{30,-69},{30,-34},{-9,-34}},
+      points={{54,-65},{54,-32},{33,-32}},
       color={0,0,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(ValveSF.InFlow, SF.InFlow) annotation (Line(
-      points={{30,-87},{30,-124},{-62.8,-124},{-62.8,-118.636}},
+      points={{54,-83},{54,-124},{-62.8,-124},{-62.8,-112.636}},
       color={0,0,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -305,46 +305,46 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(DpSF.OutFlow, TankSF.InFlow) annotation (Line(
-      points={{-9,-34},{66.2,-34},{66.2,-34.4}},
+      points={{33,-32},{86.2,-32},{86.2,-34.4}},
       color={0,0,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(DpBMIn.InFlow, TankSF.OutFlow) annotation (Line(
-      points={{69,2},{124,2},{124,-34.4},{85.8,-34.4}},
+      points={{69,2},{124,2},{124,-34.4},{105.8,-34.4}},
       color={0,0,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(ValveORC.InFlow, ORCHx.InletSf) annotation (Line(
-      points={{172,-23},{172,114},{243.8,114},{243.8,22.6667}},
+      points={{182,29},{182,114},{243.8,114},{243.8,22.6667}},
       color={0,0,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(DNI.y, SF.DNI) annotation (Line(
-      points={{-141.2,-120},{-114,-120},{-114,-94.1364},{-85.9,-94.1364}},
+      points={{-145.2,-120},{-114,-120},{-114,-88.1364},{-85.9,-88.1364}},
       color={0,0,127},
       smooth=Smooth.None,
       thickness=0.5,
       pattern=LinePattern.Dot));
   connect(Tamb.y, SF.Tamb) annotation (Line(
-      points={{-143.2,-88},{-120,-88},{-120,-81.0909},{-85.6667,-81.0909}},
+      points={{-145.2,-88},{-120,-88},{-120,-75.0909},{-85.6667,-75.0909}},
       color={0,0,127},
       smooth=Smooth.None,
       thickness=0.5,
       pattern=LinePattern.Dot));
   connect(Theta.y, SF.Theta) annotation (Line(
-      points={{-145.3,-53},{-136,-53},{-136,-67.0909},{-85.6667,-67.0909}},
+      points={{-145.3,-59},{-136,-59},{-136,-61.0909},{-85.6667,-61.0909}},
       color={0,0,127},
       smooth=Smooth.None,
       thickness=0.5,
       pattern=LinePattern.Dot));
   connect(Vwind.y, SF.v_wind) annotation (Line(
-      points={{-143.3,-25},{-110,-25},{-110,-53.7273},{-85.2,-53.7273}},
+      points={{-147.3,-33},{-110,-33},{-110,-47.7273},{-85.2,-47.7273}},
       color={0,0,127},
       smooth=Smooth.None,
       thickness=0.5,
       pattern=LinePattern.Dot));
   connect(booleanConstant.y, SF.Defocusing) annotation (Line(
-      points={{-133.1,-151},{-102,-151},{-102,-107.818},{-85.6667,-107.818}},
+      points={{-143.1,-157},{-102,-157},{-102,-101.818},{-85.6667,-101.818}},
       color={255,0,255},
       smooth=Smooth.None,
       thickness=0.5,
@@ -362,7 +362,7 @@ equation
       pattern=LinePattern.Dot,
       thickness=0.5));
   connect(ValveORC.OutFlow, PumpSF.InFlow) annotation (Line(
-      points={{172,-41},{172,-132},{136,-132},{136,-131.5},{125.2,-131.5}},
+      points={{182,11},{182,-132},{136,-132},{136,-131.5},{125.2,-131.5}},
       color={0,0,255},
       smooth=Smooth.None,
       thickness=0.5));

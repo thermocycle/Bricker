@@ -1,0 +1,26 @@
+within BrickerISES.Tests.AD.System;
+model Layout_II_States
+replaceable package Medium =
+      ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP;
+replaceable package Medium_ORC = ThermoCycle.Media.R245fa_CP constrainedby
+    Modelica.Media.Interfaces.PartialMedium
+annotation (choicesAllMatching = true);
+
+/* Parameters Solar field */
+parameter Modelica.SIunits.Pressure p_su_pp_sf = 3.5e5 "pressure at the inlet";
+parameter Modelica.SIunits.Temperature T_su_pp_sf = 164 + 273
+    "Temperature at the inlet";
+parameter Modelica.SIunits.MassFlowRate M_su_pp_sf= 2.7;
+
+/*Variables solar field */
+Medium.ThermodynamicState fs_su_pp_sf = Medium.setState_pT(p_su_pp_sf,T_su_pp_sf);
+Medium.Density rho_su_pp_sf;
+Modelica.SIunits.VolumeFlowRate V_su_pp_sf;
+
+/* Parameters Hx Oil - Water */
+
+equation
+ rho_su_pp_sf = Medium.density(fs_su_pp_sf);
+ V_su_pp_sf = M_su_pp_sf/rho_su_pp_sf;
+
+end Layout_II_States;

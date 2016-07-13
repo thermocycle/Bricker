@@ -1,7 +1,6 @@
 within BrickerISES.Components.AM;
-model AmbientConditions_File
-
-  extends AmbientConditionsSourcePartialModel;
+model AmbientConditions_File "Take the ambient condition from a text file"
+  extends BaseClass.AmbientConditionsSourcePartialModel;
 
   parameter Integer fileInitialYear = initialYear;
   parameter Integer fileInitialMonth = initialMonth;
