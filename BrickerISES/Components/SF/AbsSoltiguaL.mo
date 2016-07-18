@@ -91,14 +91,10 @@ K_l = geometry.A_3*Theta_deg^3 - geometry.A_2*Theta_deg^2 + geometry.A_1*Theta_d
 
 Q_tube_tot = DNI*S_eff*Modelica.Math.cos(Theta);
 
-  if DNI > 0 then
-  Eta_tot = max(Modelica.Constants.small,K_l*0.747 - 0.64*(T_fluid - Tamb)/max(Modelica.Constants.small,DNI));
-  Phi_amb = 0.64*(Tamb -T_fluid)*Ns;
-  else
-  Eta_tot = 0;
-  Phi_amb = 0.64*(Tamb -T_fluid)*Ns;
-  end if;
-  Phi_conv_f= Q_tube_tot*Eta_tot/ (geometry.A_ext_t*Ns);
+Eta_tot = smooth(1,noEvent( if DNI> 0 then K_l*0.747 - 0.64*(T_fluid - Tamb)/max(Modelica.Constants.small,DNI) else 0));
+
+Phi_amb = 0.64*(Tamb -T_fluid)*Ns;
+Phi_conv_f= Q_tube_tot*Eta_tot/ (geometry.A_ext_t*Ns);
 /* Connection */
 T_fluid = wall_int.T;
 wall_int.phi = - Phi_conv_f - Phi_amb;

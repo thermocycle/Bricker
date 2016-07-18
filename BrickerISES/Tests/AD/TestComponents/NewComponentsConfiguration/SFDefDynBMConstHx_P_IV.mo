@@ -638,8 +638,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(hysteresis.y, SF.Defocusing) annotation (Line(
-      points={{-273.4,-108},{-270,-108},{-270,-104},{-264,-104},{-264,
-          -58.4727},{-253.889,-58.4727}},
+      points={{-273.4,-108},{-270,-108},{-270,-104},{-264,-104},{-264,-58.4727},
+          {-253.889,-58.4727}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(MflowBM_out.port_b, Dp_BM.InFlow) annotation (Line(

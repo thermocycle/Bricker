@@ -456,8 +456,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(ORC.OutletSf, DpSF1.InFlow) annotation (Line(
-      points={{162.286,-57.1556},{162.286,-104.578},{164,-104.578},{164,
-          -126.6}},
+      points={{162.286,-57.1556},{162.286,-104.578},{164,-104.578},{164,-126.6}},
       color={0,0,255},
       smooth=Smooth.None));
 

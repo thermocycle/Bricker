@@ -9,9 +9,9 @@ model Data1Ds "Take the DNI values from a Table implemented in Modelica"
     constrainedby
     BrickerISES.Components.AM.AmbientDataTables.BaseClass.AmbientDataTablePartialPackageSimplified
                                          annotation(choicesAllMatching=true);
-  Modelica.Blocks.Interfaces.RealOutput DNI
-  annotation (Placement(transformation(extent={{94,-10},{114,12}}),
-        iconTransformation(extent={{90,-12},{114,12}})));
+  Modelica.Blocks.Interfaces.RealOutput OUTPUT annotation (Placement(
+        transformation(extent={{94,-10},{114,12}}), iconTransformation(extent={{
+            90,-12},{114,12}})));
  /* Define the table as a CombiTable1Ds from the Modelica Standard library*/
 protected
   Modelica.Blocks.Tables.CombiTable1Ds table(final tableOnFile = false,
@@ -26,7 +26,7 @@ equation
 table.u = time;
 
 /* Define the output variables based on the table values*/
-  dni  = table.y[1];
+  OutPut  = table.y[1];
   ghi  = 0;
   dhi  = 0;
   temp = 0;
@@ -34,7 +34,7 @@ table.u = time;
   wd   = 0;
   rh   = 0;
   atmp = 0;
-  DNI = dni;
+  OUTPUT = OutPut;
 //   ghi  = table.y[2];
 //   dhi  = table.y[3];
 //   temp = table.y[4];
@@ -56,5 +56,6 @@ table.u = time;
             lineColor={0,0,255}), Text(
           extent={{-72,40},{68,-44}},
           lineColor={0,0,255},
-          textString="DATA")}));
+          textString="DATA")}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}), graphics));
 end Data1Ds;

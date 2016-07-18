@@ -5,10 +5,12 @@ Layout_I
 Layout_II
 LayOut_III
 NewComponentsConfiguration
+ControlStrategy
 Test_ORC
 Test_ORCHx
 Test_ORCHxS
 Test_ORCHxByPass
+Test_ORCunitHex
 Test_SF
 Test_SFL_IncNoWall
 Test_SFL_AirCell
@@ -24,5 +26,5 @@ PressureDropSolarField
 Test_BMSys
 TestAmbient
 WeightingFactor
-Test_TableEnthalpy
+Test_EnergyBalances
 Test_ColdLoop

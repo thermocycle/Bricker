@@ -43,7 +43,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(ORC.OutFlowSf, sensTp.InFlow) annotation (Line(
-      points={{-18.8,20.0444},{-18.8,-0.8},{-31,-0.8}},
+      points={{-18.8,20.0444},{-18.8,-5.4},{-38,-5.4}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(sensTp.OutFlow, sinkP_sf.flangeB) annotation (Line(

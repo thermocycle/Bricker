@@ -264,7 +264,7 @@ model FigureArticle
         extent={{24,-31},{-24,31}},
         rotation=90,
         origin={-131,34})));
-  Components.SF.SolarField_SoltiguaWall_Inc_II SF(
+  Components.SF.SolarField_SoltiguaWall_Inc SF(
     Ns=3,
     Nt=4,
     Discretization=ThermoCycle.Functions.Enumerations.Discretizations.upwind_AllowFlowReversal,

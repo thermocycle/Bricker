@@ -60,7 +60,12 @@ model Flow1DIncHeatInput_L
   parameter Modelica.SIunits.Area Aext=16.18
     "External lateral area of the channel";
 
-  /*************************** COMBUSTION DYNAMICS ************************************/
+  /*************************** Biomass types  ************************************/
+  inner replaceable parameter
+    BrickerISES.Components.Biomass.BiomassTypes.BaseFuel                                BiomassFuel
+constrainedby BrickerISES.Components.Biomass.BiomassTypes.BaseFuel                     annotation (choicesAllMatching=true);
+
+  /*************************** Combustion Dynamics  ************************************/
     parameter Modelica.SIunits.Time   tStartup(min=1)=40*60
     "Time required to start up the combustion from 0 to Nominal Power [sec]"
                                                                             annotation (Dialog(group="Combustion dynamics", tab="General"));
@@ -141,6 +146,10 @@ replaceable model combustionDynamic =
   parameter Discretizations Discretization=ThermoCycle.Functions.Enumerations.Discretizations.upwind_AllowFlowReversal
     "Selection of the spatial discretization scheme"
     annotation (Dialog(tab="Numerical options"));
+   Modelica.SIunits.Energy E_BM "Bimass energy";
+   Real C_tot_BM "Cost of burnt biomass to produce E_BM";
+   Modelica.SIunits.Mass M_BM "Total kgs of Biomass burnt";
+   //parameter Modelica.SIunits.SpecificEnergy
 
   //Variables
 protected
@@ -161,6 +170,13 @@ protected
 equation
 /*Heat flow */
 Q_wf_ = WorkingFluid.Q_tot;
+
+/* Total energy consumed by the biomass boiler */
+der(E_BM) = Q_wf_;
+/* Amount of biomass fuel burnt */
+M_BM = E_BM/BiomassFuel.HE;
+/* Total cost of biomass energy */
+C_tot_BM = M_BM*BiomassFuel.Price;
 
   connect(source_Q.thermalPort, metalWall.Wall_ext) annotation (Line(
       points={{-2.24,-2.16},{-2.24,2.69},{-0.86,2.69},{-0.86,20.4}},

@@ -239,11 +239,7 @@ equation
 //       end if;
 
   connect(InletSf, sensTpSfInlet.InFlow) annotation (Line(
-      points={{-102,50},{-72.8,50},{-72.8,39}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(sensTpSfInlet.OutFlow, Evaporator.inlet_fl2) annotation (Line(
-      points={{-72.8,25},{-72.8,14},{-68,14},{-68,3.6}},
+      points={{-102,50},{-77.4,50},{-77.4,32}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(Evaporator.outlet_fl2, OutletSf) annotation (Line(
@@ -266,6 +262,10 @@ equation
   connect(SourceMdotWfORC.in_T, TWfORCSu) annotation (Line(
       points={{-46.2,-70},{-46.2,-64},{-64,-64},{-64,-92},{-12,-92},{-12,86}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(sensTpSfInlet.InFlow, Evaporator.inlet_fl2) annotation (Line(
+      points={{-77.4,32},{-77.4,20},{-68,20},{-68,3.6}},
+      color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{40,80}}),   graphics), Icon(coordinateSystem(

@@ -10,8 +10,8 @@ model GeneralCombiTable
     constrainedby BrickerISES.Components.GeneralCombiTableModel.PartialTable
                                          annotation(choicesAllMatching=true);
   Modelica.Blocks.Interfaces.RealOutput OutPut
-  annotation (Placement(transformation(extent={{94,-10},{114,12}}),
-        iconTransformation(extent={{90,-12},{114,12}})));
+  annotation (Placement(transformation(extent={{92,56},{112,78}}),
+        iconTransformation(extent={{88,54},{112,78}})));
  /* Define the table as a CombiTable1Ds from the Modelica Standard library*/
 protected
   Modelica.Blocks.Tables.CombiTable1Ds table(final tableOnFile = false,
@@ -39,5 +39,6 @@ table.u = time;
             lineColor={0,0,255}), Text(
           extent={{-72,40},{68,-44}},
           lineColor={0,0,255},
-          textString="CombiTab")}));
+          textString="CombiTab")}), Diagram(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
 end GeneralCombiTable;

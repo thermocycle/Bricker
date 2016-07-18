@@ -363,7 +363,7 @@ model SFClouds
         rotation=90,
         origin={-163,22})));
 
-  Components.SF.SolarField_SoltiguaWall_Inc_II SF(
+   Components.SF.SolarField_SoltiguaWall_Inc SF(
     Ns=3,
     Nt=4,
     Discretization=ThermoCycle.Functions.Enumerations.Discretizations.upwind_AllowFlowReversal,

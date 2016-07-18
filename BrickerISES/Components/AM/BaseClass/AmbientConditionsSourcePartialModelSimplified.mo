@@ -12,7 +12,7 @@ partial model AmbientConditionsSourcePartialModelSimplified
 //   parameter Real longitude =   -114.976;
 //   parameter Real latitude =    35.8083;
 
-  output SI.Irradiance dni "Direct Normal Insolation (W/m2)";
+  output SI.Irradiance OutPut "Direct Normal Insolation (W/m2)";
   output SI.Irradiance ghi "Direct Normal Insolation (W/m2)";
   output SI.Irradiance dhi "Direct Normal Insolation (W/m2)";
   output SI.Temperature temp "Ambient temperature (K)";

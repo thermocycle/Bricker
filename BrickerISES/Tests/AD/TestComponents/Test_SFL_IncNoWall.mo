@@ -24,6 +24,7 @@ model Test_SFL_IncNoWall
       Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{-6,60},{-24,74}})));
+
   Components.SF.SF_SoltiguaL_IncNoWall SF(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -43,9 +44,9 @@ model Test_SFL_IncNoWall
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{32,-54},{12,-34}})));
   Modelica.Blocks.Sources.Step step1(
-    startTime=200,
-    height=0,
-    offset=970)
+    offset=970,
+    height=-970,
+    startTime=1000)
     annotation (Placement(transformation(extent={{-132,-32},{-112,-12}})));
 equation
 
@@ -91,7 +92,7 @@ equation
   annotation (Diagram(coordinateSystem(extent={{-140,-100},{100,100}},
           preserveAspectRatio=false),
                       graphics),
-    experiment(StopTime=1000),
+    experiment(StopTime=2000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-140,-100},{100,100}})));
 end Test_SFL_IncNoWall;

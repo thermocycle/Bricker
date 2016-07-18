@@ -35,17 +35,6 @@ table.u = time;
   rh   = 0;
   atmp = 0;
   DNI = dni;
-//   ghi  = table.y[2];
-//   dhi  = table.y[3];
-//   temp = table.y[4];
-//   ws   = table.y[5];
-//   wd   = table.y[6];
-//   rh   = table.y[7];
-//   atmp = table.y[8];
-
-//  (date[1], date[2], date[3],date[4], date[5], date[6]) = Utilities.NewDate(time, initialYear, initialMonth, initialDay, initialHour, initialMinute, initialSecond, 0);
-//  (gmt[1], gmt[2], gmt[3], gmt[4], gmt[5], gmt[6]) = Utilities.NewDate(time, initialYear, initialMonth, initialDay, initialHour, initialMinute, initialSecond, timeZone);
-//  (sunPos[1], sunPos[2], sunPos[3], sunPos[4]) = Utilities.CenerSP(gmt[1], gmt[2], gmt[3], gmt[4], gmt[5], gmt[6], longitude, latitude);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={

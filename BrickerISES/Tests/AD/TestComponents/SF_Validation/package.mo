@@ -2,9 +2,6 @@ within BrickerISES.Tests.AD.TestComponents;
 package SF_Validation 
 
 
-
-
-
 annotation (Documentation(info="<html>
 <p>In this package the three simulations reported by soltigua in the Combinations_V4 document are
 reproduced. Total efficiency and total deliverable power are compared with the results of Soltigua</p>

@@ -1,0 +1,9 @@
+within BrickerISES.Tests.AD.TestComponents.ControlStrategy;
+model TestSource3DaysSummer
+  Sources.Summer3Days.Qbuilding qbuilding
+    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+  Sources.Data1Ds data1Ds(redeclare package AmbientDataTable =
+        BrickerISES.Components.AM.AmbientDataTables.QBuilding0507)
+    annotation (Placement(transformation(extent={{20,-4},{40,16}})));
+  annotation (experiment(StopTime=75000), __Dymola_experimentSetupOutput);
+end TestSource3DaysSummer;

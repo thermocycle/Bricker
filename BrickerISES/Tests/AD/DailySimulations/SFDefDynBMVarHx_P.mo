@@ -317,9 +317,6 @@ model SFDefDynBMVarHx_P
         extent={{-15,-15},{15,15}},
         rotation=90,
         origin={79,113})));
-  Components.DNISources.AM_DNI aM_DNI(redeclare package AmbientDataTable =
-        BrickerISES.Components.AM.AmbientDataTables.AmbientDataTable_3DaysSummer)
-    annotation (Placement(transformation(extent={{-200,-148},{-186,-134}})));
   ThermoCycle.Components.Units.ControlSystems.PID pID3(
     PVmin=0,
     CSmax=1,
@@ -399,6 +396,10 @@ model SFDefDynBMVarHx_P
     Real eta_BM;
     Real eta_HX;
 
+  Components.GeneralCombiTableModel.GeneralCombiTable generalCombiTable1(
+      redeclare package AmbientDataTable =
+        BrickerISES.Components.GeneralCombiTableModel.Tables.AmbientDataTable_3DaysSummer)
+    annotation (Placement(transformation(extent={{-196,-146},{-182,-134}})));
 equation
    /* Energy calculation */
    der(E_BM) = BM.source_Q.Q_tot;
@@ -647,11 +648,6 @@ equation
       points={{-189.5,-121},{-168,-121},{-168,-111.527},{-148.333,-111.527}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(aM_DNI.DNI, SF.DNI) annotation (Line(
-      points={{-185.86,-141},{-168,-141},{-168,-124},{-148.5,-124},{-148.5,
-          -121.591}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(hysteresis.y, SF.Defocusing) annotation (Line(
       points={{-179.4,-184},{-156,-184},{-156,-132.145},{-148.333,-132.145}},
       color={255,0,255},
@@ -662,6 +658,10 @@ equation
       smooth=Smooth.None));
   connect(generalCombiTable.OutPut, sourceMdot.in_Mdot) annotation (Line(
       points={{273.86,51},{244,51},{244,40},{232,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(generalCombiTable1.OutPut, SF.DNI) annotation (Line(
+      points={{-181.86,-140},{-160,-140},{-160,-121.591},{-148.5,-121.591}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,

@@ -8,11 +8,10 @@ model SplineBuilder
   Real yspline;
 protected
   parameter Integer n = size(table,1) "Number of data points";
-  parameter Real y2[n]= package_PSA_SFERAII_split.Spline.MakeSpline(
-                                   n, table[:,1], table[:,2])
+  parameter Real y2[n]= MakeSpline(n, table[:,1], table[:,2])
     "Spline derivative data";
 equation
-  yspline = package_PSA_SFERAII_split.Spline.EvalSpline(
+  yspline = EvalSpline(
     time,
     table[:, 1],
     table[:, 2],

@@ -6,5 +6,6 @@ SplineFunction
 SplineSignal
 OpticalPowerCurveGenerator
 SplineBuilder
+SplineBuilderQBuilding
 Test
 Test2

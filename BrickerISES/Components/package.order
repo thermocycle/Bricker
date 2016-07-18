@@ -1,6 +1,6 @@
-GeneralCombiTableModel
 AM
-DNISources
+GeneralCombiTableModel
+SourceComp
 Biomass
 Chiller
 Enumerations
@@ -8,6 +8,7 @@ ORC
 Tank
 SF
 WaterSide
+Control
 StepsToDo
 ProblemsErrors
 Source_Q
