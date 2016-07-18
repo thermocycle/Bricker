@@ -64,6 +64,7 @@ model ORCunitHex
 
   Modelica.SIunits.Temperature   T_sf_su;
   Modelica.SIunits.Temperature   T_cf_su;
+  Modelica.SIunits.Energy E_ORC "electrical energy produced by the ORC systems";
 
    ThermoCycle.Interfaces.Fluid.FlangeA InletEvap(redeclare package Medium =
         MediumSf) annotation (Placement(transformation(extent={{-110,52},{-90,
@@ -146,6 +147,7 @@ equation
   T_cf_su = SensTcfSu.T;
   /* ORC electric net power - thermal secondary fluid power - thermal cold fluid power */
    Pelnet=(-784.063642254152+6.3795011254995*(T_sf_su-273.15)+0.573454935901057*(T_cf_su-273.15)-0.0111841887964628*(T_sf_su-273.15)^2-0.00756316130343174*(T_cf_su-273.15)^2-0.00299598323974696*(T_sf_su-273.15)*(T_cf_su-273.15))*1e3+25e3;
+  der(E_ORC) = Pelnet;
 
   connect(Eva.outlet_fl2, OutletEvap) annotation (Line(
       points={{-71.2,-29.68},{-71.2,-50},{-100,-50},{-100,20}},
