@@ -1,4 +1,0 @@
-Bricker
-=======
-
-Bricker project

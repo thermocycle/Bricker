@@ -2,6 +2,7 @@ within BrickerISES.Components.SourceComp.Tables;
 package Winter_0101_0701 
   // Winter week January 01 to January 07 at midnight
 
+
   extends BrickerISES.Components.SourceComp.Tables.DataTablePartial(final table=dataTable);
 
 constant Real[:,:] dataTable=

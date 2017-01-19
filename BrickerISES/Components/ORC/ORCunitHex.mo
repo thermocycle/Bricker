@@ -79,10 +79,10 @@ model ORCunitHex
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-50,104}),iconTransformation(
+        origin={-78,94}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-70,82})));
+        origin={-74,82})));
 
   BrickerISES.Components.ORC.HEX Eva(
     redeclare package Medium = MediumSf,
@@ -124,7 +124,7 @@ model ORCunitHex
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-6,106}), iconTransformation(
+        origin={0,94}),   iconTransformation(
         extent={{-9,-9},{9,9}},
         rotation=-90,
         origin={-33,83})));
@@ -140,13 +140,21 @@ model ORCunitHex
   ThermoCycle.Components.FluidFlow.Sensors.SensTp SensTevaSu(redeclare package
       Medium =
         MediumSf)
-    annotation (Placement(transformation(extent={{-74,72},{-60,84}})));
+    annotation (Placement(transformation(extent={{-74,26},{-60,38}})));
 
+  Modelica.Blocks.Interfaces.RealInput ORCon annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-40,96}), iconTransformation(
+        extent={{-9,9},{9,-9}},
+        rotation=0,
+        origin={-99,-37})));
 equation
   T_sf_su = SensTevaSu.T;
   T_cf_su = SensTcfSu.T;
   /* ORC electric net power - thermal secondary fluid power - thermal cold fluid power */
-   Pelnet=(-784.063642254152+6.3795011254995*(T_sf_su-273.15)+0.573454935901057*(T_cf_su-273.15)-0.0111841887964628*(T_sf_su-273.15)^2-0.00756316130343174*(T_cf_su-273.15)^2-0.00299598323974696*(T_sf_su-273.15)*(T_cf_su-273.15))*1e3+25e3;
+   Pelnet=((-784.063642254152+6.3795011254995*(T_sf_su-273.15)+0.573454935901057*(T_cf_su-273.15)-0.0111841887964628*(T_sf_su-273.15)^2-0.00756316130343174*(T_cf_su-273.15)^2-0.00299598323974696*(T_sf_su-273.15)*(T_cf_su-273.15))*1e3+25e3)*ORCon;
   der(E_ORC) = Pelnet;
 
   connect(Eva.outlet_fl2, OutletEvap) annotation (Line(
@@ -157,10 +165,6 @@ equation
       points={{-70.9,2},{-70.9,62},{-100,62}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(Eva.u, QevapORC) annotation (Line(
-      points={{-61,-14},{-50,-14},{-50,104}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
   connect(InletCond, Cond.inlet_fl2) annotation (Line(
       points={{86,-68},{8.9,-68},{8.9,-30}},
@@ -170,17 +174,21 @@ equation
       points={{9.2,1.68},{9.2,30},{82,30}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(QcondORC, Cond.u) annotation (Line(
-      points={{-6,106},{-6,-14},{-1,-14}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(SensTcfSu.InFlow, Cond.inlet_fl2) annotation (Line(
       points={{-18,-53.34},{-18,-68},{8.9,-68},{8.9,-30}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(SensTevaSu.InFlow, InletEvap) annotation (Line(
-      points={{-67,72.36},{-67,62},{-100,62}},
+      points={{-67,26.36},{-67,62},{-100,62}},
       color={0,0,255},
+      smooth=Smooth.None));
+  connect(QevapORC, Eva.u) annotation (Line(
+      points={{-78,94},{-78,68},{-44,68},{-44,-14},{-61,-14}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QcondORC, Cond.u) annotation (Line(
+      points={{0,94},{-2,94},{-2,62},{-16,62},{-16,-14},{-1,-14}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{20,80}}),   graphics), Icon(coordinateSystem(

@@ -1,5 +1,5 @@
 within BrickerISES.Tests.AD.TestComponents.ControlStrategy;
-model ControlStrategy_v1
+model CS_BM_SpringAutumn
    /* Simulazione di una giornata tipo - carico termico costante - Def parziale */
   ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump PumpBM(
     PumpInput=ThermoCycle.Functions.Enumerations.PumpInputs.FF,
@@ -20,7 +20,7 @@ model ControlStrategy_v1
         extent={{-7,-7},{7,7}},
         rotation=-90,
         origin={-475,81})));
-  Modelica.Fluid.Sensors.Temperature T_BM_Outlet(redeclare package Medium =
+  Modelica.Fluid.Sensors.Temperature Temp_BMout(redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{-580,136},{-558,150}})));
   Modelica.Blocks.Sources.Constant Tamb(k=25 + 273.15)
@@ -51,10 +51,10 @@ model ControlStrategy_v1
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-420,-52})));
-  Modelica.Fluid.Sensors.Temperature T_SF_Inlet(redeclare package Medium =
+  Modelica.Fluid.Sensors.Temperature TempSfIn(redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{-568,-128},{-552,-114}})));
-  Modelica.Fluid.Sensors.Temperature T_SF_Outlet(redeclare package Medium =
+  Modelica.Fluid.Sensors.Temperature TempSfOut(redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{-580,-10},{-598,6}})));
   Modelica.Fluid.Sensors.MassFlowRate MflowSF_Recirculation(redeclare package
@@ -79,7 +79,7 @@ model ControlStrategy_v1
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-454,-110})));
-  Modelica.Fluid.Sensors.Temperature T_BM_Inlet(redeclare package Medium =
+  Modelica.Fluid.Sensors.Temperature Temp_BMin(redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{-568,34},{-550,18}})));
 
@@ -93,7 +93,7 @@ model ControlStrategy_v1
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=0,
         origin={-534,-20})));
-  ThermoCycle.Components.Units.Tanks.OpenTank VolumeOilSide(
+  ThermoCycle.Components.Units.Tanks.OpenTank VolumeOil(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
     Mdotnom=2.9,
@@ -104,7 +104,7 @@ model ControlStrategy_v1
     pstart=450000)
     annotation (Placement(transformation(extent={{-372,-12},{-354,0}})));
 
-  ThermoCycle.Components.Units.PdropAndValves.DP DpORC(
+  ThermoCycle.Components.Units.PdropAndValves.DP Dp_ORC(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
     h=0,
@@ -128,12 +128,10 @@ model ControlStrategy_v1
         origin={-441,0})));
   Modelica.Blocks.Sources.Constant const3(k=219 + 273.15)
     annotation (Placement(transformation(extent={{-470,8},{-458,20}})));
-  Modelica.Fluid.Sensors.Temperature T_SFMix_Outlet(redeclare package Medium =
-        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+  Modelica.Fluid.Sensors.Temperature TempSfSysOut_SF(redeclare package Medium
+      = ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{-424,2},{-396,20}})));
-  Modelica.Blocks.Sources.Constant const4(k=225 + 273.15)
-    annotation (Placement(transformation(extent={{-656,126},{-646,136}})));
-  Modelica.Fluid.Sensors.Temperature T_ORC_Oil_Outlet(redeclare package Medium
+  Modelica.Fluid.Sensors.Temperature Temp_Outlet_ORC(redeclare package Medium
       = ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{-252,-50},{-236,-38}})));
   Modelica.Fluid.Sensors.MassFlowRate MflowBM_out(redeclare package Medium =
@@ -142,7 +140,7 @@ model ControlStrategy_v1
         extent={{-8.5,7.5},{8.5,-7.5}},
         rotation=0,
         origin={-536.5,129.5})));
-  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump PumpHxOil(
+  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump PumpHxOil_2(
     PumpInput=ThermoCycle.Functions.Enumerations.PumpInputs.FF,
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -168,8 +166,8 @@ model ControlStrategy_v1
         extent={{7,-6},{-7,6}},
         rotation=-90,
         origin={-286,161})));
-  Modelica.Fluid.Sensors.Temperature T_HX_Water_Inlet(redeclare package Medium
-      = ThermoCycle.Media.Water)
+  Modelica.Fluid.Sensors.Temperature Temp_HEX_water_inlet(redeclare package
+      Medium = ThermoCycle.Media.Water)
     annotation (Placement(transformation(extent={{-140,158},{-178,180}})));
   Modelica.Fluid.Sensors.MassFlowRate MflowBM_mix(redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
@@ -177,7 +175,7 @@ model ControlStrategy_v1
         extent={{-7,-6},{7,6}},
         rotation=0,
         origin={-441,124})));
-  ThermoCycle.Components.Units.ControlSystems.PID PID_PumpHxOil(
+  ThermoCycle.Components.Units.ControlSystems.PID PID_HX(
     PVmin=0,
     CSmax=1,
     PVmax=440,
@@ -189,10 +187,8 @@ model ControlStrategy_v1
         extent={{-8,-11},{8,11}},
         rotation=0,
         origin={-388,177})));
-  Modelica.Blocks.Sources.Constant const5(k=70 + 273.15)
-    annotation (Placement(transformation(extent={{-416,176},{-406,186}})));
-  Modelica.Fluid.Sensors.Temperature T_HX_Water_Outlet(redeclare package Medium
-      = ThermoCycle.Media.Water)
+  Modelica.Fluid.Sensors.Temperature Temp_HEX_water_outlet(redeclare package
+      Medium = ThermoCycle.Media.Water)
     annotation (Placement(transformation(extent={{-150,212},{-180,230}})));
   Modelica.Fluid.Sensors.MassFlowRate MflowBM_in(redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
@@ -200,16 +196,18 @@ model ControlStrategy_v1
         extent={{5,-7},{-5,7}},
         rotation=0,
         origin={-393,49})));
-  Modelica.Fluid.Sensors.Temperature T_ORC_Oil_Inlet(redeclare package Medium
-      = ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+  Modelica.Fluid.Sensors.Temperature Temp_inlet_ORC(redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{-408,130},{-380,148}})));
-  Modelica.Fluid.Sensors.Temperature T_HX_Oil_Inlet(redeclare package Medium =
+  Modelica.Fluid.Sensors.Temperature Temp_HEX_oil_inlet(redeclare package
+      Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{-248,224},{-220,242}})));
-  Modelica.Fluid.Sensors.Temperature T_HX_Oil_Outlet(redeclare package Medium
-      = ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+  Modelica.Fluid.Sensors.Temperature Temp_HEX_oil_outlet(redeclare package
+      Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{-250,132},{-230,150}})));
-  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump PumpOilToHx(
+  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump PumpHxOil_1(
     PumpInput=ThermoCycle.Functions.Enumerations.PumpInputs.FF,
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -228,13 +226,13 @@ model ControlStrategy_v1
     CSmax=1,
     PVmax=440,
     CSstart=0.004,
-    Ti=20*100,
+    CSmin=0,
     Kp=15,
-    CSmin=0.1) annotation (Placement(transformation(
+    Ti=20*100) annotation (Placement(transformation(
         extent={{-5,-6},{5,6}},
         rotation=0,
         origin={-629,122})));
-  Components.Biomass.Flow1DIncHeatInput_L BmBoiler(
+  Components.Biomass.Flow1DIncHeatInput_L _BM(
     Discretization=ThermoCycle.Functions.Enumerations.Discretizations.upwind_AllowFlowReversal,
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
@@ -242,13 +240,15 @@ model ControlStrategy_v1
     CombustionInitialization=Modelica.Blocks.Types.Init.InitialState,
     Unom=1000,
     QcombustionStart=150e3,
-    redeclare model combustionDynamic =
-        BrickerISES.Components.Biomass.CombustionDynamic.FirstorderPowerCombustion,
     tStartup=20*60,
     M_wall=200,
     Vint=2,
-    QcombustionMin=10e3,
     QcombustionNominal=500e3,
+    redeclare BrickerISES.Components.Biomass.BiomassTypes.MaderaChip
+      BiomassFuel,
+    QcombustionMin=0,
+    redeclare model combustionDynamic =
+        BrickerISES.Components.Biomass.CombustionDynamic.FirstorderPowerCombustion,
     pstart=100000,
     Tstart_inlet=473.15,
     Tstart_outlet=498.15,
@@ -276,7 +276,7 @@ model ControlStrategy_v1
 //     Real eta_HX;
 //     Real Q_hx;
 
-  Components.HX_singlephase HxOilWater(
+  Components.HX_singlephase _HX(
     redeclare package MediumSs =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
     MdotNom_ps=1,
@@ -296,7 +296,7 @@ model ControlStrategy_v1
         extent={{-18,-23},{18,23}},
         rotation=90,
         origin={-210,175})));
-BrickerISES.Components.SF.SF_SoltiguaL_IncNoWall SfSoltigua(
+BrickerISES.Components.SF.SF_SoltiguaL_IncNoWall _SF(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
     Nt=4,
@@ -310,24 +310,22 @@ BrickerISES.Components.SF.SF_SoltiguaL_IncNoWall SfSoltigua(
     Tstart_inlet=429.15,
     Tstart_outlet=476.15)
     annotation (Placement(transformation(extent={{-582,-76},{-544,-38}})));
-  ThermoCycle.Components.Units.PdropAndValves.DP DpBM(
+  ThermoCycle.Components.Units.PdropAndValves.DP Dp_BM(
     redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
     h=0,
     A=5e3,
     UseHomotopy=true,
-    k=1.12808e+07) annotation (Placement(transformation(
-        extent={{-11,-11},{11,11}},
+    k=1.12808e+07)
+    annotation (Placement(transformation(extent={{-11,-11},{11,11}},
         rotation=0,
         origin={-499,123})));
-  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump_Mdot PumpOilORC(
+  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump_Mdot PumpORC_oil(
       redeclare package Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
       Mdot_0=2.7)
     annotation (Placement(transformation(extent={{-266,-126},{-286,-106}})));
-  Modelica.Blocks.Sources.Constant Qeva(k=-472000)
-    annotation (Placement(transformation(extent={{-248,54},{-238,64}})));
-  Components.ORC.ORCunitHex ORCUnit(
+  Components.ORC.ORCunitHex _ORC(
     redeclare package MediumSf =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP,
     redeclare model HeatTransferModelEva =
@@ -349,24 +347,21 @@ BrickerISES.Components.SF.SF_SoltiguaL_IncNoWall SfSoltigua(
     TstartCond_inlet=333.15,
     TstartCond_outlet=343.15)
     annotation (Placement(transformation(extent={{-242,-20},{-186,38}})));
-  Modelica.Blocks.Sources.Constant Qcond(k=387000)
-    annotation (Placement(transformation(extent={{-190,54},{-200,64}})));
-  Modelica.Fluid.Sensors.Temperature _ORC_Wat_Outlet(redeclare package Medium
-      = ThermoCycle.Media.Water)
+  Modelica.Fluid.Sensors.Temperature Temp_ORC_cond_outlet(redeclare package
+      Medium = ThermoCycle.Media.Water)
     annotation (Placement(transformation(extent={{-142,24},{-170,40}})));
-  Modelica.Fluid.Sensors.Temperature T_ORC_Wat_Inlet(redeclare package Medium
-      = ThermoCycle.Media.Water)
+  Modelica.Fluid.Sensors.Temperature Temp_ORC_cond_inlet(redeclare package
+      Medium = ThermoCycle.Media.Water)
     annotation (Placement(transformation(extent={{-164,-26},{-184,-38}})));
-  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump_Mdot
-    PumpWatORC(
-              redeclare package Medium = ThermoCycle.Media.Water, Mdot_0=10.4)
+  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump_Mdot PumpORC_Water(
+      redeclare package Medium = ThermoCycle.Media.Water, Mdot_0=10.4)
     annotation (Placement(transformation(extent={{-120,-32},{-140,-12}})));
-  Modelica.Fluid.Sensors.MassFlowRate MflowChiller(redeclare package Medium =
+  Modelica.Fluid.Sensors.MassFlowRate Mflow_chiller(redeclare package Medium =
         ThermoCycle.Media.Water) annotation (Placement(transformation(
         extent={{11,-11},{-11,11}},
         rotation=180,
         origin={-91,199})));
-  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump_Mdot PumpWatToHx(
+  ThermoCycle.Components.Units.ExpansionAndCompressionMachines.Pump_Mdot PumpWaterHx(
       redeclare package Medium = ThermoCycle.Media.Water, Mdot_0=10.41)
     annotation (Placement(transformation(
         extent={{14,-14},{-14,14}},
@@ -374,10 +369,10 @@ BrickerISES.Components.SF.SF_SoltiguaL_IncNoWall SfSoltigua(
         origin={-22,46})));
   Modelica.Fluid.Sensors.MassFlowRate Mflow_recirculation(redeclare package
       Medium = ThermoCycle.Media.Water) annotation (Placement(transformation(
-        extent={{11,-8},{-11,8}},
+        extent={{11,-12},{-11,12}},
         rotation=-90,
-        origin={-92,17})));
-  Components.ORC.HEX AdChiller(
+        origin={-90,11})));
+  Components.ORC.HEX _Chiller(
     redeclare package Medium = ThermoCycle.Media.Water,
     pstart=400000,
     Tstart_inlet=343.15,
@@ -385,7 +380,7 @@ BrickerISES.Components.SF.SF_SoltiguaL_IncNoWall SfSoltigua(
         extent={{-20,26},{20,-26}},
         rotation=90,
         origin={106,158})));
-  Components.ORC.HEX CoolingTower(
+  Components.ORC.HEX _CT(
     redeclare package Medium = ThermoCycle.Media.Water,
     pstart=400000,
     Tstart_inlet=333.15,
@@ -393,13 +388,13 @@ BrickerISES.Components.SF.SF_SoltiguaL_IncNoWall SfSoltigua(
         extent={{-20,-23},{20,23}},
         rotation=-90,
         origin={107,64})));
-  Modelica.Fluid.Sensors.Temperature T_Chiller_Outlet(redeclare package Medium
+  Modelica.Fluid.Sensors.Temperature Temp_out_chiller(redeclare package Medium
       =        ThermoCycle.Media.Water)
-    annotation (Placement(transformation(extent={{144,108},{122,124}})));
-  Modelica.Fluid.Sensors.Temperature T_CoolingTower_Outlet(redeclare package
+    annotation (Placement(transformation(extent={{142,108},{120,124}})));
+  Modelica.Fluid.Sensors.Temperature Temp_out_cooling_tower(redeclare package
       Medium = ThermoCycle.Media.Water)
-    annotation (Placement(transformation(extent={{158,-6},{124,14}})));
-  ThermoCycle.Components.Units.ControlSystems.PID PID_PumpHxWat(
+    annotation (Placement(transformation(extent={{150,-10},{116,10}})));
+  ThermoCycle.Components.Units.ControlSystems.PID PID_Pump(
     PVmin=0,
     PVmax=440,
     Td=0,
@@ -415,9 +410,9 @@ BrickerISES.Components.SF.SF_SoltiguaL_IncNoWall SfSoltigua(
     annotation (Placement(transformation(extent={{-5,-5},{5,5}},
         rotation=180,
         origin={47,59})));
-  Components.Control.WatTBa Building
+  Components.Control.WatTBa _BD
     annotation (Placement(transformation(extent={{206,28},{150,88}})));
-  ThermoCycle.Components.Units.Tanks.OpenTank VolumeWatSide(
+  ThermoCycle.Components.Units.Tanks.OpenTank VolumeWater(
     redeclare package Medium = ThermoCycle.Media.Water,
     L_lstart=0.7,
     Mdotnom=10.4,
@@ -426,15 +421,33 @@ BrickerISES.Components.SF.SF_SoltiguaL_IncNoWall SfSoltigua(
     Tstart=333.15,
     pstart=400000)
     annotation (Placement(transformation(extent={{-46,-10},{-28,2}})));
-  Modelica.Blocks.Logical.Hysteresis hysteresis1(
-                                                uLow=59.9 + 273, uHigh=60.3
-         + 273)
-    annotation (Placement(transformation(extent={{142,198},{156,212}})));
-  Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=-1, realFalse=0)
+  Modelica.Blocks.Logical.Hysteresis HystTchill(uLow=59.9 + 273, uHigh=60.3 +
+        273)
+    annotation (Placement(transformation(extent={{144,198},{158,212}})));
+  Modelica.Blocks.Math.BooleanToReal Boo_Tchill(realTrue=-1, realFalse=0)
     annotation (Placement(transformation(extent={{176,198},{190,212}})));
+  Modelica.Blocks.Logical.Hysteresis HystDNI(uHigh=450, uLow=445)
+    annotation (Placement(transformation(extent={{-684,44},{-670,58}})));
+  Modelica.Blocks.Math.BooleanToReal Boo_EvaORC(realTrue=-472000, realFalse=0)
+    annotation (Placement(transformation(extent={{-646,56},{-632,70}})));
   Components.SourceComp.BrickerSource brickerSource(redeclare package
-      AmbientDataTable = BrickerISES.Components.SourceComp.Tables.Summer_0707)
-    annotation (Placement(transformation(extent={{-630,-90},{-610,-70}})));
+      AmbientDataTable =
+        BrickerISES.Components.SourceComp.Tables.Summer_0807_1507)
+    annotation (Placement(transformation(extent={{-654,-92},{-634,-72}})));
+  Modelica.Blocks.Math.BooleanToReal Boo_CondORC(realTrue=387000, realFalse=0)
+    annotation (Placement(transformation(extent={{-646,30},{-632,44}})));
+  Modelica.Blocks.Math.BooleanToReal Boo_ORCon(realTrue=1, realFalse=0)
+    annotation (Placement(transformation(extent={{-648,4},{-634,18}})));
+  Modelica.Blocks.Logical.Hysteresis HystQbuild(uLow=-387000, uHigh=-385000)
+    annotation (Placement(transformation(extent={{-712,80},{-698,94}})));
+  Modelica.Blocks.Math.BooleanToReal Boo_HXWater_Temp(realFalse=70 + 273.15,
+      realTrue=60 + 273.15)
+    annotation (Placement(transformation(extent={{-668,84},{-654,98}})));
+  Modelica.Fluid.Sensors.Temperature Temp_MixORCHEX(redeclare package Medium =
+        ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
+    annotation (Placement(transformation(extent={{-380,-98},{-360,-80}})));
+  Modelica.Blocks.Sources.Constant const2(k=225 + 273.15)
+    annotation (Placement(transformation(extent={{-684,134},{-672,146}})));
 equation
 //    /* Energy calculation */
 //    der(E_BM) = BM.source_Q.Q_tot;
@@ -458,7 +471,7 @@ equation
 //    eta_sys_el = eta_ORC_el*eta_SF*eta_BM;
 //    eta_sys_CHP = eta_ORC_chp*eta_SF*eta_BM*eta_HX; //or (ORC.Pel_gross + ORC.Pth_CfRank+HxOilWater.Q_wf_)/(Q_BM +Q_SF) with Q_BM based on biomass burnt and Q_SF = DNI*A_eff*Theta
 
-  connect(T_SF_Outlet.T, hysteresis.u) annotation (Line(
+  connect(TempSfOut.T, hysteresis.u) annotation (Line(
       points={{-595.3,-2},{-670,-2},{-670,-120},{-613.2,-120}},
       color={0,0,127},
       smooth=Smooth.None,
@@ -467,12 +480,12 @@ equation
       points={{-490,-66},{-490,-109.5},{-512.8,-109.5}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(T_SF_Inlet.port, PumpSF.OutFlow) annotation (Line(
+  connect(TempSfIn.port, PumpSF.OutFlow) annotation (Line(
       points={{-560,-128},{-560,-130},{-540,-130},{-540,-102.6},{-525.6,-102.6}},
       color={0,127,255},
       smooth=Smooth.None));
 
-  connect(MflowSF_mix.port_b, VolumeOilSide.InFlow) annotation (Line(
+  connect(MflowSF_mix.port_b, VolumeOil.InFlow) annotation (Line(
       points={{-380,-11},{-376.5,-11},{-376.5,-11.04},{-371.82,-11.04}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -486,7 +499,7 @@ equation
       points={{-420,-61},{-420,-110},{-444,-110}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(T_BM_Inlet.port, PumpBM.OutFlow) annotation (Line(
+  connect(Temp_BMin.port, PumpBM.OutFlow) annotation (Line(
       points={{-559,34},{-566,34},{-566,55.4},{-547.6,55.4}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -499,17 +512,17 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(T_SFMix_Outlet.port, MflowSF_mix.port_a) annotation (Line(
+  connect(TempSfSysOut_SF.port, MflowSF_mix.port_a) annotation (Line(
       points={{-410,2},{-410,-12},{-398,-12},{-398,-11}},
       color={0,127,255},
       smooth=Smooth.None));
 
-  connect(T_BM_Inlet.T, pID.PV) annotation (Line(
+  connect(Temp_BMin.T, pID.PV) annotation (Line(
       points={{-552.7,26},{-524,26},{-524,-2.4},{-446,-2.4}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(T_ORC_Oil_Outlet.port, DpORC.InFlow) annotation (Line(
+  connect(Temp_Outlet_ORC.port, Dp_ORC.InFlow) annotation (Line(
       points={{-244,-50},{-256,-50},{-256,-62.6}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -517,7 +530,7 @@ equation
       points={{-286,154},{-286,122},{-310,122},{-310,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(MflowHX_Recirculation.port_b, PumpHxOil.InFlow) annotation (Line(
+  connect(MflowHX_Recirculation.port_b, PumpHxOil_2.InFlow) annotation (Line(
       points={{-286,168},{-286,200.5},{-265.2,200.5}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -525,7 +538,7 @@ equation
       points={{-398,49},{-452,49},{-452,48.5},{-534.8,48.5}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(VolumeOilSide.OutFlow, MflowBM_in.port_a) annotation (Line(
+  connect(VolumeOil.OutFlow, MflowBM_in.port_a) annotation (Line(
       points={{-354.18,-11.04},{-354.18,-14},{-344,-14},{-344,49},{-388,49}},
       color={0,0,255},
       smooth=Smooth.None));
@@ -533,7 +546,7 @@ equation
       points={{-475,74},{-475,48.5},{-534.8,48.5}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(T_ORC_Oil_Inlet.port, MflowBM_mix.port_b) annotation (Line(
+  connect(Temp_inlet_ORC.port, MflowBM_mix.port_b) annotation (Line(
       points={{-394,130},{-394,124},{-434,124}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -545,112 +558,107 @@ equation
       points={{-448,124},{-475,124},{-475,88}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(PID_PumpHxOil.PV, T_HX_Water_Outlet.T) annotation (Line(
+  connect(PID_HX.PV, Temp_HEX_water_outlet.T) annotation (Line(
       points={{-396,172.6},{-448,172.6},{-448,222},{-198,222},{-198,221},{-175.5,
           221}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(T_HX_Oil_Inlet.port, PumpHxOil.OutFlow) annotation (Line(
+  connect(Temp_HEX_oil_inlet.port, PumpHxOil_2.OutFlow) annotation (Line(
       points={{-234,224},{-234,207.4},{-252.4,207.4}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(PumpOilToHx.InFlow, MflowBM_mix.port_b) annotation (Line(
+  connect(PumpHxOil_1.InFlow, MflowBM_mix.port_b) annotation (Line(
       points={{-339.55,173.08},{-339.875,173.08},{-339.875,124},{-434,124}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(PumpOilToHx.OutFlow, PumpHxOil.InFlow) annotation (Line(
+  connect(PumpHxOil_1.OutFlow, PumpHxOil_2.InFlow) annotation (Line(
       points={{-347.14,187.16},{-352,187.16},{-352,200},{-306,200},{-306,200.5},
           {-265.2,200.5}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(PID_PumpHxOil.CS, PumpOilToHx.flow_in) annotation (Line(
+  connect(PID_HX.CS, PumpHxOil_1.flow_in) annotation (Line(
       points={{-379.52,177},{-370,177},{-370,177.48},{-347.8,177.48}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(T_BM_Outlet.port, BmBoiler.outlet_fl2) annotation (Line(
+  connect(Temp_BMout.port, _BM.outlet_fl2) annotation (Line(
       points={{-569,136},{-568,136},{-568,121.52},{-574.72,121.52}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(MflowBM_out.port_a, BmBoiler.outlet_fl2) annotation (Line(
+  connect(MflowBM_out.port_a, _BM.outlet_fl2) annotation (Line(
       points={{-545,129.5},{-550,129.5},{-550,130},{-574.72,130},{-574.72,
           121.52}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(BmBoiler.inlet_fl2, PumpBM.OutFlow) annotation (Line(
+  connect(_BM.inlet_fl2, PumpBM.OutFlow) annotation (Line(
       points={{-575.34,74},{-574,74},{-574,55.4},{-547.6,55.4}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(PID_BM.CS, BmBoiler.u) annotation (Line(
+  connect(PID_BM.CS, _BM.u) annotation (Line(
       points={{-623.7,122},{-616,122},{-616,96},{-595.8,96},{-595.8,98}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(const4.y, PID_BM.SP) annotation (Line(
-      points={{-645.5,131},{-640,131},{-640,124.4},{-634,124.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(T_BM_Outlet.T, PID_BM.PV) annotation (Line(
+  connect(Temp_BMout.T, PID_BM.PV) annotation (Line(
       points={{-561.3,143},{-546,143},{-546,180},{-640,180},{-640,120},{-634,
           120},{-634,119.6}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(T_SF_Outlet.port, MflowSF_Recirculation.port_b) annotation (Line(
+  connect(TempSfOut.port, MflowSF_Recirculation.port_b) annotation (Line(
       points={{-589,-10},{-586,-10},{-586,-14},{-490,-14},{-490,-46}},
       color={0,127,255},
       smooth=Smooth.None));
 
-  connect(PumpHxOil.OutFlow, HxOilWater.InFlowSs) annotation (Line(
+  connect(PumpHxOil_2.OutFlow, _HX.InFlowSs) annotation (Line(
       points={{-252.4,207.4},{-230,207.4},{-230,191.2},{-226.56,191.2}},
       color={0,0,255},
       smooth=Smooth.None));
 
-  connect(T_HX_Water_Inlet.port, HxOilWater.InFlowPs) annotation (Line(
+  connect(Temp_HEX_water_inlet.port, _HX.InFlowPs) annotation (Line(
       points={{-159,158},{-164,158},{-164,146},{-180,146},{-180,142},{-204,142},
           {-204,155.2},{-209.54,155.2}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(HxOilWater.OutFlowSs, MflowHXl.port_a) annotation (Line(
-      points={{-192.98,158.8},{-194,158.8},{-194,126},{-200,126},{-200,122},{
-          -310,122},{-310,-10}},
+  connect(_HX.OutFlowSs, MflowHXl.port_a) annotation (Line(
+      points={{-192.98,158.8},{-194,158.8},{-194,126},{-200,126},{-200,122},{-310,
+          122},{-310,-10}},
       color={0,0,255},
       smooth=Smooth.None));
 
-  connect(PumpSF.OutFlow, SfSoltigua.InFlow) annotation (Line(
+  connect(PumpSF.OutFlow, _SF.InFlow) annotation (Line(
       points={{-525.6,-102.6},{-525.6,-88},{-560,-88},{-560,-76.3455},{-559.2,
           -76.3455}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(Tamb.y, SfSoltigua.Tamb) annotation (Line(
+  connect(Tamb.y, _SF.Tamb) annotation (Line(
       points={{-609.5,-57},{-602,-57},{-602,-54},{-579.889,-54},{-579.889,
           -55.9636}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(Theta.y, SfSoltigua.Theta) annotation (Line(
+  connect(Theta.y, _SF.Theta) annotation (Line(
       points={{-607.4,-38},{-602,-38},{-602,-48.3636},{-579.889,-48.3636}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(V_Wind.y, SfSoltigua.v_wind) annotation (Line(
+  connect(V_Wind.y, _SF.v_wind) annotation (Line(
       points={{-609.5,-19},{-590,-19},{-590,-41.1091},{-579.467,-41.1091}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hysteresis.y, SfSoltigua.Defocusing) annotation (Line(
+  connect(hysteresis.y, _SF.Defocusing) annotation (Line(
       points={{-599.4,-120},{-596,-120},{-596,-116},{-590,-116},{-590,-70.4727},
           {-579.889,-70.4727}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(MflowBM_out.port_b, DpBM.InFlow) annotation (Line(
+  connect(MflowBM_out.port_b, Dp_BM.InFlow) annotation (Line(
       points={{-528,129.5},{-516,129.5},{-516,123},{-508.9,123}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(DpBM.OutFlow, MflowBM_Recirculation.port_a) annotation (Line(
+  connect(Dp_BM.OutFlow, MflowBM_Recirculation.port_a) annotation (Line(
       points={{-489.1,123},{-482,123},{-482,122},{-476,122},{-476,88},{-475,88}},
       color={0,0,255},
       smooth=Smooth.None));
-
-  connect(SfSoltigua.OutFlow, DpSF.InFlow) annotation (Line(
+  connect(_SF.OutFlow, DpSF.InFlow) annotation (Line(
       points={{-556.667,-38.3455},{-556.667,-20},{-539.4,-20}},
       color={0,0,255},
       smooth=Smooth.None));
@@ -666,168 +674,214 @@ equation
       points={{-420,-43},{-420,-14},{-490,-14},{-490,-46}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(PumpOilORC.outlet, MflowToSF.port_a) annotation (Line(
+  connect(PumpORC_oil.outlet, MflowToSF.port_a) annotation (Line(
       points={{-281.6,-108.6},{-306,-108.6},{-306,-110},{-444,-110}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(PumpWatToHx.inlet, Mflow_recirculation.port_b) annotation (Line(
-      points={{-21.3,35.92},{-22,35.92},{-22,28},{-92,28}},
+  connect(PumpWaterHx.inlet, Mflow_recirculation.port_b) annotation (Line(
+      points={{-21.3,35.92},{-22,35.92},{-22,22},{-90,22}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(Mflow_recirculation.port_a, VolumeWatSide.InFlow) annotation (Line(
-      points={{-92,6},{-92,-9.04},{-45.82,-9.04}},
+  connect(Mflow_recirculation.port_a, VolumeWater.InFlow) annotation (Line(
+      points={{-90,0},{-90,-9.04},{-45.82,-9.04}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hysteresis1.y, booleanToReal.u) annotation (Line(
-      points={{156.7,205},{174.6,205}},
+  connect(HystTchill.y, Boo_Tchill.u) annotation (Line(
+      points={{158.7,205},{174.6,205}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(DpORC.OutFlow, PumpOilORC.inlet) annotation (Line(
+  connect(Dp_ORC.OutFlow, PumpORC_oil.inlet) annotation (Line(
       points={{-256,-73.4},{-258,-73.4},{-258,-115.5},{-268.8,-115.5}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(T_HX_Oil_Outlet.port, MflowHXl.port_a) annotation (Line(
+  connect(Temp_HEX_oil_outlet.port, MflowHXl.port_a) annotation (Line(
       points={{-240,132},{-242,132},{-242,122},{-310,122},{-310,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(const5.y, PID_PumpHxOil.SP) annotation (Line(
-      points={{-405.5,181},{-400.75,181},{-400.75,181.4},{-396,181.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ORCUnit.OutletEvap, DpORC.InFlow) annotation (Line(
+  connect(_ORC.OutletEvap, Dp_ORC.InFlow) annotation (Line(
       points={{-242,18.6667},{-256,18.6667},{-256,-62.6}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(ORCUnit.InletEvap, MflowBM_mix.port_b) annotation (Line(
+  connect(_ORC.InletEvap, MflowBM_mix.port_b) annotation (Line(
       points={{-242,32.2},{-252,32.2},{-252,36},{-262,36},{-262,40},{-340,40},{
           -340,124},{-434,124}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(_ORC_Wat_Outlet.port, ORCUnit.Outletcond) annotation (Line(
+  connect(Temp_ORC_cond_outlet.port, _ORC.Outletcond) annotation (Line(
       points={{-156,24},{-160,24},{-160,12},{-188.8,12},{-188.8,2.55556}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(PumpWatORC.inlet, VolumeWatSide.InFlow) annotation (Line(
+  connect(PumpORC_Water.inlet, VolumeWater.InFlow) annotation (Line(
       points={{-122.8,-21.5},{-102,-21.5},{-102,-10},{-88,-10},{-45.82,-9.04}},
       color={0,0,255},
       smooth=Smooth.None));
 
-  connect(PumpWatORC.outlet, ORCUnit.InletCond) annotation (Line(
+  connect(PumpORC_Water.outlet, _ORC.InletCond) annotation (Line(
       points={{-135.6,-14.6},{-166,-14.6},{-166,-12.2667},{-188.8,-12.2667}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(ORCUnit.Outletcond, Mflow_recirculation.port_b) annotation (Line(
-      points={{-188.8,2.55556},{-132,2.55556},{-132,28},{-92,28}},
+  connect(_ORC.Outletcond, Mflow_recirculation.port_b) annotation (Line(
+      points={{-188.8,2.55556},{-132,2.55556},{-132,22},{-90,22}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(T_ORC_Wat_Inlet.port, ORCUnit.InletCond) annotation (Line(
+  connect(Temp_ORC_cond_inlet.port, _ORC.InletCond) annotation (Line(
       points={{-174,-26},{-172,-26},{-172,-12.2667},{-188.8,-12.2667}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(HxOilWater.OutFlowPs, MflowChiller.port_a) annotation (Line(
+  connect(_HX.OutFlowPs, Mflow_chiller.port_a) annotation (Line(
       points={{-209.54,194.8},{-209.54,199},{-102,199}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(MflowChiller.port_b, AdChiller.inlet_fl2) annotation (Line(
+  connect(Mflow_chiller.port_b, _Chiller.inlet_fl2) annotation (Line(
       points={{-80,199},{109.64,199},{109.64,178}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(Building.Qres, CoolingTower.u) annotation (Line(
+  connect(_BD.Qres, _CT.u) annotation (Line(
       points={{148.88,62.2},{125.4,62.2},{125.4,64}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(AdChiller.outlet_fl2, CoolingTower.outlet_fl2) annotation (Line(
+  connect(_Chiller.outlet_fl2, _CT.outlet_fl2) annotation (Line(
       points={{109.12,138.4},{109.12,111.2},{109.76,111.2},{109.76,83.6}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(PID_PumpHxWat.CS, PumpWatToHx.flow_in) annotation (Line(
+  connect(PID_Pump.CS, PumpWaterHx.flow_in) annotation (Line(
       points={{7.43,41.5},{-0.285,41.5},{-0.285,41.52},{-10.8,41.52}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(PID_PumpHxWat.SP, const1.y) annotation (Line(
+  connect(PID_Pump.SP, const1.y) annotation (Line(
       points={{27,44.5},{34,44.5},{34,59},{41.5,59}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(CoolingTower.inlet_fl2, VolumeWatSide.OutFlow) annotation (Line(
+  connect(_CT.inlet_fl2, VolumeWater.OutFlow) annotation (Line(
       points={{110.22,44},{110,44},{110,-9.04},{-28.18,-9.04}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(T_Chiller_Outlet.port, CoolingTower.outlet_fl2) annotation (Line(
-      points={{133,108},{130,108},{130,104},{114,104},{114,106},{109.76,106},{
+  connect(Temp_out_chiller.port, _CT.outlet_fl2) annotation (Line(
+      points={{131,108},{130,108},{130,104},{114,104},{114,106},{109.76,106},{
           109.76,83.6}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(T_Chiller_Outlet.T, PID_PumpHxWat.PV) annotation (Line(
-      points={{125.3,116},{80,116},{80,38.5},{27,38.5}},
+  connect(Temp_out_chiller.T,PID_Pump. PV) annotation (Line(
+      points={{123.3,116},{80,116},{80,38.5},{27,38.5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(T_CoolingTower_Outlet.port, VolumeWatSide.OutFlow) annotation (Line(
-      points={{141,-6},{134,-6},{134,-18},{108,-18},{108,-9.04},{-28.18,-9.04}},
+  connect(Temp_out_cooling_tower.port, VolumeWater.OutFlow) annotation (Line(
+      points={{133,-10},{134,-10},{134,-18},{108,-18},{108,-10},{-28.18,-9.04}},
       color={0,127,255},
       smooth=Smooth.None));
 
-  connect(Qeva.y, ORCUnit.QevapORC) annotation (Line(
-      points={{-237.5,59},{-228,59},{-228,38.6444}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(Qcond.y, ORCUnit.QcondORC) annotation (Line(
-      points={{-200.5,59},{-200.5,60},{-210.733,60},{-210.733,38.9667}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(T_HX_Water_Outlet.port, MflowChiller.port_a) annotation (Line(
+  connect(Temp_HEX_water_outlet.port, Mflow_chiller.port_a) annotation (Line(
       points={{-165,212},{-166,212},{-166,200},{-102,199}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hysteresis1.u, PID_PumpHxWat.PV) annotation (Line(
-      points={{140.6,205},{140,205},{140,206},{90,206},{90,116},{80,116},{80,
+  connect(HystTchill.u, PID_Pump.PV) annotation (Line(
+      points={{142.6,205},{140,205},{140,206},{90,206},{90,116},{80,116},{80,
           38.5},{27,38.5}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(booleanToReal.y, Building.ControlSignal) annotation (Line(
+  connect(Boo_Tchill.y, _BD.ControlSignal) annotation (Line(
       points={{190.7,205},{198,205},{198,172},{183.04,172},{183.04,86.8}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(Qcond.y, Building.QORC) annotation (Line(
-      points={{-200.5,59},{-214,59},{-214,74},{-58,74},{-58,-44},{222,-44},{222,
-          58},{208.24,58}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(HxOilWater.Q_hx, Building.Qhx) annotation (Line(
+  connect(_HX.Q_hx, _BD.Qhx) annotation (Line(
       points={{-198.04,187.24},{-186,187.24},{-186,252},{234,252},{234,35.2},{
           208.24,35.2}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(T_HX_Water_Inlet.port, PumpWatToHx.outlet) annotation (Line(
+  connect(Temp_HEX_water_inlet.port, PumpWaterHx.outlet) annotation (Line(
       points={{-159,158},{-11.64,158},{-11.64,53.84}},
       color={0,127,255},
       smooth=Smooth.None));
 
-  connect(brickerSource.DNI, SfSoltigua.DNI) annotation (Line(
-      points={{-609.8,-72.2},{-602,-72.2},{-602,-63.0455},{-580.1,-63.0455}},
+  connect(HystDNI.y, Boo_EvaORC.u) annotation (Line(
+      points={{-669.3,51},{-660,51},{-660,63},{-647.4,63}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(HystDNI.u, _SF.DNI) annotation (Line(
+      points={{-685.4,51},{-704,51},{-704,-100},{-618,-100},{-618,-78},{-602,
+          -78},{-602,-63.0455},{-580.1,-63.0455}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(brickerSource.Qbuild, Building.Qbuilding) annotation (Line(
-      points={{-609.8,-82.6},{-594,-82.6},{-594,-172},{-30,-172},{-30,-74},{228,
-          -74},{228,81.7},{208.52,81.7}},
+  connect(Boo_EvaORC.y, _ORC.QevapORC) annotation (Line(
+      points={{-631.3,63},{-606,63},{-606,32},{-292,32},{-292,50},{-229.867,50},
+          {-229.867,38.6444}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(AdChiller.u, Building.Qbuilding) annotation (Line(
-      points={{126.8,158},{154,158},{154,110},{220,110},{220,82},{208.52,81.7}},
+  connect(brickerSource.DNI, _SF.DNI) annotation (Line(
+      points={{-633.8,-74.2},{-624,-74.2},{-624,-70},{-602,-70},{-602,-63.0455},
+          {-580.1,-63.0455}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(_Chiller.u, _BD.Qbuilding) annotation (Line(
+      points={{126.8,158},{220,158},{220,82},{224,82},{208.52,81.7}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(brickerSource.Qbuild, _BD.Qbuilding) annotation (Line(
+      points={{-633.8,-84.6},{-580,-84.6},{-580,-148},{228,-148},{228,82},{224,
+          82},{208.52,81.7}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(HystDNI.y, Boo_CondORC.u) annotation (Line(
+      points={{-669.3,51},{-664,51},{-664,37},{-647.4,37}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(Boo_CondORC.y, _ORC.QcondORC) annotation (Line(
+      points={{-631.3,37},{-270,37},{-270,54},{-210.733,54},{-210.733,38.9667}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
 
+  connect(_ORC.QcondORC, _BD.QORC) annotation (Line(
+      points={{-210.733,38.9667},{-210.733,78},{-60,78},{-60,-40},{222,-40},{
+          222,58},{208.24,58}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(Boo_ORCon.u, Boo_CondORC.u) annotation (Line(
+      points={{-649.4,11},{-664,11},{-664,37},{-647.4,37}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(Boo_ORCon.y, _ORC.ORCon) annotation (Line(
+      points={{-633.3,11},{-482,11},{-482,26},{-294,26},{-294,0.3},{-241.533,
+          0.3}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(HystQbuild.u, _BD.Qbuilding) annotation (Line(
+      points={{-713.4,87},{-714,87},{-714,-138},{240,-138},{240,82},{208.52,82},
+          {208.52,81.7}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(HystQbuild.y, Boo_HXWater_Temp.u) annotation (Line(
+      points={{-697.3,87},{-688,87},{-688,91},{-669.4,91}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(Temp_MixORCHEX.port, MflowToSF.port_a) annotation (Line(
+      points={{-370,-98},{-370,-110},{-444,-110}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(const2.y, PID_BM.SP) annotation (Line(
+      points={{-671.4,140},{-666,140},{-666,138},{-660,138},{-660,124.4},{-634,
+          124.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Boo_HXWater_Temp.y, PID_HX.SP) annotation (Line(
+      points={{-653.3,91},{-646,91},{-646,122},{-704,122},{-704,196},{-396,196},
+          {-396,181.4}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-780,
-            -200},{240,340}}), graphics), Icon(coordinateSystem(extent={{-780,
-            -200},{240,340}})),
-    experiment(StartTime=-5000, StopTime=75000),
+            -200},{260,340}}), graphics), Icon(coordinateSystem(extent={{-780,
+            -200},{260,340}})),
+    experiment(StartTime=-5000, StopTime=86400),
     __Dymola_experimentSetupOutput);
-end ControlStrategy_v1;
+end CS_BM_SpringAutumn;

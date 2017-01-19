@@ -173,9 +173,9 @@ Q_wf_ = WorkingFluid.Q_tot;
 
 /* Total energy consumed by the biomass boiler */
 der(E_BM) = Q_wf_;
-/* Amount of biomass fuel burnt */
+/* Amount of biomass burnt in kg */
 M_BM = E_BM/BiomassFuel.HE;
-/* Total cost of biomass energy */
+/* Total cost of biomass fuel burnt in euro */
 C_tot_BM = M_BM*BiomassFuel.Price;
 
   connect(source_Q.thermalPort, metalWall.Wall_ext) annotation (Line(

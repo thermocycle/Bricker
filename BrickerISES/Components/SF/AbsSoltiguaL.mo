@@ -68,6 +68,7 @@ Real Eta_tot "Efficiency based on Soltigua data sheet";
 
 parameter Boolean TotalDefocusing = false "Set to true for total defocusing";
 Real S_defocusing;
+Real XX;
 equation
 
   /* Focusing effect */
@@ -91,7 +92,12 @@ K_l = geometry.A_3*Theta_deg^3 - geometry.A_2*Theta_deg^2 + geometry.A_1*Theta_d
 
 Q_tube_tot = DNI*S_eff*Modelica.Math.cos(Theta);
 
-Eta_tot = smooth(1,noEvent( if DNI> 0 then K_l*0.747 - 0.64*(T_fluid - Tamb)/max(Modelica.Constants.small,DNI) else 0));
+XX = ThermoCycle.Functions.transition_factor(
+      start=0,
+      stop=1,
+      position=DNI);
+//Eta_tot = smooth(1,noEvent( if DNI> 0 then K_l*0.747 - 0.64*(T_fluid - Tamb)/max(Modelica.Constants.small,DNI) else 0));
+Eta_tot = (K_l*0.747 - 0.64*(T_fluid - Tamb)/max(100,DNI))*XX;
 
 Phi_amb = 0.64*(Tamb -T_fluid)*Ns;
 Phi_conv_f= Q_tube_tot*Eta_tot/ (geometry.A_ext_t*Ns);

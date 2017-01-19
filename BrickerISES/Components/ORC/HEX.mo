@@ -84,6 +84,7 @@ model HEX "Model of HEX simplified"
     "Selection of the spatial discretization scheme"
     annotation (Dialog(tab="Numerical options"));
   //Variables
+  Modelica.SIunits.Energy E_HX "Thermal energy from the heat exchanger";
 protected
   Modelica.SIunits.Power Q_wf_;
 
@@ -102,6 +103,8 @@ protected
 equation
 /*Heat flow */
 Q_wf_ = WorkingFluid.Q_tot;
+
+der(E_HX) = Q_wf_;
 
   connect(WorkingFluid.InFlow, inlet_fl2) annotation (Line(
       points={{44,80},{70,80},{70,14},{100,14}},

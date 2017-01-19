@@ -1,5 +1,6 @@
 '''
-Script to
+Script to sample a week interval from the heating and cooling demand overall csv file and save it in another
+csv file such that it can be read in Modelica
 '''
 
 from __future__ import division

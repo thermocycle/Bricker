@@ -695,7 +695,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(generalCombiTable.OutPut, SF.DNI) annotation (Line(
-      points={{-429.8,-32},{-382,-32},{-382,-16},{-378,-16},{-378,-1.04545},{
+      points={{-430,-25.4},{-382,-25.4},{-382,-16},{-378,-16},{-378,-1.04545},{
           -358.1,-1.04545}},
       color={0,0,127},
       smooth=Smooth.None));

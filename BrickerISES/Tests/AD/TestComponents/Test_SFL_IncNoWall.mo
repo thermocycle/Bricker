@@ -43,11 +43,9 @@ model Test_SFL_IncNoWall
       Medium =
         ThermoCycle.Media.Incompressible.IncompressibleTables.TherminolSP)
     annotation (Placement(transformation(extent={{32,-54},{12,-34}})));
-  Modelica.Blocks.Sources.Step step1(
-    offset=970,
-    height=-970,
-    startTime=1000)
-    annotation (Placement(transformation(extent={{-132,-32},{-112,-12}})));
+  Components.SourceComp.BrickerSource brickerSource(redeclare package
+      AmbientDataTable = BrickerISES.Components.SourceComp.Tables.Summer_0707)
+    annotation (Placement(transformation(extent={{-122,-32},{-102,-12}})));
 equation
 
   connect(booleanConstant.y, SF.Defocusing) annotation (Line(
@@ -85,14 +83,14 @@ equation
       points={{-14.8,-32.5455},{-14.8,-53.4},{22,-53.4}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(step1.y, SF.DNI) annotation (Line(
-      points={{-111,-22},{-82,-22},{-82,-10},{-37.9,-10},{-37.9,-11.5455}},
+  connect(brickerSource.DNI, SF.DNI) annotation (Line(
+      points={{-101.8,-14.2},{-66,-14.2},{-66,-11.5455},{-37.9,-11.5455}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-140,-100},{100,100}},
           preserveAspectRatio=false),
                       graphics),
-    experiment(StopTime=2000),
+    experiment(StopTime=86400),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-140,-100},{100,100}})));
 end Test_SFL_IncNoWall;

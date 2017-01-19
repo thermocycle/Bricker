@@ -787,9 +787,9 @@ equation
 
   connect(generalCombiTable.OutPut, SF.DNI) annotation (Line(
       points={{-643.8,-82},{-600,-82},{-600,-64},{-580.1,-64},{-580.1,-63.0455}},
-
       color={0,0,127},
       smooth=Smooth.None));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-720,
             -140},{240,340}}), graphics), Icon(coordinateSystem(extent={{-720,
             -140},{240,340}})),
